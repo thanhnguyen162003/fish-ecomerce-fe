@@ -80,7 +80,7 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                             <i className="icon-category text-2xl"></i>
                         </div>
                         <Link href={'/'} className='flex items-center lg:hidden'>
-                            <div className="heading4">Anvogue</div>
+                            <div className="heading4">Aquamarine</div>
                         </Link>
                         <div className="form-search relative max-lg:hidden z-[1]">
                             <Icon.MagnifyingGlass
@@ -111,136 +111,10 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                                     </Link>
                                     <div className="sub-menu absolute py-3 px-5 -left-10 w-max grid grid-cols-4 gap-5 bg-white rounded-b-xl">
                                         <ul>
+                                            
                                             <li>
-                                                <Link href="/" className='text-secondary duration-300'>
-                                                    Home Fashion 1
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    href="/homepages/fashion2"
-                                                    className={`text-secondary duration-300`}
-                                                >
-                                                    Home Fashion 2
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    href="/homepages/fashion3"
-                                                    className={`text-secondary duration-300`}
-                                                >
-                                                    Home Fashion 3
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/fashion4" className={`text-secondary duration-300 ${pathname === '/homepages/fashion4' ? 'active' : ''}`}>
-                                                    Home Fashion 4
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/fashion5" className={`text-secondary duration-300 ${pathname === '/homepages/fashion5' ? 'active' : ''}`}>
-                                                    Home Fashion 5
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/fashion6" className={`text-secondary duration-300 ${pathname === '/homepages/fashion6' ? 'active' : ''}`}>
-                                                    Home Fashion 6
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <Link
-                                                    href="/homepages/fashion7"
-                                                    className={`text-secondary duration-300`}
-                                                >
-                                                    Home Fashion 7
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/fashion8" className='text-secondary duration-300'>
-                                                    Home Fashion 8
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/fashion9" className='text-secondary duration-300'>
-                                                    Home Fashion 9
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/fashion10" className='text-secondary duration-300'>
-                                                    Home Fashion 10
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/fashion11" className='text-secondary duration-300'>
-                                                    Home Fashion 11
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/underwear" className={`text-secondary duration-300 ${pathname === '/homepages/underwear' ? 'active' : ''}`}>
-                                                    Home Underwear
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <Link href="/homepages/cosmetic1" className={`text-secondary duration-300 ${pathname === '/homepages/cosmetic1' ? 'active' : ''}`}>
-                                                    Home Cosmetic 1
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/cosmetic2" className={`text-secondary duration-300 ${pathname === '/homepages/cosmetic2' ? 'active' : ''}`}>
-                                                    Home Cosmetic 2
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/cosmetic3" className={`text-secondary duration-300`}>
-                                                    Home Cosmetic 3
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/pet" className='text-secondary duration-300'>
-                                                    Home Pet Store
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/jewelry" className={`text-secondary duration-300 ${pathname === '/homepages/jewelry' ? 'active' : ''}`}>
-                                                    Home Jewelry
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/furniture" className={`text-secondary duration-300 ${pathname === '/homepages/furniture' ? 'active' : ''}`}>
-                                                    Home Furniture
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <Link href="/homepages/watch" className={`text-secondary duration-300 ${pathname === '/homepages/watch' ? 'active' : ''}`}>
-                                                    Home Watch
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/toys" className={`text-secondary duration-300 ${pathname === '/homepages/toys' ? 'active' : ''}`}>
-                                                    Home Toys Kid
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    href="/homepages/yoga"
-                                                    className={`text-secondary duration-300`}>
-                                                    Home Yoga
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/organic" className='text-secondary duration-300'>
-                                                    Home Organic
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/homepages/marketplace" className='text-secondary duration-300'>
-                                                    Home Marketplace
+                                                <Link href="/homepages" className={`text-secondary duration-300 ${pathname === '/homepages/fashion6' ? 'active' : ''}`}>
+                                                    Home
                                                 </Link>
                                             </li>
                                         </ul>
