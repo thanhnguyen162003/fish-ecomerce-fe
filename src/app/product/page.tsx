@@ -4,11 +4,11 @@ import { useSearchParams } from 'next/navigation';
 import TopNavOne from '@/components/Header/TopNav/TopNavOne'
 import MenuOne from '@/components/Header/Menu/MenuOne'
 import BreadcrumbProduct from '@/components/Breadcrumb/BreadcrumbProduct'
-import Discount from '@/components/Product/Detail/Discount';
+import FixedPrice from '@/components/Product/Detail/FixedPrice';
 import Footer from '@/components/Footer/Footer'
 import productData from '@/data/Product.json'
 
-const ProductDiscount = () => {
+const ProductFixedPrice = () => {
     const searchParams = useSearchParams()
     let productId = searchParams.get('id')
 
@@ -19,14 +19,14 @@ const ProductDiscount = () => {
     return (
         <>
             <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
-            <div id="header" className='relative w-full style-discount'>
+            <div id="header" className='relative w-full'>
                 <MenuOne props="bg-white" />
-                <BreadcrumbProduct data={productData} productPage='discount' productId={productId} />
+                <BreadcrumbProduct data={productData} productPage='details' productId={productId} />
             </div>
-            <Discount data={productData} productId={productId} />
+            <FixedPrice data={productData} productId={productId} />
             <Footer />
         </>
     )
 }
 
-export default ProductDiscount
+export default ProductFixedPrice
