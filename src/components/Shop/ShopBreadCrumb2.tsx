@@ -329,7 +329,7 @@ const ShopBreadCrumb2: React.FC<Props> = ({ data, productPerPage, dataType }) =>
                             <div className="filter-type pb-8 border-b border-line">
                                 <div className="heading6">Products Type</div>
                                 <div className="list-type mt-4">
-                                    {['t-shirt', 'dress', 'top', 'swimwear', 'shirt', 'underwear', 'sets', 'accessories'].map((item, index) => (
+                                    {['Koi Fish', 'Fish Tank', 'Other Fish', 'Accessory'].map((item, index) => (
                                         <div
                                             key={index}
                                             className={`item flex items-center justify-between cursor-pointer ${dataType === item ? 'active' : ''}`}
@@ -343,7 +343,7 @@ const ShopBreadCrumb2: React.FC<Props> = ({ data, productPerPage, dataType }) =>
                                     ))}
                                 </div>
                             </div>
-                            <div className="filter-size pb-8 border-b border-line mt-8">
+                            {/* <div className="filter-size pb-8 border-b border-line mt-8">
                                 <div className="heading6">Size</div>
                                 <div className="list-size flex items-center flex-wrap gap-3 gap-y-4 mt-4">
                                     {
@@ -364,7 +364,7 @@ const ShopBreadCrumb2: React.FC<Props> = ({ data, productPerPage, dataType }) =>
                                         Freesize
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="filter-price pb-8 border-b border-line mt-8">
                                 <div className="heading6">Price Range</div>
                                 <Slider
@@ -445,9 +445,9 @@ const ShopBreadCrumb2: React.FC<Props> = ({ data, productPerPage, dataType }) =>
                                 </div>
                             </div>
                             <div className="filter-brand mt-8">
-                                <div className="heading6">Brands</div>
+                                <div className="heading6">Types</div>
                                 <div className="list-brand mt-4">
-                                    {['adidas', 'hermes', 'zara', 'nike', 'gucci'].map((item, index) => (
+                                    {['Custom', 'Pre Made', 'zara', 'nike', 'gucci'].map((item, index) => (
                                         <div key={index} className="brand-item flex items-center justify-between">
                                             <div className="left flex items-center cursor-pointer">
                                                 <div className="block-input">

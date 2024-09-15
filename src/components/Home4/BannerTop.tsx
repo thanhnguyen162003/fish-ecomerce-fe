@@ -35,12 +35,6 @@ const BannerTop: React.FC<Props> = ({ props, textColor }) => {
                                 <div className={`text-button-uppercase px-8 text-center ${textColor}`}>Free shipping on all orders over $50</div>
                             </SwiperSlide>
                             <SwiperSlide>
-                                <div className={`text-button-uppercase px-8 text-center ${textColor}`}>10% off on all summer essentials!</div>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <div className={`text-button-uppercase px-8 text-center ${textColor}`}>Get summer-ready: 10% off swim suits</div>
-                            </SwiperSlide>
-                            <SwiperSlide>
                                 <div className={`text-button-uppercase px-8 text-center ${textColor}`}>10% off on all product on shop</div>
                             </SwiperSlide>
                         </Swiper>

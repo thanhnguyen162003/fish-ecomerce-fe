@@ -107,25 +107,8 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                                     Sale
                                 </div>
                             )}
-                            <div className="list-action-right absolute top-3 right-3 max-lg:hidden">
-                                <div
-                                    className={`add-wishlist-btn w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative ${wishlistState.wishlistArray.some(item => item.id === data.id) ? 'active' : ''}`}
-                                    onClick={(e) => {
-                                        e.stopPropagation()
-                                        handleAddToWishlist()
-                                    }}
-                                >
-                                    <div className="tag-action bg-black text-white caption2 px-1.5 py-0.5 rounded-sm">Add To Wishlist</div>
-                                    {wishlistState.wishlistArray.some(item => item.id === data.id) ? (
-                                        <>
-                                            <Icon.Heart size={18} weight='fill' className='text-white' />
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Icon.Heart size={18} />
-                                        </>
-                                    )}
-                                </div>
+                            {/* <div className="list-action-right absolute top-3 right-3 max-lg:hidden">
+                                
                                 <div
                                     className={`compare-btn w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative mt-2 ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
                                     onClick={(e) => {
@@ -137,7 +120,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                                     <Icon.Repeat size={18} className='compare-icon' />
                                     <Icon.CheckCircle size={20} className='checked-icon' />
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="product-img w-full h-full aspect-[3/4]">
                                 {activeColor ? (
                                     <>
@@ -212,37 +195,9 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                                             className="quick-shop-btn text-button-uppercase py-2 text-center rounded-full duration-500 bg-white hover:bg-black hover:text-white"
                                             onClick={e => {
                                                 e.stopPropagation();
-                                                setOpenQuickShop(!openQuickShop)
                                             }}
                                         >
-                                            Quick Shop
-                                        </div>
-                                        <div
-                                            className={`quick-shop-block absolute left-5 right-5 bg-white p-5 rounded-[20px] ${openQuickShop ? 'open' : ''}`}
-                                            onClick={(e) => {
-                                                e.stopPropagation()
-                                            }}
-                                        >
-                                            <div className="list-size flex items-center justify-center flex-wrap gap-2">
-                                                {data.sizes.map((item, index) => (
-                                                    <div
-                                                        className={`size-item w-10 h-10 rounded-full flex items-center justify-center text-button bg-white border border-line ${activeSize === item ? 'active' : ''}`}
-                                                        key={index}
-                                                        onClick={() => handleActiveSize(item)}
-                                                    >
-                                                        {item}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            <div
-                                                className="button-main w-full text-center rounded-full py-3 mt-4"
-                                                onClick={() => {
-                                                    handleAddToCart()
-                                                    setOpenQuickShop(false)
-                                                }}
-                                            >
-                                                Add To cart
-                                            </div>
+                                            <Link href={"/product?id={1}"}>Detail</Link> 
                                         </div>
                                     </>
                                 )}

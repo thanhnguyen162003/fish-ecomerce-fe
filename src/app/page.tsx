@@ -31,7 +31,7 @@ export default function Home() {
             <PopularProduct />
             {/* <FlashSale /> */}
             <Testimonial data={testimonialData} limit={5} />
-            <BestSaleProduct data={productData} />
+            {/* <BestSaleProduct data={productData} /> */}
             <Benefit props="md:pt-20 pt-10" />
             <Instagram />
             <Brand />
