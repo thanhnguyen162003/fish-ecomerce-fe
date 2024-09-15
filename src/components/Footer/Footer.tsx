@@ -6,10 +6,10 @@ import * as Icon from "@phosphor-icons/react/dist/ssr";
 const Footer = () => {
     return (
         <>
-            <div id="footer" className='footer'>
+            <div id="footer" className='footer pt-10'>
                 <div className="footer-main bg-surface">
                     <div className="container">
-                        <div className="content-footer py-[60px] flex justify-between flex-wrap gap-y-8">
+                        <div className="content-footer py-[30px] flex justify-between flex-wrap gap-y-8">
                             <div className="company-infor basis-1/4 max-lg:basis-full pr-7">
                                 <Link href={'/'} className="logo">
                                     <div className="heading4">Aquamarine</div>
@@ -68,17 +68,8 @@ const Footer = () => {
                                         <Link href={'https://www.facebook.com/'} target='_blank'>
                                             <div className="icon-facebook text-2xl text-black"></div>
                                         </Link>
-                                        <Link href={'https://www.instagram.com/'} target='_blank'>
-                                            <div className="icon-instagram text-2xl text-black"></div>
-                                        </Link>
-                                        <Link href={'https://www.twitter.com/'} target='_blank'>
-                                            <div className="icon-twitter text-2xl text-black"></div>
-                                        </Link>
                                         <Link href={'https://www.youtube.com/'} target='_blank'>
                                             <div className="icon-youtube text-2xl text-black"></div>
-                                        </Link>
-                                        <Link href={'https://www.pinterest.com/'} target='_blank'>
-                                            <div className="icon-pinterest text-2xl text-black"></div>
                                         </Link>
                                     </div>
                                 </div>
@@ -104,63 +95,6 @@ const Footer = () => {
                                         </select>
                                         <Icon.CaretDown size={12} color='#1F1F1F' />
                                     </div>
-                                </div>
-                            </div>
-                            <div className="right flex items-center gap-2">
-                                <div className="caption1 text-secondary">Payment:</div>
-                                <div className="payment-img">
-                                    <Image
-                                        src={'/images/payment/Frame-0.png'}
-                                        width={500}
-                                        height={500}
-                                        alt={'payment'}
-                                        className='w-9'
-                                    />
-                                </div>
-                                <div className="payment-img">
-                                    <Image
-                                        src={'/images/payment/Frame-1.png'}
-                                        width={500}
-                                        height={500}
-                                        alt={'payment'}
-                                        className='w-9'
-                                    />
-                                </div>
-                                <div className="payment-img">
-                                    <Image
-                                        src={'/images/payment/Frame-2.png'}
-                                        width={500}
-                                        height={500}
-                                        alt={'payment'}
-                                        className='w-9'
-                                    />
-                                </div>
-                                <div className="payment-img">
-                                    <Image
-                                        src={'/images/payment/Frame-3.png'}
-                                        width={500}
-                                        height={500}
-                                        alt={'payment'}
-                                        className='w-9'
-                                    />
-                                </div>
-                                <div className="payment-img">
-                                    <Image
-                                        src={'/images/payment/Frame-4.png'}
-                                        width={500}
-                                        height={500}
-                                        alt={'payment'}
-                                        className='w-9'
-                                    />
-                                </div>
-                                <div className="payment-img">
-                                    <Image
-                                        src={'/images/payment/Frame-5.png'}
-                                        width={500}
-                                        height={500}
-                                        alt={'payment'}
-                                        className='w-9'
-                                    />
                                 </div>
                             </div>
                         </div>

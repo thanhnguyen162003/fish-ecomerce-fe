@@ -26,7 +26,7 @@ const Collection = () => {
                     <div className="list-collection md:mt-10 mt-6">
                         <Swiper
                             spaceBetween={12}
-                            slidesPerView={2}
+                            slidesPerView={4}
                             loop={true}
                             scrollbar={{
                                 hide: false,

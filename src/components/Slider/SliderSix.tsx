@@ -34,14 +34,14 @@ const SliderSix = () => {
                                         <Link href='/shop/breadcrumb-img' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>
                                     <div className="sub-img absolute sm:w-[55%] w-3/5 2xl:-right-[60px] -right-[16px] bottom-0">
-                                        <Image
+                                        {/* <Image
                                             src={'/images/slider/bg6-1.png'}
                                             width={2000}
                                             height={1936}
                                             alt='bg6-1'
                                             priority={true}
                                             className='w-full'
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                             </div>
@@ -55,14 +55,14 @@ const SliderSix = () => {
                                         <Link href='/shop/breadcrumb-img' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>
                                     <div className="sub-img absolute w-1/2 right-[0] sm:-bottom-7 bottom-0">
-                                        <Image
+                                        {/* <Image
                                             src={'/images/slider/bg6-2.png'}
                                             width={2000}
                                             height={1936}
                                             alt='bg6-2'
                                             priority={true}
                                             className='w-full'
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                             </div>
@@ -76,14 +76,14 @@ const SliderSix = () => {
                                         <Link href='/shop/breadcrumb-img' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>
                                     <div className="sub-img absolute sm:w-3/5 w-2/3 2xl:-right-[60px] -right-[36px] bottom-0 sm:-bottom-[30px]">
-                                        <Image
+                                        {/* <Image
                                             src={'/images/slider/bg6-3.png'}
                                             width={2000}
                                             height={2000}
                                             alt='bg6-3'
                                             priority={true}
                                             className='w-full'
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                             </div>

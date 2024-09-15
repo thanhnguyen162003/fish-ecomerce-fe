@@ -20,7 +20,7 @@ import ModalNewsletter from '@/components/Modal/ModalNewsletter'
 export default function Home() {
   return (
     <>
-            <TopNavThree props="style-three bg-white" />
+            {/* <TopNavThree props="style-three bg-white" /> */}
             <div id="header" className='relative w-full'>
                 <MenuFour props="bg-white" />
                 <BannerTop props="bg-black py-3" textColor='text-white'/>
@@ -33,8 +33,7 @@ export default function Home() {
             <Testimonial data={testimonialData} limit={5} />
             {/* <BestSaleProduct data={productData} /> */}
             <Benefit props="md:pt-20 pt-10" />
-            <Instagram />
-            <Brand />
+            {/* <Brand /> */}
             <Footer />
             {/* <ModalNewsletter /> */}
         </>
