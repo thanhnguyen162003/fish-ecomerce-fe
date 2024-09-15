@@ -119,8 +119,14 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                                     <Link href="/shop" className='text-button-uppercase duration-300 h-full flex items-center justify-center'>
                                         Shop
                                     </Link>
-                                    
                                 </li>
+
+                                <li className='h-full'>
+                                    <Link href="pages/about" className='text-button-uppercase duration-300 h-full flex items-center justify-center'>
+                                        About Us
+                                    </Link>
+                                </li>
+
                                 <li className='h-full flex items-center justify-center logo'>
                                     <Link href={'/'} className='heading4'>
                                         Aquamarine
@@ -133,6 +139,11 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                                     </Link>
                                 </li>
                                 
+                                <li className='h-full relative'>
+                                    <Link href="pages/contact" className='text-button-uppercase duration-300 h-full flex items-center justify-center'>
+                                        Contact
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                         <div className="right flex gap-12 z-[1]">
