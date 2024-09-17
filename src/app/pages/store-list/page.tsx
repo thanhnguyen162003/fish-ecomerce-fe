@@ -13,7 +13,7 @@ const StoreList = () => {
             <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
                 <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='Store list' subHeading='Store list' />
+                <Breadcrumb heading='Store list'/>
             </div>
             <div className='store-list md:py-20 py-10'>
                 <div className="container">

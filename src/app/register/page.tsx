@@ -14,7 +14,7 @@ const Register = () => {
             <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
                 <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='Create An Account' subHeading='Create An Account' />
+                <Breadcrumb heading='Create An Account' />
             </div>
             <div className="register-block md:py-20 py-10">
                 <div className="container">

@@ -14,7 +14,7 @@ const ForgotPassword = () => {
             <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
                 <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='Forget your password' subHeading='Forget your password' />
+                <Breadcrumb heading='Forget your password'/>
             </div>
             <div className="forgot-pass md:py-20 py-10">
                 <div className="container">

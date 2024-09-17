@@ -14,7 +14,7 @@ const OrderTracking = () => {
             <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
                 <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='Order Tracking' subHeading='Order Tracking' />
+                <Breadcrumb heading='Order Tracking' />
             </div>
             <div className="order-tracking md:py-20 py-10">
                 <div className="container">
