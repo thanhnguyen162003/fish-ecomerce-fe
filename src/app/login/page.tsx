@@ -1,33 +1,71 @@
 'use client'
-import React, { useState } from 'react'
-import Link from 'next/link'
-import TopNavOne from '@/components/Header/TopNav/TopNavOne'
-import MenuOne from '@/components/Header/Menu/MenuOne'
-import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
-import Footer from '@/components/Footer/Footer'
+import React, { useState } from 'react';
+import axios from 'axios';
+import Link from 'next/link';
+import TopNavOne from '@/components/Header/TopNav/TopNavOne';
+import MenuOne from '@/components/Header/Menu/MenuOne';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
+import Footer from '@/components/Footer/Footer';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log(`${apiUrl}/auth/login-customer`);
+        try {
+            const response = await axios.post(`${apiUrl}/auth/login-customer`, { email, password });
+            const { token } = response.data;
+            localStorage.setItem('token', token);
+            console.log(token);
+
+        } catch (err) {
+            console.log(err);
+            setError('Invalid username or password');
+        }
+    };
 
     return (
         <>
             <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
                 <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='Login'/>
+                <Breadcrumb heading='Login' />
             </div>
             <div className="login-block md:py-20 py-10">
                 <div className="container">
                     <div className="content-main flex gap-y-8 max-md:flex-col">
                         <div className="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
                             <div className="heading4">Login</div>
-                            <form className="md:mt-7 mt-4">
+                            <form className="md:mt-7 mt-4" onSubmit={handleLogin}>
                                 <div className="email ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="email" placeholder="Username or email address *" required />
+                                    <input
+                                        className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                                        id="username"
+                                        type="email"
+                                        placeholder="Email address *"
+                                        required
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
                                 </div>
                                 <div className="pass mt-5">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="password" type="password" placeholder="Password *" required />
+                                    <input
+                                        className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
+                                        id="password"
+                                        type="password"
+                                        placeholder="Password *"
+                                        required
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
                                 </div>
+                                {error && <div className="error mt-4 text-red-600">{error}</div>}
                                 <div className="flex items-center justify-between mt-5">
                                     <div className='flex items-center'>
                                         <div className="block-input">
@@ -61,7 +99,7 @@ const Login = () => {
             </div>
             <Footer />
         </>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
