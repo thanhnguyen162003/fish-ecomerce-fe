@@ -1,15 +1,38 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { useCart } from '@/context/CartContext'
 import { useModalCartContext } from '@/context/ModalCartContext'
+import { jwtDecode } from 'jwt-decode';
 
 const Checkout = () => {
     const { openModalCart } = useModalCartContext()
     const { cartState } = useCart();
     let [totalCart, setTotalCart] = useState<number>(0)
+    const [email, setEmail] = useState('')
+    const checkTokenAndDecode = () => {
+        const token = localStorage.getItem('jwttoken');
+        if (!token) {
+            console.log('No token found in localStorage');
+            return null;
+        }
 
+        try {
+            const decodedToken: any = jwtDecode(token)
+            const uniqueName = decodedToken.unique_name
+            console.log('Unique Name:', uniqueName);
+            setEmail(uniqueName)
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+    useEffect(() => {
+        console.log("something");
+
+        checkTokenAndDecode();
+    }, [])
     cartState.cartArray.map(item => totalCart += item.price * item.quantity)
 
     return (

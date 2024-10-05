@@ -14,6 +14,7 @@ import { useModalWishlistContext } from '@/context/ModalWishlistContext';
 import { useModalSearchContext } from '@/context/ModalSearchContext';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
+import { jwtDecode } from 'jwt-decode';
 
 interface Props {
     props: string;
@@ -30,11 +31,34 @@ const MenuOne: React.FC<Props> = ({ props }) => {
     const { cartState } = useCart()
     const { openModalWishlist } = useModalWishlistContext()
     const { openModalSearch } = useModalSearchContext()
+    const [email, setEmail] = useState('')
 
     const handleOpenSubNavMobile = (index: number) => {
         setOpenSubNavMobile(openSubNavMobile === index ? null : index)
     }
 
+    const checkTokenAndDecode = () => {
+        const token = localStorage.getItem('jwttoken');
+        if (!token) {
+            console.log('No token found in localStorage');
+            return null;
+        }
+
+        try {
+            const decodedToken: any = jwtDecode(token)
+            const uniqueName = decodedToken.unique_name
+            console.log('Unique Name:', uniqueName);
+            setEmail(uniqueName)
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+    useEffect(() => {
+        console.log("something");
+
+        checkTokenAndDecode();
+    }, [])
     const [fixedHeader, setFixedHeader] = useState(false)
     const [lastScrollPosition, setLastScrollPosition] = useState(0);
 
@@ -81,8 +105,8 @@ const MenuOne: React.FC<Props> = ({ props }) => {
                             </Link>
                             <div className="menu-main h-full max-lg:hidden">
                                 <ul className='flex items-center gap-8 h-full'>
-                                    
-                                    
+
+
                                     <li className='h-full'>
                                         <Link
                                             href="/shop"
@@ -90,16 +114,16 @@ const MenuOne: React.FC<Props> = ({ props }) => {
                                         >
                                             Shop
                                         </Link>
-                                
+
                                     </li>
-                                
+
                                     <li className='h-full relative'>
                                         <Link href="/blog" className={`text-button-uppercase duration-300 h-full flex items-center justify-center}`}>
                                             Blog
                                         </Link>
-                    
+
                                     </li>
-                                
+
                                 </ul>
                             </div>
                         </div>
@@ -123,7 +147,7 @@ const MenuOne: React.FC<Props> = ({ props }) => {
                                         <Link href={'#!'} className='body1 hover:underline'>Support</Link>
                                     </div>
                                 </div>
-                            
+
                                 <div className="cart-icon flex items-center relative cursor-pointer" onClick={openModalCart}>
                                     <Icon.Handbag size={24} color='black' />
                                     <span className="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-black w-4 h-4 flex items-center justify-center rounded-full">{cartState.cartArray.length}</span>

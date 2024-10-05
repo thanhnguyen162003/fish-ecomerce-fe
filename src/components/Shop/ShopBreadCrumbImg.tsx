@@ -234,7 +234,7 @@ const ShopBreadCrumbImg: React.FC<Props> = ({ data, productPerPage, dataType }) 
                                 ))}
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

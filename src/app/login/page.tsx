@@ -7,26 +7,36 @@ import MenuOne from '@/components/Header/Menu/MenuOne';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import Footer from '@/components/Footer/Footer';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+import login from '@/components/api/auth/login';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isPending, setIsPending] = useState(false)
+
+    const router = useRouter();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(`${apiUrl}/auth/login-customer`);
         try {
-            const response = await axios.post(`${apiUrl}/auth/login-customer`, { email, password });
-            const { token } = response.data;
-            localStorage.setItem('token', token);
-            console.log(token);
-
+            setIsPending(true)
+            const response = await login(email, password);
+            localStorage.setItem('jwttoken', response.data.token);
+            console.log(response.data.token);
+            var statusCode = response.request.status;
+            if (statusCode != null && statusCode >= 200 && statusCode <= 299) {
+                router.push('/')
+            }
+            else if (statusCode === 400) {
+                setError("Login failed!")
+            }
         } catch (err) {
             console.log(err);
             setError('Invalid username or password');
+        } finally {
+            setIsPending(false)
         }
     };
 
@@ -81,7 +91,7 @@ const Login = () => {
                                     <Link href={'/forgot-password'} className='font-semibold hover:underline'>Forgot Your Password?</Link>
                                 </div>
                                 <div className="block-button md:mt-7 mt-4">
-                                    <button className="button-main">Login</button>
+                                    <button className="button-main" disabled={isPending}>Login</button>
                                 </div>
                             </form>
                         </div>

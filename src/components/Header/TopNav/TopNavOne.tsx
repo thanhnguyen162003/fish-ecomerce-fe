@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link';
 import Image from 'next/image';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
+import { jwtDecode } from 'jwt-decode';
 
 interface Props {
     props: string;

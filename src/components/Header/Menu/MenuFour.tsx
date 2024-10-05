@@ -14,6 +14,7 @@ import { useModalWishlistContext } from '@/context/ModalWishlistContext';
 import { useModalSearchContext } from '@/context/ModalSearchContext';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation'
+import { jwtDecode } from 'jwt-decode';
 
 interface Props {
     props: string
@@ -29,6 +30,7 @@ const MenuFour: React.FC<Props> = ({ props }) => {
     const { openModalWishlist } = useModalWishlistContext()
     const { openModalSearch } = useModalSearchContext()
     const [searchKeyword, setSearchKeyword] = useState('');
+    const [email, setEmail] = useState('')
     const router = useRouter()
 
     const handleSearch = (value: string) => {
@@ -42,7 +44,27 @@ const MenuFour: React.FC<Props> = ({ props }) => {
 
     const [fixedHeader, setFixedHeader] = useState(false)
     const [lastScrollPosition, setLastScrollPosition] = useState(0);
+    const checkTokenAndDecode = () => {
+        const token = localStorage.getItem('jwttoken');
+        if (!token) {
+            console.log('No token found in localStorage');
+            return null;
+        }
 
+        try {
+            const decodedToken: any = jwtDecode(token)
+            const uniqueName = decodedToken.unique_name
+            console.log('Unique Name:', uniqueName);
+            setEmail(uniqueName)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    useEffect(() => {
+        console.log("something");
+
+        checkTokenAndDecode();
+    }, [])
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
@@ -102,10 +124,10 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                         <div className="menu-main h-full xl:w-full flex items-center justify-center max-lg:hidden xl:absolute xl:top-1/2 xl:left-1/2 xl:-translate-x-1/2 xl:-translate-y-1/2">
                             <ul className='flex items-center gap-8 h-full'>
                                 <li className='h-full relative'>
-                            
+
                                     <div className="sub-menu absolute py-3 px-5 -left-10 w-max grid grid-cols-4 gap-5 bg-white rounded-b-xl">
                                         <ul>
-                                            
+
                                             <li>
                                                 <Link href="/homepages" className={`text-secondary duration-300 ${pathname === '/homepages/fashion6' ? 'active' : ''}`}>
                                                     Home
@@ -114,7 +136,7 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                                         </ul>
                                     </div>
                                 </li>
-                            
+
                                 <li className='h-full'>
                                     <Link href="/shop" className='text-button-uppercase duration-300 h-full flex items-center justify-center'>
                                         Shop
@@ -132,13 +154,13 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                                         Aquamarine
                                     </Link>
                                 </li>
-                                
+
                                 <li className='h-full relative'>
                                     <Link href="/blog" className='text-button-uppercase duration-300 h-full flex items-center justify-center'>
                                         Blog
                                     </Link>
                                 </li>
-                                
+
                                 <li className='h-full relative'>
                                     <Link href="pages/contact" className='text-button-uppercase duration-300 h-full flex items-center justify-center'>
                                         Contact
@@ -154,10 +176,21 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                                         className={`login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-small 
                                             ${openLoginPopup ? 'open' : ''}`}
                                     >
-                                        <Link href={'/login'} className="button-main w-full text-center">Login</Link>
-                                        <div className="text-secondary text-center mt-3 pb-4">Don’t have an account?
-                                            <Link href={'/register'} className='text-black pl-1 hover:underline'>Register</Link>
-                                        </div>
+                                        {
+                                            email === '' &&
+                                            <div>
+                                                <Link href={'/login'} className="button-main w-full text-center">Login</Link>
+                                                <div className="text-secondary text-center mt-3 pb-4">Don’t have an account?
+                                                    <Link href={'/register'} className='text-black pl-1 hover:underline'>Register</Link>
+                                                </div>
+                                            </div>
+                                        }
+                                        {
+                                            email !== '' &&
+                                            <div>
+                                                <Link href={'/my-account'} className="button-main w-full text-center">My Account</Link>
+                                            </div>
+                                        }
                                         <div className="bottom pt-4 border-t border-line"></div>
                                         <Link href={'#!'} className='body1 hover:underline'>Support</Link>
                                     </div>
