@@ -12,23 +12,23 @@ const Benefit: React.FC<Props> = ({ props }) => {
                     <div className="list-benefit grid items-start lg:grid-cols-4 grid-cols-2 gap-[30px]">
                         <div className="benefit-item flex flex-col items-center justify-center">
                             <i className="icon-phone-call lg:text-7xl text-5xl"></i>
-                            <div className="heading6 text-center mt-5">24/7 Customer Service</div>
-                            <div className="caption1 text-secondary text-center mt-3">We&apos;re here to help you with any questions or concerns you have, 24/7.</div>
+                            <div className="heading6 text-center mt-5">Hỗ trợ 24/7</div>
+                            <div className="caption1 text-secondary text-center mt-3">Chúng tôi luôn sẵn sàng hỗ trợ bạn mọi thắc mắc hay quan ngại, 24/7.</div>
                         </div>
                         <div className="benefit-item flex flex-col items-center justify-center">
                             <i className="icon-return lg:text-7xl text-5xl"></i>
-                            <div className="heading6 text-center mt-5">14-Day Money Back</div>
-                            <div className="caption1 text-secondary text-center mt-3">If you&apos;re not satisfied with your purchase, simply return it within 14 days for a refund.</div>
+                            <div className="heading6 text-center mt-5">Hoàn tiền trong 14 ngày</div>
+                            <div className="caption1 text-secondary text-center mt-3">Nếu bạn không hài lòng với sản phẩm, chỉ cần trả lại trong vòng 14 ngày để được hoàn tiền.</div>
                         </div>
                         <div className="benefit-item flex flex-col items-center justify-center">
                             <i className="icon-guarantee lg:text-7xl text-5xl"></i>
-                            <div className="heading6 text-center mt-5">Our Guarantee</div>
-                            <div className="caption1 text-secondary text-center mt-3"> We stand behind our products and services and guarantee your satisfaction.</div>
+                            <div className="heading6 text-center mt-5">Cam kết của chúng tôi</div>
+                            <div className="caption1 text-secondary text-center mt-3">Chúng tôi đứng sau sản phẩm và dịch vụ của mình và đảm bảo sự hài lòng của bạn.</div>
                         </div>
                         <div className="benefit-item flex flex-col items-center justify-center">
                             <i className="icon-delivery-truck lg:text-7xl text-5xl"></i>
-                            <div className="heading6 text-center mt-5">Nationwide Delivery</div>
-                            <div className="caption1 text-secondary text-center mt-3">We ship our products nationwide, making them accessible to customers everywhere.</div>
+                            <div className="heading6 text-center mt-5">Giao hàng toàn quốc</div>
+                            <div className="caption1 text-secondary text-center mt-3">Chúng tôi vận chuyển sản phẩm trên toàn quốc, giúp khách hàng ở mọi nơi dễ dàng tiếp cận.</div>
                         </div>
                     </div>
                 </div>
