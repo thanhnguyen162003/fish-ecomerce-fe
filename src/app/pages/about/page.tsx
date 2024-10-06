@@ -13,10 +13,8 @@ import Footer from '@/components/Footer/Footer'
 const AboutUs = () => {
     return (
         <>
-            <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
-                <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='About Us'/>
+                <Breadcrumb heading='About Us' />
             </div>
             <div className='about md:pt-20 pt-10'>
                 <div className="about-us-block">
@@ -61,7 +59,6 @@ const AboutUs = () => {
             </div>
             <Benefit props="md:pt-20 pt-10" />
             <Newsletter props="bg-green md:mt-20 mt-10" />
-            <Footer />
         </>
     )
 }

@@ -17,10 +17,11 @@ import { useRouter } from 'next/navigation'
 import { jwtDecode } from 'jwt-decode';
 
 interface Props {
-    props: string
+    background: string,
+    text: string
 }
 
-const MenuFour: React.FC<Props> = ({ props }) => {
+const MenuFour: React.FC<Props> = ({ background, text }) => {
     const pathname = usePathname()
     const { openLoginPopup, handleLoginPopup } = useLoginPopup()
     const { openMenuMobile, handleMenuMobile } = useMenuMobile()
@@ -30,7 +31,7 @@ const MenuFour: React.FC<Props> = ({ props }) => {
     const { openModalWishlist } = useModalWishlistContext()
     const { openModalSearch } = useModalSearchContext()
     const [searchKeyword, setSearchKeyword] = useState('');
-    const [email, setEmail] = useState('')
+    const [token, setToken] = useState<string | null>('')
     const router = useRouter()
 
     const handleSearch = (value: string) => {
@@ -45,23 +46,6 @@ const MenuFour: React.FC<Props> = ({ props }) => {
     const [fixedHeader, setFixedHeader] = useState(false)
     const [lastScrollPosition, setLastScrollPosition] = useState(0);
 
-    const checkTokenAndDecode = () => {
-        const token = localStorage.getItem('jwtToken');
-        if (!token) {
-            console.log('No token found in localStorage');
-            return null;
-        }
-
-        try {
-            const decodedToken: any = jwtDecode(token)
-            const uniqueName = decodedToken.unique_name
-            console.log('Unique Name:', uniqueName);
-            setEmail(uniqueName)
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     const handleSignOut = () => {
         localStorage.removeItem('jwtToken')
         router.refresh();
@@ -69,8 +53,7 @@ const MenuFour: React.FC<Props> = ({ props }) => {
 
     useEffect(() => {
         console.log("something");
-
-        checkTokenAndDecode();
+        setToken(localStorage.getItem('jwtToken'))
     }, [])
 
     useEffect(() => {
@@ -103,7 +86,7 @@ const MenuFour: React.FC<Props> = ({ props }) => {
 
     return (
         <>
-            <div className={`header-menu style-one ${fixedHeader ? ' fixed' : 'relative'} w-full md:h-[74px] h-[56px] ${props}`}>
+            <div className={`header-menu style-one ${fixedHeader ? ' fixed' : 'relative'} w-full md:h-[74px] h-[56px] ${background} ${text}`}>
                 <div className="container mx-auto h-full">
                     <div className="header-main flex items-center justify-between h-full">
                         <div className="menu-mobile-icon lg:hidden flex items-center" onClick={handleMenuMobile}>
@@ -112,23 +95,7 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                         <Link href={'/'} className='flex items-center lg:hidden'>
                             <div className="heading4">Aquamarine</div>
                         </Link>
-                        <div className="form-search relative max-lg:hidden z-[1]">
-                            <Icon.MagnifyingGlass
-                                size={16}
-                                className='absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer'
-                                onClick={() => {
-                                    handleSearch(searchKeyword)
-                                }}
-                            />
-                            <input
-                                type="text"
-                                placeholder='What are you looking for?'
-                                className=' h-10 rounded-lg border border-line caption2 w-full pl-9 pr-4'
-                                value={searchKeyword}
-                                onChange={(e) => setSearchKeyword(e.target.value)}
-                                onKeyDown={(e) => e.key === 'Enter' && handleSearch(searchKeyword)}
-                            />
-                        </div>
+                        <Icon.MagnifyingGlass size={24} onClick={openModalSearch} />
                         <div className="menu-main h-full xl:w-full flex items-center justify-center max-lg:hidden xl:absolute xl:top-1/2 xl:left-1/2 xl:-translate-x-1/2 xl:-translate-y-1/2">
                             <ul className='flex items-center gap-8 h-full'>
                                 <li className='h-full relative'>
@@ -179,38 +146,36 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                         <div className="right flex gap-12 z-[1]">
                             <div className="list-action flex items-center gap-4">
                                 <div className="user-icon flex items-center justify-center cursor-pointer">
-                                    <Icon.User size={24} color='black' onClick={handleLoginPopup} />
+                                    <Icon.User size={24} onClick={handleLoginPopup} />
                                     <div
-                                        className={`login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-small 
+                                        className={`login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-small bg-pearlWhite
                                             ${openLoginPopup ? 'open' : ''}`}
                                     >
                                         {
-                                            email === '' &&
+                                            token === '' &&
                                             <div>
-                                                <Link href={'/login'} className="button-main w-full text-center">Login</Link>
+                                                <Link href={'/login'} className={`button-main w-full text-center ${background} ${text}`}>Login</Link>
                                                 <div className="text-secondary text-center mt-3 pb-4">Don’t have an account?
-                                                    <Link href={'/register'} className='text-black pl-1 hover:underline'>Register</Link>
+                                                    <Link href={'/register'} className={`text-black pl-1 hover:underline ${text}`}>Register</Link>
                                                 </div>
                                             </div>
                                         }
                                         {
-                                            email !== '' &&
+                                            token !== '' &&
                                             <div>
-                                                <Link href={'/my-account'} className="button-main w-full text-center">My Account</Link>
-                                                <button className="button-main w-full flex item-center mt-3 justify-center" onClick={handleSignOut}>
+                                                <Link href={'/my-account'} className={`button-main w-full text-center ${background} ${text}`}>My Account</Link>
+                                                <button className={`button-main w-full text-center ${background} ${text} mt-3`} onClick={handleSignOut}>
                                                     Sign out
                                                 </button>
                                             </div>
                                         }
-                                        <div className="bottom pt-4 border-t border-line"></div>
-                                        <Link href={'#!'} className='body1 hover:underline'>Support</Link>
                                     </div>
                                 </div>
                                 <div className="max-md:hidden wishlist-icon flex items-center cursor-pointer" onClick={openModalWishlist}>
-                                    <Icon.Heart size={24} color='black' />
+                                    <Icon.Heart size={24} />
                                 </div>
                                 <div className="cart-icon flex items-center relative cursor-pointer" onClick={openModalCart}>
-                                    <Icon.Handbag size={24} color='black' />
+                                    <Icon.Handbag size={24} />
                                     <span className="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-black w-4 h-4 flex items-center justify-center rounded-full">{cartState.cartArray.length}</span>
                                 </div>
                             </div>

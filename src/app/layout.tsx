@@ -9,6 +9,9 @@ import ModalQuickview from '@/components/Modal/ModalQuickview'
 import ModalCompare from '@/components/Modal/ModalCompare'
 import CountdownTimeType from '@/type/CountdownType'
 import { countdownTime } from '@/store/countdownTime'
+import Footer from '@/components/Footer/Footer'
+import MenuFour from '@/components/Header/Menu/MenuFour'
+import MenuOne from '@/components/Header/Menu/MenuOne'
 
 const serverTimeLeft: CountdownTimeType = countdownTime();
 
@@ -27,13 +30,15 @@ export default function RootLayout({
   return (
     <GlobalProvider>
       <html lang="en">
-        <body className={instrument.className}>
+        <body className={`${instrument.className} bg-sandBeige`}>
+          <MenuOne background="bg-deepSeaBlue" text='text-sandBeige' />
           {children}
           <ModalCart serverTimeLeft={serverTimeLeft} />
           <ModalWishlist />
           <ModalSearch />
           <ModalQuickview />
           <ModalCompare />
+          <Footer background="bg-deepSeaBlue" text='text-sandBeige' />
         </body>
       </html>
     </GlobalProvider>

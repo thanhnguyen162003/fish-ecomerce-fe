@@ -32,10 +32,8 @@ const Compare = () => {
 
     return (
         <>
-            <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
-                <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='Compare Products'/>
+                <Breadcrumb heading='Compare Products' />
             </div>
             <div className="compare-block md:py-20 py-10">
                 <div className="container">
@@ -131,7 +129,7 @@ const Compare = () => {
                                                         <span
                                                             key={i}
                                                             className={`w-6 h-6 rounded-full`}
-                                                            style={{backgroundColor: `${colorItem.colorCode}`}}
+                                                            style={{ backgroundColor: `${colorItem.colorCode}` }}
                                                         ></span>
                                                     ))}
                                                 </div>
@@ -162,7 +160,6 @@ const Compare = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

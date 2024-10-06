@@ -1,6 +1,5 @@
 import React from 'react'
 import TopNavThree from '@/components/Header/TopNav/TopNavThree'
-import MenuFour from '@/components/Header/Menu/MenuFour'
 import BannerTop from '@/components/Home4/BannerTop'
 import SliderSix from '@/components/Slider/SliderSix'
 import Collection from '@/components/Home6/Collection'
@@ -20,22 +19,19 @@ import ModalNewsletter from '@/components/Modal/ModalNewsletter'
 export default function Home() {
   return (
     <>
-            {/* <TopNavThree props="style-three bg-white" /> */}
-            <div id="header" className='relative w-full'>
-                <MenuFour props="bg-white" />
-                <BannerTop props="bg-black py-3" textColor='text-white'/>
-                <SliderSix />
-            </div>
-            <Collection />
-            <TabFeatures data={productData} start={0} limit={8} />
-            <PopularProduct />
-            {/* <FlashSale /> */}
-            <Testimonial data={testimonialData} limit={5} />
-            {/* <BestSaleProduct data={productData} /> */}
-            <Benefit props="md:pt-20 pt-10" />
-            {/* <Brand /> */}
-            <Footer />
-            {/* <ModalNewsletter /> */}
-        </>
+      <div id="header" className='relative w-full'>
+        {/* <BannerTop props="bg-black py-3" textColor='text-white' /> */}
+        <SliderSix />
+      </div>
+      <Collection />
+      <TabFeatures data={productData} start={0} limit={8} />
+      <PopularProduct />
+      {/* <FlashSale /> */}
+      <Testimonial data={testimonialData} limit={5} />
+      {/* <BestSaleProduct data={productData} /> */}
+      <Benefit props="md:pt-20 pt-10" />
+      {/* <Brand /> */}
+      {/* <ModalNewsletter /> */}
+    </>
   )
 }

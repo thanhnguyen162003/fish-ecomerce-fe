@@ -12,10 +12,8 @@ const MyAccount = () => {
 
     return (
         <>
-            <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
-                <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='My Account'/>
+                <Breadcrumb heading='My Account' />
             </div>
             <div className="cart-block md:py-20 py-10">
                 <div className="container">
@@ -101,7 +99,6 @@ const MyAccount = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }

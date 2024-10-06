@@ -38,6 +38,14 @@ const config: Config = {
       'outline': 'rgba(0, 0, 0, 0.15)',
       'surface2': 'rgba(255, 255, 255, 0.2)',
       'surface1': 'rgba(255, 255, 255, 0.1)',
+      'oceanBlue': '#1E81B0', // Màu xanh biển đậm
+      'seaGreen': '#4CAF50',  // Màu xanh lá biển
+      'coralPink': '#FF6F61', // Màu hồng san hô
+      'sunlightYellow': '#FFD700', // Màu vàng ánh nắng
+      'aquaBlue': '#00CFFD',  // Màu xanh dương nhạt
+      'deepSeaBlue': '#0A2342', // Màu xanh đậm
+      'pearlWhite': '#F1F1F1', // Màu trắng ngọc trai
+      'sandBeige': '#C2B280',  // Màu cát
     },
   },
   plugins: [],
