@@ -14,10 +14,15 @@ import { FishProductType } from '@/type/FishProductType';
 export default function BreadcrumbImg() {
     const searchParams = useSearchParams()
     const type = searchParams.get('type')
-    const category = searchParams.get('category')
 
     const [fishProduct, setFishProduct] = useState<FishProductType[]>([])
     const [totalCount, setTotalCount] = useState('')
+    const [pageSize, setPageSize] = useState(12)
+    const [pageNumber, setPageNumber] = useState(1)
+
+    const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: 100 });
+
+    const offset = pageSize * pageNumber
 
     useEffect(() => {
         async function fetchData() {
@@ -25,7 +30,7 @@ export default function BreadcrumbImg() {
                 const products = await handleGetFishProduct(12, 1);
                 console.log('handleGetFishProduct: ', products as FishProductType[]);
 
-                setFishProduct(products);
+                setFishProduct(products as FishProductType[]);
             } catch (error) {
                 console.error('Error fetching fish products:', error);
             }
@@ -39,7 +44,7 @@ export default function BreadcrumbImg() {
             <div id="header" className='relative w-full'>
                 <MenuOne props="bg-transparent" />
             </div>
-            <ShopBreadCrumb2 data={fishProduct} productPerPage={12} dataType={type} />
+            <ShopBreadCrumb2 data={productData} productPerPage={12} dataType={type} />
             <Footer />
         </>
     )

@@ -11,8 +11,9 @@ const Checkout = () => {
     const { cartState } = useCart();
     let [totalCart, setTotalCart] = useState<number>(0)
     const [email, setEmail] = useState('')
+
     const checkTokenAndDecode = () => {
-        const token = localStorage.getItem('jwttoken');
+        const token = localStorage.getItem('jwtToken');
         if (!token) {
             console.log('No token found in localStorage');
             return null;

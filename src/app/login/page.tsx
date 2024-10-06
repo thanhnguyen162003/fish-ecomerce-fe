@@ -23,7 +23,7 @@ const Login = () => {
         try {
             setIsPending(true)
             const response = await login(email, password);
-            localStorage.setItem('jwttoken', response.data.token);
+            localStorage.setItem('jwtToken', response.data.token);
             console.log(response.data.token);
             var statusCode = response.request.status;
             if (statusCode != null && statusCode >= 200 && statusCode <= 299) {

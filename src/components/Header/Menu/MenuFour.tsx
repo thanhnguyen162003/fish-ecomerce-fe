@@ -44,8 +44,9 @@ const MenuFour: React.FC<Props> = ({ props }) => {
 
     const [fixedHeader, setFixedHeader] = useState(false)
     const [lastScrollPosition, setLastScrollPosition] = useState(0);
+
     const checkTokenAndDecode = () => {
-        const token = localStorage.getItem('jwttoken');
+        const token = localStorage.getItem('jwtToken');
         if (!token) {
             console.log('No token found in localStorage');
             return null;
@@ -60,11 +61,18 @@ const MenuFour: React.FC<Props> = ({ props }) => {
             console.log(error);
         }
     }
+
+    const handleSignOut = () => {
+        localStorage.removeItem('jwtToken')
+        router.refresh();
+    }
+
     useEffect(() => {
         console.log("something");
 
         checkTokenAndDecode();
     }, [])
+
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
@@ -189,6 +197,9 @@ const MenuFour: React.FC<Props> = ({ props }) => {
                                             email !== '' &&
                                             <div>
                                                 <Link href={'/my-account'} className="button-main w-full text-center">My Account</Link>
+                                                <button className="button-main w-full flex item-center mt-3 justify-center" onClick={handleSignOut}>
+                                                    Sign out
+                                                </button>
                                             </div>
                                         }
                                         <div className="bottom pt-4 border-t border-line"></div>

@@ -38,7 +38,7 @@ const MenuOne: React.FC<Props> = ({ props }) => {
     }
 
     const checkTokenAndDecode = () => {
-        const token = localStorage.getItem('jwttoken');
+        const token = localStorage.getItem('jwtToken');
         if (!token) {
             console.log('No token found in localStorage');
             return null;
