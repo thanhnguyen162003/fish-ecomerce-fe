@@ -14,12 +14,14 @@ import { useModalWishlistContext } from '@/context/ModalWishlistContext';
 import { useModalSearchContext } from '@/context/ModalSearchContext';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
+import { jwtDecode } from 'jwt-decode';
 
 interface Props {
-    props: string;
+    background: string,
+    text: string
 }
 
-const MenuOne: React.FC<Props> = ({ props }) => {
+const MenuOne: React.FC<Props> = ({ background, text }) => {
     const router = useRouter()
     const pathname = usePathname()
     let [selectedType, setSelectedType] = useState<string | null>()
@@ -30,9 +32,21 @@ const MenuOne: React.FC<Props> = ({ props }) => {
     const { cartState } = useCart()
     const { openModalWishlist } = useModalWishlistContext()
     const { openModalSearch } = useModalSearchContext()
+    const [email, setEmail] = useState<string | null>('')
 
     const handleOpenSubNavMobile = (index: number) => {
         setOpenSubNavMobile(openSubNavMobile === index ? null : index)
+    }
+
+    useEffect(() => {
+        console.log("something");
+
+        setEmail(localStorage.getItem("jwtToken"));
+    }, [])
+
+    const handleSignOut = () => {
+        localStorage.removeItem('jwtToken')
+        router.refresh();
     }
 
     const [fixedHeader, setFixedHeader] = useState(false)
@@ -69,7 +83,7 @@ const MenuOne: React.FC<Props> = ({ props }) => {
 
     return (
         <>
-            <div className={`header-menu style-one ${fixedHeader ? 'fixed' : 'absolute'} top-0 left-0 right-0 w-full md:h-[74px] h-[56px] ${props}`}>
+            <div className={`header-menu style-one ${fixedHeader ? 'fixed' : 'absolute'} top-0 left-0 right-0 w-full md:h-[74px] h-[56px] ${background} ${text}`}>
                 <div className="container mx-auto h-full">
                     <div className="header-main flex justify-between h-full">
                         <div className="menu-mobile-icon lg:hidden flex items-center" onClick={handleMenuMobile}>
@@ -81,8 +95,6 @@ const MenuOne: React.FC<Props> = ({ props }) => {
                             </Link>
                             <div className="menu-main h-full max-lg:hidden">
                                 <ul className='flex items-center gap-8 h-full'>
-                                    
-                                    
                                     <li className='h-full'>
                                         <Link
                                             href="/shop"
@@ -90,42 +102,54 @@ const MenuOne: React.FC<Props> = ({ props }) => {
                                         >
                                             Shop
                                         </Link>
-                                
+
                                     </li>
-                                
+
                                     <li className='h-full relative'>
                                         <Link href="/blog" className={`text-button-uppercase duration-300 h-full flex items-center justify-center}`}>
                                             Blog
                                         </Link>
-                    
+
                                     </li>
-                                
+
                                 </ul>
                             </div>
                         </div>
                         <div className="right flex gap-12">
                             <div className="max-md:hidden search-icon flex items-center cursor-pointer relative">
-                                <Icon.MagnifyingGlass size={24} color='black' onClick={openModalSearch} />
+                                <Icon.MagnifyingGlass size={24} onClick={openModalSearch} />
                                 <div className="line absolute bg-line w-px h-6 -right-6"></div>
                             </div>
                             <div className="list-action flex items-center gap-4">
                                 <div className="user-icon flex items-center justify-center cursor-pointer">
-                                    <Icon.User size={24} color='black' onClick={handleLoginPopup} />
+                                    <Icon.User size={24} onClick={handleLoginPopup} />
                                     <div
-                                        className={`login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-small 
+                                        className={`login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-sandBeige box-shadow-small 
                                             ${openLoginPopup ? 'open' : ''}`}
                                     >
-                                        <Link href={'/login'} className="button-main w-full text-center">Login</Link>
-                                        <div className="text-secondary text-center mt-3 pb-4">Don’t have an account?
-                                            <Link href={'/register'} className='text-black pl-1 hover:underline'>Register</Link>
-                                        </div>
-                                        <div className="bottom pt-4 border-t border-line"></div>
-                                        <Link href={'#!'} className='body1 hover:underline'>Support</Link>
+                                        {
+                                            email === null &&
+                                            <div>
+                                                <Link href={'/login'} className={`button-main w-full text-center ${background} ${text}`}>Login</Link>
+                                                <div className="text-secondary text-center mt-3 pb-4">Don’t have an account?
+                                                    <Link href={'/register'} className={`text-black pl-1 hover:underline ${text}`}>Register</Link>
+                                                </div>
+                                            </div>
+                                        }
+                                        {
+                                            email !== null &&
+                                            <div>
+                                                <Link href={'/my-account'} className={`button-main w-full text-center ${background} ${text}`}>My Account</Link>
+                                                <button className={`button-main w-full text-center ${background} ${text} mt-3`} onClick={handleSignOut}>
+                                                    Sign out
+                                                </button>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
-                            
+
                                 <div className="cart-icon flex items-center relative cursor-pointer" onClick={openModalCart}>
-                                    <Icon.Handbag size={24} color='black' />
+                                    <Icon.Handbag size={24} />
                                     <span className="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-black w-4 h-4 flex items-center justify-center rounded-full">{cartState.cartArray.length}</span>
                                 </div>
                             </div>

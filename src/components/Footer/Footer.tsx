@@ -3,11 +3,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 
-const Footer = () => {
+interface Props {
+    background: string,
+    text: string
+}
+
+const Footer: React.FC<Props> = ({ background, text }) => {
     return (
         <>
             <div id="footer" className='footer pt-10'>
-                <div className="footer-main bg-surface">
+                <div className={`footer-main ${background} ${text}`}>
                     <div className="container">
                         <div className="content-footer py-[30px] flex justify-between flex-wrap gap-y-8">
                             <div className="company-infor basis-1/4 max-lg:basis-full pr-7">
@@ -37,7 +42,7 @@ const Footer = () => {
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Order  & Returns</Link>
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/faqs'}>FAQs</Link>
                                     </div>
-                                    
+
                                 </div>
                                 <div className="newsletter basis-1/3 pl-7 max-md:basis-full max-md:pl-0">
                                     <div className="text-button-uppercase">Newletter</div>
@@ -63,8 +68,8 @@ const Footer = () => {
                         </div>
                         <div className="footer-bottom py-3 flex items-center justify-between gap-5 max-lg:justify-center max-lg:flex-col border-t border-line">
                             <div className="left flex items-center gap-8">
-                                <div className="copyright caption1 text-secondary">©2023 Aquamarine. All Rights Reserved.</div>
-                                
+                                <div className="copyright caption1 text-white">©2024 Aquamarine. All Rights Reserved.</div>
+
                             </div>
                         </div>
                     </div>

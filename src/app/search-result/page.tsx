@@ -89,10 +89,8 @@ const SearchResult = () => {
 
     return (
         <>
-            <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
-                <MenuOne props="bg-transparent" />
-                <Breadcrumb heading='Search Result'/>
+                <Breadcrumb heading='Search Result' />
             </div>
             <div className="shop-product breadcrumb1 lg:py-20 md:py-14 py-10">
                 <div className="container">
@@ -137,7 +135,6 @@ const SearchResult = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     )
 }
