@@ -28,7 +28,7 @@ const Register = () => {
             console.log(response);
         } catch (error) {
             console.log(error);
-            setError('Something was wrong');
+            setError('Something was wrong ok');
         }
     }
 
