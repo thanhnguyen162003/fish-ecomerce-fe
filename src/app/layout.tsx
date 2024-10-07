@@ -30,15 +30,15 @@ export default function RootLayout({
   return (
     <GlobalProvider>
       <html lang="en">
-        <body className={`${instrument.className} bg-sandBeige`}>
-          <MenuOne background="bg-deepSeaBlue" text='text-sandBeige' />
+        <body className={`${instrument.className} bg-pearlWhite text-black`}>
+          <MenuOne background="bg-aquaBlue" text='text-pearlWhite' />
           {children}
           <ModalCart serverTimeLeft={serverTimeLeft} />
           <ModalWishlist />
           <ModalSearch />
           <ModalQuickview />
           <ModalCompare />
-          <Footer background="bg-deepSeaBlue" text='text-sandBeige' />
+          <Footer background="bg-aquaBlue" text='text-pearlWhite' />
         </body>
       </html>
     </GlobalProvider>

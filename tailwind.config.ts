@@ -23,7 +23,7 @@ const config: Config = {
     },
     colors: {
       transparent: 'transparent',
-      'green': '#D2EF9A',
+      'lightGreen': '#D2EF9A',
       'black': '#1F1F1F',
       'secondary': '#696C70',
       'secondary2': '#A0A0A0',
@@ -42,10 +42,12 @@ const config: Config = {
       'seaGreen': '#4CAF50',  // Màu xanh lá biển
       'coralPink': '#FF6F61', // Màu hồng san hô
       'sunlightYellow': '#FFD700', // Màu vàng ánh nắng
-      'aquaBlue': '#00CFFD',  // Màu xanh dương nhạt
+      'aquaBlue': '#2596be',  // Màu xanh dương nhạt
       'deepSeaBlue': '#0A2342', // Màu xanh đậm
       'pearlWhite': '#F1F1F1', // Màu trắng ngọc trai
       'sandBeige': '#C2B280',  // Màu cát
+      'green': '#80C67D',
+      'brown': '#808080',
     },
   },
   plugins: [],
