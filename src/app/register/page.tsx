@@ -41,9 +41,7 @@ const Register = () => {
             }
         } catch (error) {
             console.log(error);
-            setError('Something was wrong');
-        } finally {
-            setIsPending(false)
+            setError('Something was wrong ok');
         }
     }
 
