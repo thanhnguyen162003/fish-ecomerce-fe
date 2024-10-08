@@ -26,7 +26,7 @@ const Register = () => {
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         if (password != confirmPassword) {
-            setError("Password and confirm password is not match!!!")
+            setError("Password and confirm password is not match")
             return;
         }
         try {
