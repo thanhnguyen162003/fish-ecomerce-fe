@@ -1,4 +1,4 @@
-import { FishProductType } from "@/type/FishProductType";
+import { FishProductType } from "@/type/ProductType";
 import axios from "axios";
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 

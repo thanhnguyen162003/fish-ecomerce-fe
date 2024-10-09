@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { ProductType } from '@/type/ProductType'
+import { ProductType } from '@/type/ExProductType'
 import Rate from '../Other/Rate'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { useCart } from '@/context/CartContext'

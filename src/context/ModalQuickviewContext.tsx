@@ -2,7 +2,7 @@
 
 // ModalQuickviewContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { ProductType } from '@/type/ProductType';
+import { ProductType } from '@/type/ExProductType';
 
 interface ModalQuickviewContextProps {
     children: ReactNode;

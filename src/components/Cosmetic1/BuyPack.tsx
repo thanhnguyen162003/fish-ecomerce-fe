@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { useCart } from '@/context/CartContext'
 import { useModalCartContext } from '@/context/ModalCartContext'
 import productData from '@/data/Product.json'
-import { ProductType } from '@/type/ProductType'
+import { ProductType } from '@/type/ExProductType'
 
 const BuyPack = () => {
     const router = useRouter()

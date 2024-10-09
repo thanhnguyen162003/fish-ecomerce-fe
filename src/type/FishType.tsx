@@ -1,4 +1,5 @@
 export interface FishType {
+    productId: string;
     breedId: string;
     size?: number;
     age?: number;

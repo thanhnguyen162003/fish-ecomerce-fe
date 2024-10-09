@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-import { ProductType } from '@/type/ProductType'
+import { ProductType } from '@/type/ExProductType'
 import { useRouter } from 'next/navigation'
 
 interface Props {

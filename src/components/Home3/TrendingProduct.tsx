@@ -1,6 +1,6 @@
 import React from 'react'
 import Product from '../Product/Product'
-import { ProductType } from '@/type/ProductType'
+import { ProductType } from '@/type/ExProductType'
 
 interface Props {
     data: Array<ProductType>;

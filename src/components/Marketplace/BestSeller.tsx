@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ProductType } from '@/type/ProductType';
+import { ProductType } from '@/type/ExProductType';
 import { motion } from 'framer-motion'
 import Product from '../Product/Product';
 
