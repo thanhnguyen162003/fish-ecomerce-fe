@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Instrument_Sans } from 'next/font/google'
+import { Noto_Sans_JP } from 'next/font/google'
 import '@/styles/styles.scss'
 import GlobalProvider from './GlobalProvider'
 import ModalCart from '@/components/Modal/ModalCart'
@@ -15,7 +15,10 @@ import MenuOne from '@/components/Header/Menu/MenuOne'
 
 const serverTimeLeft: CountdownTimeType = countdownTime();
 
-const instrument = Instrument_Sans({ subsets: ['latin'] })
+const pacifico = Noto_Sans_JP({
+  subsets: ['latin', 'vietnamese'],
+  weight: '400'
+})
 
 export const metadata: Metadata = {
   title: 'Aquamarine',
@@ -30,7 +33,7 @@ export default function RootLayout({
   return (
     <GlobalProvider>
       <html lang="en">
-        <body className={`${instrument.className} bg-pearlWhite text-black`}>
+        <body className={`${pacifico.className} bg-pearlWhite text-black`}>
           <MenuOne background="bg-aquaBlue" text='text-pearlWhite' />
           {children}
           <ModalCart serverTimeLeft={serverTimeLeft} />
