@@ -1,6 +1,10 @@
+import { AwardType } from "./AwardType";
+import { BreedType } from "./BreedType";
+
 export interface FishType {
-    productId: string;
-    breedId: string;
+    id:string;
+    productId?: string;
+    breed?: BreedType;
     size?: number;
     age?: number;
     origin?: string;
@@ -9,4 +13,5 @@ export interface FishType {
     weight?: number;
     health?: string;
     dateOfBirth?: string;
+    awards?:AwardType[]
 }

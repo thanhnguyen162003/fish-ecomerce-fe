@@ -9,13 +9,13 @@ import productData from '@/data/Product.json'
 import Footer from '@/components/Footer/Footer'
 import ShopBreadCrumb2 from '@/components/Shop/ShopBreadCrumb2';
 import handleGetFishProduct from '@/components/api/products';
-import { FishProductType } from '@/type/ProductType';
+import { ProductType } from '@/type/ProductType';
 
 export default function BreadcrumbImg() {
     const searchParams = useSearchParams()
     const type = searchParams.get('type')
 
-    const [fishProduct, setFishProduct] = useState<FishProductType[]>([])
+    const [fishProduct, setFishProduct] = useState<ProductType[]>([])
     const [totalCount, setTotalCount] = useState('')
     const [pageSize, setPageSize] = useState(12)
     const [pageNumber, setPageNumber] = useState(1)
@@ -28,9 +28,9 @@ export default function BreadcrumbImg() {
         async function fetchData() {
             try {
                 const products = await handleGetFishProduct(12, 1);
-                console.log('handleGetFishProduct: ', products as FishProductType[]);
+                console.log('handleGetFishProduct: ', products as ProductType[]);
 
-                setFishProduct(products as FishProductType[]);
+                setFishProduct(products as ProductType[]);
             } catch (error) {
                 console.error('Error fetching fish products:', error);
             }

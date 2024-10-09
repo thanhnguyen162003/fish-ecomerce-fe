@@ -6,4 +6,5 @@ export interface AwardType{
     name: string;
     description: string;
     award_date:string;
+    image?:string|null
 }

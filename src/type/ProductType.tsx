@@ -1,11 +1,18 @@
 import { FishType } from "./FishType";
+import { TankType } from "./TankType";
 
-export interface FishProductType {
+export interface ProductType {
+    id:string,
     name?: string,
+    slug?: string,
     description?: string,
     descriptionDetail?: string,
+    type?:string
+    supplierId?:string|null,
     stockQuantity?: number,
+    sold?:boolean|null,
     price?: number,
     originalPrice?: number,
-    fishModel?: FishType
+    fish?: FishType,
+    tank?: TankType
 }

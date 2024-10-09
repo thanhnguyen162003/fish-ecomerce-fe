@@ -8,7 +8,6 @@ import Product from '../Product/Product';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'
 import HandlePagination from '../Other/HandlePagination';
-import { FishProductType } from '@/type/ProductType';
 
 interface Props {
     data: Array<ExProductType>;
