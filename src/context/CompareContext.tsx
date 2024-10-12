@@ -2,7 +2,7 @@
 
 // CompareContext.tsx
 import React, { createContext, useContext, useState, useReducer, useEffect } from 'react';
-import { ProductType } from '@/type/ExProductType';
+import { ProductType } from '@/type/ProductType';
 
 interface CompareItem extends ProductType {
 }

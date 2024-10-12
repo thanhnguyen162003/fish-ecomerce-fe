@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image' 
 import Link from 'next/link'
-import { ExProductType } from '@/type/ExProductType'
+import { ProductType } from '@/type/ProductType'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { useCart } from '@/context/CartContext'
 import { useModalCartContext } from '@/context/ModalCartContext'
@@ -17,7 +17,7 @@ import Marquee from 'react-fast-marquee'
 import Rate from '../Other/Rate'
 
 interface ProductProps {
-    data: ExProductType
+    data: ProductType
     type: string
 }
 
@@ -45,9 +45,9 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
     const handleAddToCart = () => {
         if (!cartState.cartArray.find(item => item.id === data.id)) {
             // addToCart({ ...data });
-            updateCart(data.id, data.quantityPurchase, activeSize, activeColor)
+            updateCart(data.id, 1, activeSize, activeColor)
         } else {
-            updateCart(data.id, data.quantityPurchase, activeSize, activeColor)
+            updateCart(data.id, 1, activeSize, activeColor)
         }
         openModalCart()
     };
