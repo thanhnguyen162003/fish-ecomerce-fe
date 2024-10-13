@@ -262,7 +262,7 @@ export default function BreadcrumbImg() {
                           defaultValue={"9"}
                         >
                           {[3, 6, 9, 12, 24, 48].map((i, index) => (
-                            <option value={i}>{i}</option>
+                            <option key={index} value={i}>{i}</option>
                           ))}
                         </select>
                         <Icon.CaretDown
@@ -378,13 +378,15 @@ export default function BreadcrumbImg() {
                   {breed && <div>{breed.description}</div>}
 
                   <div className="list-product hide-product-sold grid lg:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-[20px] mt-7">
-                    {products.map((item) =>
+                    {products.map((item, index) =>
                       item.id === "no-data" ? (
                         <div key={item.id} className="no-data-product">
                           No products match the selected criteria.
                         </div>
                       ) : (
-                        <div className="product-item grid-type">
+                        <div 
+                        key={index}
+                        className="product-item grid-type">
                           <div
                             onClick={() => handleDetailProduct(item.id)}
                             className="product-main cursor-pointer block"
