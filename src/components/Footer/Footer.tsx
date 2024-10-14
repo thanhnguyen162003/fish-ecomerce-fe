@@ -11,7 +11,7 @@ interface Props {
 const Footer: React.FC<Props> = ({ background, text }) => {
     return (
         <>
-            <div id="footer" className='footer pt-10'>
+            <footer id="footer" className='footer pt-10'>
                 <div className={`footer-main ${background} ${text}`}>
                     <div className="container">
                         <div className="content-footer py-[30px] flex justify-between flex-wrap gap-y-8">
@@ -74,7 +74,7 @@ const Footer: React.FC<Props> = ({ background, text }) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </footer>
         </>
     )
 }
