@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation'
 import { useCart } from '@/context/CartContext'
 import { useModalCartContext } from '@/context/ModalCartContext'
 import productData from '@/data/Product.json'
-import { ProductType } from '@/type/ExProductType'
 
 const BuyPack = () => {
     const router = useRouter()
@@ -15,21 +14,6 @@ const BuyPack = () => {
     const { openModalCart } = useModalCartContext()
 
     const handleAddToCart = () => {
-        if (!cartState.cartArray.find(item => item.id === '123')) {
-            addToCart(productData.find(item => item.id === '123') as ProductType)
-            updateCart('123', 1, '', '')
-        }
-
-        if (!cartState.cartArray.find(item => item.id === '124')) {
-            addToCart(productData.find(item => item.id === '124') as ProductType)
-            updateCart('124', 1, '', '')
-        }
-
-        if (!cartState.cartArray.find(item => item.id === '125')) {
-            addToCart(productData.find(item => item.id === '125') as ProductType)
-            updateCart('125', 1, '', '')
-        }
-
         openModalCart()
     };
 

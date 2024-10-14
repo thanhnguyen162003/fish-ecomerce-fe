@@ -32,19 +32,19 @@ const ModalWishlist = () => {
                             <div key={product.id} className='item py-5 flex items-center justify-between gap-3 border-b border-line'>
                                 <div className="infor flex items-center gap-5">
                                     <div className="bg-img">
-                                        <Image
+                                        {/* <Image
                                             src={product.images[0]}
                                             width={300}
                                             height={300}
                                             alt={product.name}
                                             className='w-[100px] aspect-square flex-shrink-0 rounded-lg'
-                                        />
+                                        /> */}
                                     </div>
                                     <div className=''>
                                         <div className="name text-button">{product.name}</div>
                                         <div className="flex items-center gap-2 mt-2">
                                             <div className="product-price text-title">${product.price}.00</div>
-                                            <div className="product-origin-price text-title text-secondary2"><del>${product.originPrice}.00</del></div>
+                                            {/* <div className="product-origin-price text-title text-secondary2"><del>${product.originPrice}.00</del></div> */}
                                         </div>
                                     </div>
                                 </div>

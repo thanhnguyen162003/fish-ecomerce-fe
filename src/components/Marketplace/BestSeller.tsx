@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ProductType } from '@/type/ExProductType';
+import { ExProductType } from '@/type/ExProductType';
 import { motion } from 'framer-motion'
 import Product from '../Product/Product';
 
 interface Props {
-    data: Array<ProductType>;
+    data: Array<ExProductType>;
     start: number;
     limit: number;
 }

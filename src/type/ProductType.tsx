@@ -13,9 +13,9 @@ export interface ProductType {
     stockQuantity: number,
     sold?:boolean|null,
     price: number,
-    originalPrice: number,
+    original_price: number,
     images: ImageType[]
     fish?: FishType,
     tank?: TankType,
-    quantityPurchase?: number|0|undefined
+    quantityPurchase?: number|0|undefined|null
 }

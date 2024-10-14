@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ProductType } from '@/type/ProductType'
+import { ExProductType } from '@/type/ExProductType'
 import Product from '../Product'
 import Rate from '@/components/Other/Rate'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,6 +18,7 @@ import { useModalWishlistContext } from '@/context/ModalWishlistContext'
 import { useCompare } from '@/context/CompareContext'
 import { useModalCompareContext } from '@/context/ModalCompareContext'
 import ModalSizeguide from '@/components/Modal/ModalSizeguide'
+import productData from '@/data/Product.json'
 
 SwiperCore.use([Navigation, Thumbs]);
 
@@ -40,12 +41,14 @@ const Default: React.FC<Props> = ({ productId }) => {
     const { openModalWishlist } = useModalWishlistContext()
     const { addToCompare, removeFromCompare, compareState } = useCompare();
     const { openModalCompare } = useModalCompareContext()
-    let productMain = data.find(product => product.id === productId) as ProductType
+    let data = productData
+    let productMain = data.find(product => product.id === productId) as ExProductType
     if (productMain === undefined) {
         productMain = data[0]
     }
 
     const percentSale = Math.floor(100 - ((productMain?.price / productMain?.originPrice) * 100))
+console.log("Detail/Default");
 
     const handleOpenSizeGuide = () => {
         setOpenSizeGuide(true);
@@ -93,7 +96,7 @@ const Default: React.FC<Props> = ({ productId }) => {
 
     const handleAddToCart = () => {
         if (!cartState.cartArray.find(item => item.id === productMain.id)) {
-            addToCart({ ...productMain });
+            // addToCart({ ...productMain });
             updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
         } else {
             updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
@@ -107,7 +110,7 @@ const Default: React.FC<Props> = ({ productId }) => {
             removeFromWishlist(productMain.id);
         } else {
             // else, add to wishlist and set state to true
-            addToWishlist(productMain);
+            // addToWishlist(productMain);
         }
         openModalWishlist();
     };
@@ -119,7 +122,7 @@ const Default: React.FC<Props> = ({ productId }) => {
                 removeFromCompare(productMain.id);
             } else {
                 // else, add to wishlist and set state to true
-                addToCompare(productMain);
+                // addToCompare(productMain);
             }
         } else {
             alert('Compare up to 3 products')
@@ -496,11 +499,11 @@ const Default: React.FC<Props> = ({ productId }) => {
                                     }}
                                     className='pb-4'
                                 >
-                                    {data.filter(item => item.action !== 'quick shop').slice(0, 5).map(product => (
+                                    {/* {data.filter(item => item.action !== 'quick shop').slice(0, 5).map(product => (
                                         <SwiperSlide key={product.id}>
                                             <Product data={product} type='grid' />
                                         </SwiperSlide>
-                                    ))}
+                                    ))} */}
                                 </Swiper>
                             </div>
                         </div>
@@ -1004,7 +1007,7 @@ const Default: React.FC<Props> = ({ productId }) => {
                         </div>
                     </div>
                 </div>
-                <div className="related-product md:py-20 py-10">
+                {/* <div className="related-product md:py-20 py-10">
                     <div className="container">
                         <div className="heading3 text-center">Related Products</div>
                         <div className="list-product hide-product-sold  grid lg:grid-cols-4 grid-cols-2 md:gap-[30px] gap-5 md:mt-10 mt-6">
@@ -1013,7 +1016,7 @@ const Default: React.FC<Props> = ({ productId }) => {
                             ))}
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     )

@@ -6,7 +6,7 @@ import TopNavOne from '@/components/Header/TopNav/TopNavOne'
 import MenuOne from '@/components/Header/Menu/MenuOne'
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
 import Footer from '@/components/Footer/Footer'
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import productData from '@/data/Product.json'
 import Product from '@/components/Product/Product'
 import HandlePagination from '@/components/Other/HandlePagination'
@@ -74,7 +74,7 @@ const SearchResult = () => {
     }
 
     // Get product data for current page
-    let currentProducts: ProductType[];
+    let currentProducts: ExProductType[];
 
     if (filteredData.length > 0) {
         currentProducts = filteredData.slice(offset, offset + productsPerPage);

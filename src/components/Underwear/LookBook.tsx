@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import Product from '../Product/Product';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -12,7 +12,7 @@ import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { useRouter } from 'next/navigation'
 
 interface Props {
-    data: Array<ProductType>;
+    data: Array<ExProductType>;
 }
 
 const LookBook: React.FC<Props> = ({ data }) => {

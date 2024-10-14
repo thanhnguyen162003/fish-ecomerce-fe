@@ -2,24 +2,24 @@
 
 // ModalQuickviewContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { ProductType } from '@/type/ExProductType';
+import { ExProductType } from '@/type/ExProductType';
 
 interface ModalQuickviewContextProps {
     children: ReactNode;
 }
 
 interface ModalQuickviewContextValue {
-    selectedProduct: ProductType | null;
-    openQuickview: (product: ProductType) => void;
+    selectedProduct: ExProductType | null;
+    openQuickview: (product: ExProductType) => void;
     closeQuickview: () => void;
 }
 
 const ModalQuickviewContext = createContext<ModalQuickviewContextValue | undefined>(undefined);
 
 export const ModalQuickviewProvider: React.FC<ModalQuickviewContextProps> = ({ children }) => {
-    const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<ExProductType | null>(null);
 
-    const openQuickview = (product: ProductType) => {
+    const openQuickview = (product: ExProductType) => {
         setSelectedProduct(product);
     };
 

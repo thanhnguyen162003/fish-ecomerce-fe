@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import productData from '@/data/Product.json'
-import { ProductType } from '@/type/ExProductType';
+import { ExProductType } from '@/type/ExProductType';
 import { useModalCartContext } from '@/context/ModalCartContext'
 import { useCart } from '@/context/CartContext'
 import { countdownTime } from '@/store/countdownTime'
@@ -26,9 +26,9 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
     const { isModalOpen, closeModalCart } = useModalCartContext();
     const { cartState, addToCart, removeFromCart, updateCart } = useCart()
 
-    const handleAddToCart = (productItem: ProductType) => {
+    const handleAddToCart = (productItem: ExProductType) => {
         if (!cartState.cartArray.find(item => item.id === productItem.id)) {
-            addToCart({ ...productItem });
+            // addToCart({ ...productItem });
             updateCart(productItem.id, productItem.quantityPurchase, '', '')
         } else {
             updateCart(productItem.id, productItem.quantityPurchase, '', '')
@@ -122,13 +122,13 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                                 <div key={product.id} className='item py-5 flex items-center justify-between gap-3 border-b border-line'>
                                     <div className="infor flex items-center gap-3 w-full">
                                         <div className="bg-img w-[100px] aspect-square flex-shrink-0 rounded-lg overflow-hidden">
-                                            <Image
+                                            {/* <Image
                                                 src={product.images[0]}
                                                 width={300}
                                                 height={300}
                                                 alt={product.name}
                                                 className='w-full h-full'
-                                            />
+                                            /> */}
                                         </div>
                                         <div className='w-full'>
                                             <div className="flex items-center justify-between w-full">
@@ -142,7 +142,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                                             </div>
                                             <div className="flex items-center justify-between gap-2 mt-3 w-full">
                                                 <div className="flex items-center text-secondary2 capitalize">
-                                                    {product.selectedSize || product.sizes[0]}/{product.selectedColor || product.variation[0].color}
+                                                    {/* {product.selectedSize || product.sizes[0]}/{product.selectedColor || product.variation[0].color} */}
                                                 </div>
                                                 <div className="product-price text-title">${product.price}.00</div>
                                             </div>

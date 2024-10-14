@@ -3,7 +3,7 @@
 // Quickview.tsx
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ProductType } from '@/type/ExProductType';
+import { ExProductType } from '@/type/ExProductType';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { useModalQuickviewContext } from '@/context/ModalQuickviewContext';
 import { useCart } from '@/context/CartContext';
@@ -63,7 +63,7 @@ const ModalQuickview = () => {
     const handleAddToCart = () => {
         if (selectedProduct) {
             if (!cartState.cartArray.find(item => item.id === selectedProduct.id)) {
-                addToCart({ ...selectedProduct });
+                // addToCart({ ...selectedProduct });
                 updateCart(selectedProduct.id, selectedProduct.quantityPurchase, activeSize, activeColor)
             } else {
                 updateCart(selectedProduct.id, selectedProduct.quantityPurchase, activeSize, activeColor)
@@ -80,7 +80,7 @@ const ModalQuickview = () => {
                 removeFromWishlist(selectedProduct.id);
             } else {
                 // else, add to wishlist and set state to true
-                addToWishlist(selectedProduct);
+                // addToWishlist(selectedProduct);
             }
         }
         openModalWishlist();
@@ -94,7 +94,7 @@ const ModalQuickview = () => {
                     removeFromCompare(selectedProduct.id);
                 } else {
                     // else, add to wishlist and set state to true
-                    addToCompare(selectedProduct);
+                    // addToCompare(selectedProduct);
                 }
             } else {
                 alert('Compare up to 3 products')
@@ -113,7 +113,7 @@ const ModalQuickview = () => {
                     <div className="flex h-full max-md:flex-col-reverse gap-y-6">
                         <div className="left lg:w-[388px] md:w-[300px] flex-shrink-0 px-6">
                             <div className="list-img max-md:flex items-center gap-4">
-                                {selectedProduct?.images.map((item, index) => (
+                                {selectedProduct?.images.map((item:any, index:number) => (
                                     <div className="bg-img w-full aspect-[3/4] max-md:w-[150px] max-md:flex-shrink-0 rounded-[20px] overflow-hidden md:mt-6" key={index}>
                                         <Image
                                             src={item}
@@ -177,7 +177,7 @@ const ModalQuickview = () => {
                                     <div className="choose-color">
                                         <div className="text-title">Colors: <span className='text-title color'>{activeColor}</span></div>
                                         <div className="list-color flex items-center gap-2 flex-wrap mt-3">
-                                            {selectedProduct?.variation.map((item, index) => (
+                                            {selectedProduct?.variation.map((item:any, index:number) => (
                                                 <div
                                                     className={`color-item w-12 h-12 rounded-xl duration-300 relative ${activeColor === item.color ? 'active' : ''}`}
                                                     key={index}
@@ -212,7 +212,7 @@ const ModalQuickview = () => {
                                             <ModalSizeguide data={selectedProduct} isOpen={openSizeGuide} onClose={handleCloseSizeGuide} />
                                         </div>
                                         <div className="list-size flex items-center gap-2 flex-wrap mt-3">
-                                            {selectedProduct?.sizes.map((item, index) => (
+                                            {selectedProduct?.sizes.map((item:any, index:number) => (
                                                 <div
                                                     className={`size-item ${item === 'freesize' ? 'px-3 py-2' : 'w-12 h-12'} flex items-center justify-center text-button rounded-full bg-white border border-line ${activeSize === item ? 'active' : ''}`}
                                                     key={index}

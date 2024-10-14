@@ -32,13 +32,13 @@ const ModalCompare = () => {
                                     <div key={product.id} className='item p-3 border border-line rounded-xl relative'>
                                         <div className="infor flex items-center gap-4">
                                             <div className="bg-img w-[100px] h-[100px] flex-shrink-0 rounded-lg overflow-hidden">
-                                                <Image
+                                                {/* <Image
                                                     src={product.images[0]}
                                                     width={500}
                                                     height={500}
                                                     alt={product.name}
                                                     className='w-full h-full'
-                                                />
+                                                /> */}
                                             </div>
                                             <div className=''>
                                                 <div className="name text-title">{product.name}</div>

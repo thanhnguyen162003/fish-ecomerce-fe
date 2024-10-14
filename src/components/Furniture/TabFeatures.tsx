@@ -3,11 +3,11 @@
 import React, { useState } from 'react'
 import 'swiper/css/bundle';
 import Product from '../Product/Product'
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import { motion } from 'framer-motion'
 
 interface Props {
-    data: Array<ProductType>;
+    data: Array<ExProductType>;
     start: number;
     limit: number;
 }

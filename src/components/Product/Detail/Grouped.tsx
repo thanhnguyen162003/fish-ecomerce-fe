@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import Product from '../Product'
 import Rate from '@/components/Other/Rate'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -21,7 +21,7 @@ import { useModalCompareContext } from '@/context/ModalCompareContext'
 SwiperCore.use([Navigation, Thumbs]);
 
 interface Props {
-    data: Array<ProductType>
+    data: Array<ExProductType>
     productId: string | number | null
 }
 
@@ -41,7 +41,7 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
     const { openModalWishlist } = useModalWishlistContext()
     const { addToCompare, removeFromCompare, compareState } = useCompare();
     const { openModalCompare } = useModalCompareContext()
-    let productMain = data.find(product => product.id === productId) as ProductType
+    let productMain = data.find(product => product.id === productId) as ExProductType
     if (productMain === undefined) {
         productMain = data[0]
     }
@@ -71,10 +71,10 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
     const handleAddToCart = () => {
         if (!cartState.cartArray
             .find(item => item.id === productMain.id || item.id === data[Number(productId)].id || item.id === data[Number(productId) + 1].id || item.id === data[Number(productId) + 2].id)) {
-            addToCart(productMain);
-            addToCart(data[Number(productId)]);
-            addToCart(data[Number(productId) + 1]);
-            addToCart(data[Number(productId) + 2]);
+            // addToCart(productMain);
+            // addToCart(data[Number(productId)]);
+            // addToCart(data[Number(productId) + 1]);
+            // addToCart(data[Number(productId) + 2]);
             updateCart(productMain.id, quantity.id, activeSize, activeColor)
             updateCart(data[Number(productId)].id, quantity.id, activeSize, activeColor)
             updateCart(data[Number(productId) + 1].id, quantity.id, activeSize, activeColor)
@@ -89,7 +89,7 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
             removeFromWishlist(productMain.id);
         } else {
             // else, add to wishlist and set state to true
-            addToWishlist(productMain);
+            // addToWishlist(productMain);
         }
         openModalWishlist();
     };
@@ -101,7 +101,7 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
                 removeFromCompare(productMain.id);
             } else {
                 // else, add to wishlist and set state to true
-                addToCompare(productMain);
+                // addToCompare(productMain);
             }
         } else {
             alert('Compare up to 3 products')

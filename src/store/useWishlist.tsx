@@ -1,15 +1,15 @@
 // useWishlist.ts
 import { useState } from 'react';
-import { ProductType } from '@/type/ExProductType';
+import { ExProductType } from '@/type/ExProductType';
 
 interface WishlistItem {
-    product: Array<ProductType>
+    product: Array<ExProductType>
 }
 
 const useWishlist = () => {
     const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
 
-    const addToWishlist = (product: Array<ProductType>) => {
+    const addToWishlist = (product: Array<ExProductType>) => {
         const newItem: WishlistItem = {
             product,
         };

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import handleGetFishProduct from "@/components/api/products/fishproduct";
 import { ProductType } from "@/type/ProductType";
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-import Product from "@/components/Product/Product";
+import Product from "@/components/Product/NewProduct";
 import HandlePagination from "@/components/Other/HandlePagination";
 import Slider from "rc-slider";
 import hanldeGetBreed from "@/components/api/products/breed";
@@ -15,6 +15,7 @@ import handleGetTankProduct from "@/components/api/products/tankproduct";
 import axios, { AxiosResponse } from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Category from "@/components/Organic/Category";
 
 export default function BreadcrumbImg() {
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -94,7 +95,7 @@ export default function BreadcrumbImg() {
           PageSize: pageSize,
           PageNumber: pageNumber,
           ...(search && { Search: search }),
-          ...(category && { Breed: category }),
+          ...(category && { Category: category }),
           ...(sort && { Sort: sort }),
           ...(direction && { Direction: direction }),
         },
@@ -211,8 +212,8 @@ export default function BreadcrumbImg() {
     <>
       {loading && (
         <div className="breadcrumb-block style-img">
-          <div className="breadcrumb-main bg-white overflow-hidden">
-            <div className="container lg:pt-[134px] pt-24 relative">
+          <div className="breadcrumb-main overflow-hidden">
+            <div className="container lg:pt-[100px] relative">
               <div className="main-content w-full h-full flex flex-col items-center justify-center relative z-[1]">
                 <div className="text-content">
                   <div className="heading2 text-center">Đang tải...</div>
@@ -226,7 +227,7 @@ export default function BreadcrumbImg() {
       {!loading && (
         <>
           <div className="breadcrumb-block style-img">
-            <div className="breadcrumb-main bg-white overflow-hidden">
+            <div className="breadcrumb-main overflow-hidden">
               <div className="container lg:pt-[100px] relative">
                 <div className="main-content w-full h-full flex flex-col items-center justify-center relative z-[1]">
                   <div className="text-content">
@@ -378,47 +379,16 @@ export default function BreadcrumbImg() {
                   {breed && <div>{breed.description}</div>}
 
                   <div className="list-product hide-product-sold grid lg:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-[20px] mt-7">
-                    {products.map((item, index) =>
-                      item.id === "no-data" ? (
-                        <div key={item.id} className="no-data-product">
-                          No products match the selected criteria.
-                        </div>
-                      ) : (
-                        <div 
-                        key={index}
-                        className="product-item grid-type">
-                          <div
-                            onClick={() => handleDetailProduct(item.id)}
-                            className="product-main cursor-pointer block"
-                          >
-                            {item.images[0] && (
-                              <Image
-                                className="rounded-t-lg"
-                                src={item.images[0].link}
-                                alt="product image"
-                                width={500}
-                                height={500}
-                              />
-                            )}
-                            <div className="p-5">
-                              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                                {item.name}
-                              </h5>
-                              <p className="mb-3 font-normal text-gray-700">
-                                {item.description}
-                              </p>
-                              <a
-                                href="#"
-                                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800"
-                              >
-                                Buy Now
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    )}
-                  </div>
+                {products.map((item) =>
+                  item.id === "no-data" ? (
+                    <div key={item.id} className="no-data-product">
+                      No products match the selected criteria.
+                    </div>
+                  ) : (
+                    <Product key={item.id} data={item} type="grid" />
+                  )
+                )}
+              </div>
 
                   {pageCount > 1 && (
                     <div className="list-pagination flex items-center md:mt-10 mt-7">
@@ -512,7 +482,7 @@ export default function BreadcrumbImg() {
                                   htmlFor={item.id}
                                   className="brand-name capitalize pl-2 cursor-pointer"
                                 >
-                                  {item.tank_type}
+                                  {item.tank_type} - {item.level}
                                 </label>
                               </div>
                             </div>
@@ -525,7 +495,7 @@ export default function BreadcrumbImg() {
                     <div className="filter-color pb-8 border-b border-gray-300 mt-8">
                       <div className="heading6">Breed</div>
                       <div className="list-color flex items-center flex-wrap gap-3 gap-y-4 mt-4">
-                        {breeds !== null &&
+                        {breeds &&
                           breeds.map((item, index) => (
                             <div
                               key={index}

@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import Product from '../Product/Product'
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import Rate from '../Other/Rate'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Scrollbar } from 'swiper/modules';
@@ -15,7 +15,7 @@ import ModalSizeguide from '../Modal/ModalSizeguide'
 import { useSwiper } from 'swiper/react';
 
 interface Props {
-    data: Array<ProductType>;
+    data: Array<ExProductType>;
 }
 
 const BestSaleProduct: React.FC<Props> = ({ data }) => {
@@ -69,7 +69,7 @@ const BestSaleProduct: React.FC<Props> = ({ data }) => {
 
     const handleAddToCart = () => {
         if (!cartState.cartArray.find(item => item.id === productMain.id)) {
-            addToCart({ ...productMain });
+            // addToCart({ ...productMain });
             updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
         } else {
             updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)

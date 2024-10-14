@@ -3,7 +3,7 @@
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import Product from '../Product'
 import Rate from '@/components/Other/Rate'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -22,7 +22,7 @@ import ModalSizeguide from '@/components/Modal/ModalSizeguide'
 SwiperCore.use([Navigation, Thumbs]);
 
 interface Props {
-    data: Array<ProductType>
+    data: Array<ExProductType>
     productId: string | number | null
 }
 
@@ -41,7 +41,7 @@ const OutOfStock: React.FC<Props> = ({ data, productId }) => {
     const { openModalWishlist } = useModalWishlistContext()
     const { addToCompare, removeFromCompare, compareState } = useCompare();
     const { openModalCompare } = useModalCompareContext()
-    let productMain = data.find(product => product.id === productId) as ProductType
+    let productMain = data.find(product => product.id === productId) as ExProductType
     if (productMain === undefined) {
         productMain = data[0]
     }
@@ -83,7 +83,7 @@ const OutOfStock: React.FC<Props> = ({ data, productId }) => {
 
     const handleAddToCart = () => {
         if (!cartState.cartArray.find(item => item.id === productMain.id)) {
-            addToCart({ ...productMain });
+            // addToCart({ ...productMain });
             updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
         } else {
             updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
@@ -96,7 +96,7 @@ const OutOfStock: React.FC<Props> = ({ data, productId }) => {
             removeFromWishlist(productMain.id);
         } else {
             // else, add to wishlist and set state to true
-            addToWishlist(productMain);
+            // addToWishlist(productMain);
         }
         openModalWishlist();
     };
@@ -108,7 +108,7 @@ const OutOfStock: React.FC<Props> = ({ data, productId }) => {
                 removeFromCompare(productMain.id);
             } else {
                 // else, add to wishlist and set state to true
-                addToCompare(productMain);
+                // addToCompare(productMain);
             }
         } else {
             alert('Compare up to 3 products')

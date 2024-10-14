@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import Rate from '../Other/Rate'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { useCart } from '@/context/CartContext'
@@ -10,7 +10,7 @@ import { useModalCartContext } from '@/context/ModalCartContext'
 import SwiperCore from 'swiper/core';
 
 interface Props {
-    data: Array<ProductType>;
+    data: Array<ExProductType>;
 }
 
 const FeaturedProduct: React.FC<Props> = ({ data }) => {
@@ -36,7 +36,7 @@ const FeaturedProduct: React.FC<Props> = ({ data }) => {
 
     const handleAddToCart = () => {
         if (!cartState.cartArray.find(item => item.id === productMain.id)) {
-            addToCart({ ...productMain });
+            // addToCart({ ...productMain });
             updateCart(productMain.id, productMain.quantityPurchase, activeSize, '')
         } else {
             updateCart(productMain.id, productMain.quantityPurchase, activeSize, '')

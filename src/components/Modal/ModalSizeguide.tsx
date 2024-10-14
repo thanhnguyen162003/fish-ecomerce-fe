@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 // import Slider from 'react-slider'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'
 
 interface Props {
-    data: ProductType | null;
+    data: ExProductType | null;
     isOpen: boolean;
     onClose: () => void;
 }

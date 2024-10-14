@@ -2,13 +2,13 @@
 
 import React, { useState } from 'react'
 import Product from '../Product/Product'
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 
 interface Props {
-    data: Array<ProductType>;
+    data: Array<ExProductType>;
     start: number;
     limit: number;
 }

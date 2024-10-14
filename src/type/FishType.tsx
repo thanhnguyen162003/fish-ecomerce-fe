@@ -4,7 +4,7 @@ import { BreedType } from "./BreedType";
 export interface FishType {
     id:string;
     productId?: string;
-    breed?: BreedType;
+    breed: BreedType;
     size?: number;
     age?: number;
     origin?: string;

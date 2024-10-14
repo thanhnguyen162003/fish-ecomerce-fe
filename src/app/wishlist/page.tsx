@@ -4,8 +4,8 @@ import TopNavOne from '@/components/Header/TopNav/TopNavOne'
 import MenuOne from '@/components/Header/Menu/MenuOne'
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
 import Footer from '@/components/Footer/Footer'
-import { ProductType } from '@/type/ExProductType'
-import Product from '@/components/Product/Product'
+import { ProductType } from '@/type/ProductType'
+import Product from '@/components/Product/NewProduct'
 import { useWishlist } from '@/context/WishlistContext'
 import HandlePagination from '@/components/Other/HandlePagination'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
@@ -48,26 +48,18 @@ const Wishlist = () => {
     if (filteredData.length === 0) {
         filteredData = [{
             id: 'no-data',
-            category: 'no-data',
-            type: 'no-data',
             name: 'no-data',
-            gender: 'no-data',
-            new: false,
-            sale: false,
-            rate: 0,
-            price: 0,
-            originPrice: 0,
-            brand: 'no-data',
-            sold: 0,
-            quantity: 0,
-            quantityPurchase: 0,
-            sizes: [],
-            variation: [],
-            thumbImage: [],
-            images: [],
+            type: 'no-data',
+            slug: 'no-data',
+            descriptionDetail: 'no-data',
             description: 'no-data',
-            action: 'no-data',
-            slug: 'no-data'
+            supplierId: 'no-data',
+            price: 0,
+            original_price: 0,
+            sold: false,
+            stockQuantity: 0,
+            quantityPurchase: 0,
+            images:[]
         }];
     }
 
@@ -75,13 +67,13 @@ const Wishlist = () => {
     let sortedData = [...filteredData];
 
     if (sortOption === 'soldQuantityHighToLow') {
-        filteredData = sortedData.sort((a, b) => b.sold - a.sold)
+        filteredData = sortedData.sort((a, b) => b.price - a.price)
     }
 
     if (sortOption === 'discountHighToLow') {
         filteredData = sortedData
             .sort((a, b) => (
-                (Math.floor(100 - ((b.price / b.originPrice) * 100))) - (Math.floor(100 - ((a.price / a.originPrice) * 100)))
+                (Math.floor(100 - ((b.price / b.original_price) * 100))) - (Math.floor(100 - ((a.price / a.original_price) * 100)))
             ))
     }
 
