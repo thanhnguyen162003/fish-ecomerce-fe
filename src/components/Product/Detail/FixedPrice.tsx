@@ -209,10 +209,10 @@ console.log(productMain.original_price);
                         }}
                       >
                         <Image
-                          src={item.link}
+                          src={item.link!}
                           width={1000}
                           height={1000}
-                          alt={item.publicId}
+                          alt={item.publicId!}
                           className="w-full aspect-[3/4] object-cover rounded-xl"
                           onClick={(e) => {
                             e.stopPropagation(); // prevent

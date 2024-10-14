@@ -123,13 +123,11 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
               <div className="product-img w-full h-full aspect-[3/4]">
                 <Image
                   src={
-                    data.images[0]
-                      ? data.images[0].link
-                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Yuyuan_Garden.jpg/800px-Yuyuan_Garden.jpg"
+                    data.images[0]!.link!
                   }
                   width={500}
                   height={500}
-                  alt={data.name}
+                  alt={data.name!}
                   priority={true}
                   className="w-full h-full object-cover duration-700"
                 />
@@ -226,9 +224,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
               width={5000}
               height={5000}
               src={
-                data.images[0]
-                  ? data.images[0].link
-                  : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Yuyuan_Garden.jpg/800px-Yuyuan_Garden.jpg"
+                data.images[0]!.link!
               }
               alt="img"
             />

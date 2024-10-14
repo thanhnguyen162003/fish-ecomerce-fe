@@ -169,7 +169,7 @@ const Cart = () => {
                                   src={product.images[0].link ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Yuyuan_Garden.jpg/800px-Yuyuan_Garden.jpg"}
                                   width={1000}
                                   height={1000}
-                                  alt={product.name}
+                                  alt={product.name ?? "Product Image"}
                                   className="w-full h-full object-cover rounded-lg"
                                 />
                               </div>
