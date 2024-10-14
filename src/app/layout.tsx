@@ -33,15 +33,15 @@ export default function RootLayout({
   return (
     <GlobalProvider>
       <html lang="en">
-        <body className={`${pacifico.className} bg-pearlWhite text-black`}>
-          <MenuOne background="bg-aquaBlue" text='text-pearlWhite' />
-          {children}
+        <body className={`${pacifico.className} text-black min-h-screen flex flex-col`}>
+          <MenuOne background="bg-[#4d7fff]" text='text-pearlWhite' />
+          <div className='flex-grow'>{children}</div>
           <ModalCart serverTimeLeft={serverTimeLeft} />
           <ModalWishlist />
           <ModalSearch />
           <ModalQuickview />
           <ModalCompare />
-          <Footer background="bg-aquaBlue" text='text-pearlWhite' />
+          <Footer background="bg-[#4d7fff]" text='text-pearlWhite' />
         </body>
       </html>
     </GlobalProvider>
