@@ -120,7 +120,7 @@ const BlogDefault = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="filter-category md:mt-10 mt-6 pb-8 border-b border-line">
+                            {/* <div className="filter-category md:mt-10 mt-6 pb-8 border-b border-line">
                                 <div className="heading6">Categories</div>
                                 <div className="list-cate pt-1">
                                     <div
@@ -169,8 +169,8 @@ const BlogDefault = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="filter-tags md:mt-10 mt-6">
+                            </div> */}
+                            {/* <div className="filter-tags md:mt-10 mt-6">
                                 <div className="heading6">Tags Cloud</div>
                                 <div className="list-tags flex items-center flex-wrap gap-3 mt-4">
                                     <div
@@ -204,7 +204,7 @@ const BlogDefault = () => {
                                         organic
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
