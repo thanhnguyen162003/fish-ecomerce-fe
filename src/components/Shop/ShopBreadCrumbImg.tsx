@@ -4,17 +4,18 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 import Link from 'next/link'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-import { ProductType } from '@/type/ExProductType'
+import { ExProductType } from '@/type/ExProductType'
 import Product from '../Product/Product';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css'
 import HandlePagination from '../Other/HandlePagination';
 
 interface Props {
-    data: Array<ProductType>;
+    data: Array<ExProductType>;
     productPerPage: number
     dataType: string | null
 }
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const ShopBreadCrumbImg: React.FC<Props> = ({ data, productPerPage, dataType }) => {
     const [layoutCol, setLayoutCol] = useState<number | null>(4)
@@ -184,7 +185,7 @@ const ShopBreadCrumbImg: React.FC<Props> = ({ data, productPerPage, dataType }) 
     }
 
     // Get product data for current page
-    let currentProducts: ProductType[];
+    let currentProducts: ExProductType[];
 
     if (filteredData.length > 0) {
         currentProducts = filteredData.slice(offset, offset + productsPerPage);
@@ -524,7 +525,7 @@ const ShopBreadCrumbImg: React.FC<Props> = ({ data, productPerPage, dataType }) 
                             }
                         </div>
 
-                        <div className={`list-product hide-product-sold grid lg:grid-cols-${layoutCol} sm:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-[20px] mt-7`}>
+                        {/* <div className={`list-product hide-product-sold grid lg:grid-cols-${layoutCol} sm:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-[20px] mt-7`}>
                             {currentProducts.map((item) => (
                                 item.id === 'no-data' ? (
                                     <div key={item.id} className="no-data-product">No products match the selected criteria.</div>
@@ -532,7 +533,7 @@ const ShopBreadCrumbImg: React.FC<Props> = ({ data, productPerPage, dataType }) 
                                     <Product key={item.id} data={item} type='grid' />
                                 )
                             ))}
-                        </div>
+                        </div> */}
 
                         {pageCount > 1 && (
                             <div className="list-pagination flex items-center justify-center md:mt-10 mt-7">

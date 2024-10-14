@@ -1,4 +1,5 @@
 import { FishType } from "./FishType";
+import { ImageType } from "./ImageType";
 import { TankType } from "./TankType";
 
 export interface ProductType {
@@ -9,10 +10,12 @@ export interface ProductType {
     descriptionDetail?: string,
     type?:string
     supplierId?:string|null,
-    stockQuantity?: number,
+    stockQuantity: number,
     sold?:boolean|null,
-    price?: number,
-    originalPrice?: number,
+    price: number,
+    originalPrice: number,
+    images: ImageType[]
     fish?: FishType,
-    tank?: TankType
+    tank?: TankType,
+    quantityPurchase?: number|0|undefined
 }
