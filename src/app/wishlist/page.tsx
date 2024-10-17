@@ -51,15 +51,16 @@ const Wishlist = () => {
             name: 'no-data',
             type: 'no-data',
             slug: 'no-data',
-            descriptionDetail: 'no-data',
+            description_detail: 'no-data',
             description: 'no-data',
-            supplierId: 'no-data',
+            supplier_id: 'no-data',
             price: 0,
             original_price: 0,
             sold: false,
-            stockQuantity: 0,
+            stock_quantity: 0,
             quantityPurchase: 0,
-            images:[]
+            images:[],
+            feedbacks:[]
         }];
     }
 

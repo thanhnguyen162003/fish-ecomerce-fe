@@ -157,7 +157,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                       Available:{" "}
                     </span>
                     <span className="max-sm:text-xs">
-                      {data.stockQuantity}
+                      {data.stock_quantity}
                     </span>
                   </div>
                 </div>

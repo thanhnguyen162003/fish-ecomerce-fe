@@ -3,9 +3,9 @@ import { CategoryType } from "./CategoryType";
 
 export interface TankType {
     id: string;
-    productId?: string;
+    product_id?: string;
     size?: string;
-    sizeInformation?: string;
-    glassType?: string;
-    category: CategoryType[]
+    size_information?: string;
+    glass_type?: string;
+    categories: CategoryType[]
 }

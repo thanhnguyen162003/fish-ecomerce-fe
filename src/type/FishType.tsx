@@ -3,15 +3,15 @@ import { BreedType } from "./BreedType";
 
 export interface FishType {
     id:string;
-    productId?: string;
+    product_id?: string;
     breed: BreedType;
     size?: number;
     age?: number;
     origin?: string;
     sex: boolean;
-    foodAmount?: number;
+    food_amount?: number;
     weight?: number;
     health?: string;
-    dateOfBirth?: string;
+    date_of_birth?: string;
     awards?:AwardType[]
 }

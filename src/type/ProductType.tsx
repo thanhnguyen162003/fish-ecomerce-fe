@@ -1,3 +1,4 @@
+import { FeedbackType } from "./FeedbackType";
 import { FishType } from "./FishType";
 import { ImageType } from "./ImageType";
 import { TankType } from "./TankType";
@@ -7,13 +8,14 @@ export interface ProductType {
     name?: string,
     slug?: string,
     description?: string,
-    descriptionDetail?: string,
+    description_detail?: string,
     type?:string
-    supplierId?:string|null,
-    stockQuantity: number,
+    supplier_id?:string|null,
+    stock_quantity: number,
     sold?:boolean|null,
     price: number,
     original_price: number,
+    feedbacks:FeedbackType[]
     images: ImageType[]
     fish?: FishType,
     tank?: TankType,
