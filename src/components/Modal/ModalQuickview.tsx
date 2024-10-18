@@ -49,28 +49,28 @@ const ModalQuickview = () => {
     const handleIncreaseQuantity = () => {
         if (selectedProduct) {
             selectedProduct.quantityPurchase += 1
-            updateCart(selectedProduct.id, selectedProduct.quantityPurchase + 1, activeSize, activeColor);
+            updateCart(selectedProduct.id, selectedProduct.quantityPurchase + 1);
         }
     };
 
     const handleDecreaseQuantity = () => {
         if (selectedProduct && selectedProduct.quantityPurchase > 1) {
             selectedProduct.quantityPurchase -= 1
-            updateCart(selectedProduct.id, selectedProduct.quantityPurchase - 1, activeSize, activeColor);
+            updateCart(selectedProduct.id, selectedProduct.quantityPurchase - 1);
         }
     };
 
     const handleAddToCart = () => {
-        if (selectedProduct) {
-            if (!cartState.cartArray.find(item => item.id === selectedProduct.id)) {
-                // addToCart({ ...selectedProduct });
-                updateCart(selectedProduct.id, selectedProduct.quantityPurchase, activeSize, activeColor)
-            } else {
-                updateCart(selectedProduct.id, selectedProduct.quantityPurchase, activeSize, activeColor)
-            }
-            openModalCart()
-            closeQuickview()
-        }
+        // if (selectedProduct) {
+        //     if (!cartState.cartArray.find(item => item.id === selectedProduct.id)) {
+        //         // addToCart({ ...selectedProduct });
+        //         updateCart(selectedProduct.id, selectedProduct.quantityPurchase)
+        //     } else {
+        //         updateCart(selectedProduct.id, selectedProduct.quantityPurchase)
+        //     }
+        //     openModalCart()
+        //     closeQuickview()
+        // }
     };
 
     const handleAddToWishlist = () => {

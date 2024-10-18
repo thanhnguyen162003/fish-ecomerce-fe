@@ -78,23 +78,23 @@ const OnSale: React.FC<Props> = ({ data, productId }) => {
 
     const handleIncreaseQuantity = () => {
         productMain.quantityPurchase += 1
-        updateCart(productMain.id, productMain.quantityPurchase + 1, activeSize, activeColor);
+        updateCart(productMain.id, productMain.quantityPurchase + 1);
     };
 
     const handleDecreaseQuantity = () => {
         if (productMain.quantityPurchase > 1) {
             productMain.quantityPurchase -= 1
-            updateCart(productMain.id, productMain.quantityPurchase - 1, activeSize, activeColor);
+            updateCart(productMain.id, productMain.quantityPurchase - 1);
         }
     };
 
     const handleAddToCart = () => {
-        if (!cartState.cartArray.find(item => item.id === productMain.id)) {
-            // addToCart({ ...productMain });
-            updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
-        } else {
-            updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
-        }
+        // if (!cartState.cartArray.find(item => item.id === productMain.id)) {
+        //     // addToCart({ ...productMain });
+        //     updateCart(productMain.id, productMain.quantityPurchase)
+        // } else {
+        //     updateCart(productMain.id, productMain.quantityPurchase)
+        // }
         openModalCart()
     };
 

@@ -19,5 +19,5 @@ export interface ProductType {
     images: ImageType[]
     fish?: FishType,
     tank?: TankType,
-    quantityPurchase?: number|0|undefined|null
+    quantityPurchase: number
 }

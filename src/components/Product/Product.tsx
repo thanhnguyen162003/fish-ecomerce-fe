@@ -43,11 +43,11 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
   };
 
   const handleAddToCart = () => {
-    if (!cartState.cartArray.find((item) => item.id === data.id)) {
+    if (!cartState.cartArray.find((item) => item.productId === data.id)) {
       // addToCart({ ...data });
-      updateCart(data.id, data.quantityPurchase, activeSize, activeColor);
+      updateCart(data.id, data.quantityPurchase);
     } else {
-      updateCart(data.id, data.quantityPurchase, activeSize, activeColor);
+      updateCart(data.id, data.quantityPurchase);
     }
     openModalCart();
   };
@@ -88,8 +88,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
     router.push(`/product/default?id=${productId}`);
   };
 
-  let percentSale = Math.floor(100 - (data.price / data.originPrice) * 100);
-  let percentSold = Math.floor((data.sold / data.quantity) * 100);
+  // let percentSold = Math.floor((data.sold / data.quantity) * 100);
 
   return (
     <>
@@ -158,7 +157,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                   </>
                 )}
               </div>
-              {data.sale && (
+              {/* {data.sale && (
                 <>
                   <Marquee className="banner-sale-auto bg-black absolute bottom-0 left-0 w-full py-1.5">
                     <div
@@ -193,7 +192,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                     <Icon.Lightning weight="fill" className="text-red" />
                   </Marquee>
                 </>
-              )}
+              )} */}
               <div className="list-action grid grid-cols-2 gap-3 px-5 absolute w-full bottom-5 max-lg:hidden">
                 <div
                   className="quick-view-btn w-full text-button-uppercase py-2 text-center rounded-full duration-300 bg-white hover:bg-black hover:text-white"
@@ -250,12 +249,12 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
             </div>
             <div className="product-infor mt-4 lg:mb-7">
               <div className="product-sold sm:pb-4 pb-2">
-                <div className="progress bg-line h-1.5 w-full rounded-full overflow-hidden relative">
+                {/* <div className="progress bg-line h-1.5 w-full rounded-full overflow-hidden relative">
                   <div
                     className={`progress-sold bg-red absolute left-0 top-0 h-full`}
                     style={{ width: `${percentSold}%` }}
                   ></div>
-                </div>
+                </div> */}
                 <div className="flex items-center justify-between gap-3 gap-y-1 flex-wrap mt-2">
                   <div className="text-button-uppercase">
                     <span className="text-secondary2 max-sm:text-xs">
@@ -326,7 +325,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                 </div>
               )}
 
-              <div className="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
+              {/* <div className="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
                 <div className="product-price text-title">${data.price}.00</div>
                 {percentSale > 0 && (
                   <>
@@ -338,7 +337,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                     </div>
                   </>
                 )}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -423,14 +422,14 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                         <div className="product-price text-title">
                           ${data.price}.00
                         </div>
-                        <div className="product-origin-price caption1 text-secondary2">
+                        {/* <div className="product-origin-price caption1 text-secondary2">
                           <del>${data.originPrice}.00</del>
                         </div>
                         {data.originPrice && (
                           <div className="product-sale caption1 font-medium bg-green px-3 py-0.5 inline-block rounded-full">
                             -{percentSale}%
                           </div>
-                        )}
+                        )} */}
                       </div>
                       {data.variation.length > 0 &&
                       data.action === "add to cart" ? (

@@ -43,10 +43,10 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
   };
 
   const handleAddToCart = () => {
-    if (!cartState.cartArray.find((item) => item.id === data.id)) {
-      updateCart(data.id, 1, activeSize, activeColor);
+    if (!cartState.cartArray.find((item) => item.productId === data.id)) {
+      updateCart(data.id, 1);
     } else {
-      updateCart(data.id, 1, activeSize, activeColor);
+      updateCart(data.id, 1);
     }
     openModalCart();
   };

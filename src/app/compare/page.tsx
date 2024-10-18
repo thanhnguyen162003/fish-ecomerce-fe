@@ -21,12 +21,12 @@ const Compare = () => {
     const { openModalCart } = useModalCartContext();
 
     const handleAddToCart = (productItem: ProductType) => {
-        if (!cartState.cartArray.find(item => item.id === productItem.id)) {
-            addToCart({ ...productItem });
-            updateCart(productItem.id, productItem.quantityPurchase ?? 0, '', '')
-        } else {
-            updateCart(productItem.id, productItem.quantityPurchase ?? 0, '', '')
-        }
+        // if (!cartState.cartArray.find(item => item.id === productItem.id)) {
+        //     addToCart({ ...productItem });
+        //     updateCart(productItem.id, productItem.quantityPurchase ?? 0)
+        // } else {
+        //     updateCart(productItem.id, productItem.quantityPurchase ?? 0)
+        // }
         openModalCart()
     };
 

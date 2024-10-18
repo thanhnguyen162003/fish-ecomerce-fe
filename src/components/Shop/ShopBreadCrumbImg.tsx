@@ -144,9 +144,6 @@ const ShopBreadCrumbImg: React.FC<Props> = ({ data, productPerPage, dataType }) 
 
     const totalProducts = filteredData.length
     const selectedType = type
-    const selectedSize = size
-    const selectedColor = color
-    const selectedBrand = brand
 
 
     if (filteredData.length === 0) {
@@ -484,7 +481,7 @@ const ShopBreadCrumbImg: React.FC<Props> = ({ data, productPerPage, dataType }) 
                                 <span className='text-secondary pl-1'>Products Found</span>
                             </div>
                             {
-                                (selectedType || selectedSize || selectedColor || selectedBrand) && (
+                                (selectedType) && (
                                     <>
                                         <div className="list flex items-center gap-3">
                                             <div className='w-px h-4 bg-line'></div>
@@ -492,24 +489,6 @@ const ShopBreadCrumbImg: React.FC<Props> = ({ data, productPerPage, dataType }) 
                                                 <div className="item flex items-center px-2 py-1 gap-1 bg-linear rounded-full capitalize" onClick={() => { setType(null) }}>
                                                     <Icon.X className='cursor-pointer' />
                                                     <span>{selectedType}</span>
-                                                </div>
-                                            )}
-                                            {selectedSize && (
-                                                <div className="item flex items-center px-2 py-1 gap-1 bg-linear rounded-full capitalize" onClick={() => { setSize(null) }}>
-                                                    <Icon.X className='cursor-pointer' />
-                                                    <span>{selectedSize}</span>
-                                                </div>
-                                            )}
-                                            {selectedColor && (
-                                                <div className="item flex items-center px-2 py-1 gap-1 bg-linear rounded-full capitalize" onClick={() => { setColor(null) }}>
-                                                    <Icon.X className='cursor-pointer' />
-                                                    <span>{selectedColor}</span>
-                                                </div>
-                                            )}
-                                            {selectedBrand && (
-                                                <div className="item flex items-center px-2 py-1 gap-1 bg-linear rounded-full capitalize" onClick={() => { setBrand(null) }}>
-                                                    <Icon.X className='cursor-pointer' />
-                                                    <span>{selectedBrand}</span>
                                                 </div>
                                             )}
                                         </div>

@@ -84,22 +84,22 @@ console.log("Detail/Default");
 
     const handleIncreaseQuantity = () => {
         productMain.quantityPurchase += 1
-        updateCart(productMain.id, productMain.quantityPurchase + 1, activeSize, activeColor);
+        updateCart(productMain.id, productMain.quantityPurchase + 1);
     };
 
     const handleDecreaseQuantity = () => {
         if (productMain.quantityPurchase > 1) {
             productMain.quantityPurchase -= 1
-            updateCart(productMain.id, productMain.quantityPurchase - 1, activeSize, activeColor);
+            updateCart(productMain.id, productMain.quantityPurchase - 1);
         }
     };
 
     const handleAddToCart = () => {
-        if (!cartState.cartArray.find(item => item.id === productMain.id)) {
+        if (!cartState.cartArray.find(item => item.productId === productMain.id)) {
             // addToCart({ ...productMain });
-            updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
+            updateCart(productMain.id, productMain.quantityPurchase)
         } else {
-            updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
+            updateCart(productMain.id, productMain.quantityPurchase)
         }
         openModalCart()
     };

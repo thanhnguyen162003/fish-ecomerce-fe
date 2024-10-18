@@ -37,23 +37,23 @@ const FeaturedProduct: React.FC<Props> = ({ data }) => {
 
     const handleIncreaseQuantity = () => {
         productMain.quantityPurchase += 1
-        updateCart(productMain.id, productMain.quantityPurchase + 1, activeSize, '');
+        updateCart(productMain.id, productMain.quantityPurchase + 1);
     };
 
     const handleDecreaseQuantity = () => {
         if (productMain.quantityPurchase > 1) {
             productMain.quantityPurchase -= 1
-            updateCart(productMain.id, productMain.quantityPurchase - 1, activeSize, '');
+            updateCart(productMain.id, productMain.quantityPurchase - 1);
         }
     };
 
     const handleAddToCart = () => {
-        if (!cartState.cartArray.find(item => item.id === productMain.id)) {
-            // addToCart({ ...productMain });
-            updateCart(productMain.id, productMain.quantityPurchase, activeSize, '')
-        } else {
-            updateCart(productMain.id, productMain.quantityPurchase, activeSize, '')
-        }
+        // if (!cartState.cartArray.find(item => item.id === productMain.id)) {
+        //     // addToCart({ ...productMain });
+        //     updateCart(productMain.id, productMain.quantityPurchase)
+        // } else {
+        //     updateCart(productMain.id, productMain.quantityPurchase)
+        // }
         openModalCart()
     };
 

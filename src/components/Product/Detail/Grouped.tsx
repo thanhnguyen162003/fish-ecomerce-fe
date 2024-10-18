@@ -69,17 +69,17 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
     };
 
     const handleAddToCart = () => {
-        if (!cartState.cartArray
-            .find(item => item.id === productMain.id || item.id === data[Number(productId)].id || item.id === data[Number(productId) + 1].id || item.id === data[Number(productId) + 2].id)) {
-            // addToCart(productMain);
-            // addToCart(data[Number(productId)]);
-            // addToCart(data[Number(productId) + 1]);
-            // addToCart(data[Number(productId) + 2]);
-            updateCart(productMain.id, quantity.id, activeSize, activeColor)
-            updateCart(data[Number(productId)].id, quantity.id, activeSize, activeColor)
-            updateCart(data[Number(productId) + 1].id, quantity.id, activeSize, activeColor)
-            updateCart(data[Number(productId) + 2].id, quantity.id, activeSize, activeColor)
-        }
+        // if (!cartState.cartArray
+        //     .find(item => item.id === productMain.id || item.id === data[Number(productId)].id || item.id === data[Number(productId) + 1].id || item.id === data[Number(productId) + 2].id)) {
+        //     // addToCart(productMain);
+        //     // addToCart(data[Number(productId)]);
+        //     // addToCart(data[Number(productId) + 1]);
+        //     // addToCart(data[Number(productId) + 2]);
+        //     updateCart(productMain.id, quantity.id)
+        //     updateCart(data[Number(productId)].id, quantity.id)
+        //     updateCart(data[Number(productId) + 1].id, quantity.id)
+        //     updateCart(data[Number(productId) + 2].id, quantity.id)
+        // }
         openModalCart()
     };
 
