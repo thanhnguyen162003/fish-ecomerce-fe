@@ -12,6 +12,8 @@ import { countdownTime } from '@/store/countdownTime'
 import Footer from '@/components/Footer/Footer'
 import MenuFour from '@/components/Header/Menu/MenuFour'
 import MenuOne from '@/components/Header/Menu/MenuOne'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const serverTimeLeft: CountdownTimeType = countdownTime();
 
@@ -35,6 +37,14 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${pacifico.className} text-black min-h-screen flex flex-col`}>
           <MenuOne background="bg-[#4d7fff]" text='text-pearlWhite' />
+          <ToastContainer
+  position="top-right"
+  autoClose={5000}
+  hideProgressBar={false}
+  closeOnClick
+  pauseOnHover
+  className="bg-blue-500 text-white"
+/>
           <div className='flex-grow'>{children}</div>
           <ModalCart serverTimeLeft={serverTimeLeft} />
           <ModalWishlist />

@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import { createOrder } from "@/components/api/order/checkout";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
   let [totalCart, setTotalCart] = useState<number>(0);
@@ -40,15 +41,22 @@ const Checkout = () => {
     e.preventDefault(); // Ngăn việc reload trang
     console.log(formData); // Xử lý hoặc gửi API ở đây
     var jwtToken = localStorage.getItem("jwtToken");
-    if (cart) {
+    if (jwtToken && cart) {
       var response = await createOrder(
         cart,
         formData.address + " " + formData.city,
         formData.paymentMethod,
-        totalCart
-        // jwtToken
+        totalCart,
+        jwtToken
       ); // gọi API checkout ở đây nếu cần
-      console.log(response);
+      if (typeof response === "string" && response.includes("payos")) {
+        console.log(response);
+        
+        window.location.href = response
+      }
+      else{
+        toast.error(response)
+      }
     } else {
       route.push("/login");
     }
@@ -136,7 +144,7 @@ const Checkout = () => {
                 <div className="information md:mt-10 mt-6">
                   <div className="heading5">Delivery</div>
                   <div className="deli_type mt-5">
-                    <label htmlFor="paymentMethod" className="heading5">
+                    <label htmlFor="paymentMethod" className="heading6">
                       Payment Method
                     </label>
                     <select

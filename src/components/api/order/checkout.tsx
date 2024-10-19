@@ -25,7 +25,7 @@ export const createOrder = async (
   shipAddress: string,
   paymentMethod: number,
   totalPrice: number,
-  // token: string
+  token: string
 ) => {
     if (cartItems) {
         const orderData = {
@@ -44,14 +44,14 @@ export const createOrder = async (
               {
                 headers: {
                   "Content-Type": "application/json",
-                  // 'Authorization': `Bearer ${token}`
+                  'Authorization': `Bearer ${token}`
                 },
               }
             );
-            console.log("Order successfully sent:", response);
-            return response;
+            return response.data.data.paymentLink;
           } catch (error) {
-            console.error("Error sending order:", error);
+            console.log("checkout: ", error);
+            return (error);
           }   
     }
 };

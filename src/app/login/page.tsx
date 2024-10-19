@@ -55,7 +55,7 @@ const Login = () => {
                                     <input
                                         className="border-line px-4 pt-3 pb-3 w-full rounded-lg"
                                         id="username"
-                                        type="email"
+                                        type="text"
                                         placeholder="Email address *"
                                         required
                                         value={email}

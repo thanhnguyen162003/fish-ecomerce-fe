@@ -15,6 +15,7 @@ import Instagram from '@/components/Home6/Instagram'
 import Brand from '@/components/Home6/Brand'
 import Footer from '@/components/Footer/Footer'
 import ModalNewsletter from '@/components/Modal/ModalNewsletter'
+import { ToastContainer } from 'react-toastify'
 
 export default function Home() {
   return (
