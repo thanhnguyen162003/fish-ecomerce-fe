@@ -3,19 +3,14 @@ import { CartItem } from "@/type/CartItem";
 export const addToCart = (newItem: CartItem) => {
     const storedCart = localStorage.getItem("cart");
     const cartItems: CartItem[] = storedCart ? JSON.parse(storedCart) : [];
-    
-    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
     const existingItem = cartItems.find(item => item.productId === newItem.productId);
     
     if (existingItem) {
-      // Nếu sản phẩm đã có, chỉ cần tăng số lượng
       existingItem.quantity += newItem.quantity;
       existingItem.totalPrice = existingItem.quantity * existingItem.unitPrice;
     } else {
-      // Nếu sản phẩm chưa có, thêm sản phẩm mới vào giỏ
       cartItems.push(newItem);
     }
-    
     localStorage.setItem("cart", JSON.stringify(cartItems));
   };
   
@@ -26,6 +21,8 @@ export const addToCart = (newItem: CartItem) => {
     const itemToUpdate = cartItems.find(item => item.productId === productId);
     
     if (itemToUpdate) {
+      console.log(itemToUpdate);
+      
       itemToUpdate.quantity = newQuantity;
       itemToUpdate.totalPrice = itemToUpdate.quantity * itemToUpdate.unitPrice;
       

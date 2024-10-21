@@ -15,6 +15,8 @@ import { useModalQuickviewContext } from "@/context/ModalQuickviewContext";
 import { useRouter } from "next/navigation";
 import Marquee from "react-fast-marquee";
 import Rate from "../Other/Rate";
+import { CartItem } from "@/type/CartItem";
+import { addToCart, getCartFromLocalStorage } from "@/context/CartItemContext";
 
 interface ProductProps {
   data: ProductType;
@@ -22,10 +24,7 @@ interface ProductProps {
 }
 
 const Product: React.FC<ProductProps> = ({ data, type }) => {
-  const [activeColor, setActiveColor] = useState<string>("");
-  const [activeSize, setActiveSize] = useState<string>("");
-  const [openQuickShop, setOpenQuickShop] = useState<boolean>(false);
-  const { addToCart, updateCart, cartState } = useCart();
+  let [cart, setCart] = useState<CartItem[] | null>();
   const { openModalCart } = useModalCartContext();
   const { addToWishlist, removeFromWishlist, wishlistState } = useWishlist();
   const { openModalWishlist } = useModalWishlistContext();
@@ -34,21 +33,18 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
   const { openQuickview } = useModalQuickviewContext();
   const router = useRouter();
 
-  const handleActiveColor = (item: string) => {
-    setActiveColor(item);
-  };
-
-  const handleActiveSize = (item: string) => {
-    setActiveSize(item);
-  };
-
-  const handleAddToCart = () => {
-    if (!cartState.cartArray.find((item) => item.productId === data.id)) {
-      updateCart(data.id, 1);
-    } else {
-      updateCart(data.id, 1);
-    }
-    openModalCart();
+  const handleAddToCart = (product: ProductType) => {
+    const item: CartItem = {
+      productId: product.id,
+      quantity: 1,
+      unitPrice: product.price,
+      totalPrice: product.price,
+      discount: 0,
+      name: product.name || "",
+      imgUrl: product.images[0]?.link || "/images/product/1000x1000.png",
+    };
+    addToCart(item);
+    setCart(getCartFromLocalStorage());
   };
 
   const handleAddToWishlist = () => {
@@ -95,7 +91,11 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
             <div className="product-thumb bg-white relative overflow-hidden rounded-2xl">
               <div className="product-img w-full h-full aspect-[3/4]">
                 <Image
-                  src={data.images[0] ? data.images[0].link! : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Yuyuan_Garden.jpg/800px-Yuyuan_Garden.jpg"}
+                  src={
+                    data.images[0]
+                      ? data.images[0].link!
+                      : "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Yuyuan_Garden.jpg/800px-Yuyuan_Garden.jpg"
+                  }
                   width={500}
                   height={500}
                   alt={data.name!}
@@ -108,10 +108,10 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                   className="add-cart-btn w-full text-button-uppercase py-2 text-center rounded-full duration-500 bg-white hover:bg-black hover:text-white"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleAddToCart();
+                    handleAddToCart(data);
                   }}
                 >
-                  Add To Cart
+                  <p>Add To Cart</p>
                 </div>
                 <div
                   className="quick-shop-btn text-button-uppercase py-2 text-center rounded-full duration-500 bg-white hover:bg-black hover:text-white"
@@ -119,7 +119,9 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                     e.stopPropagation();
                   }}
                 >
-                  <Link href={"/product?id={1}"}>Detail</Link>
+                  <p onClick={() => handleDetailProduct(data.id, data.type)}>
+                    Detail
+                  </p>
                 </div>
               </div>
               <div className="list-action-icon flex items-center justify-center gap-2 absolute w-full bottom-3 z-[1] lg:hidden">
@@ -136,7 +138,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                   className="add-cart-btn w-9 h-9 flex items-center justify-center rounded-lg duration-300 bg-white hover:bg-black hover:text-white"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleAddToCart();
+                    handleAddToCart(data);
                   }}
                 >
                   <Icon.ShoppingBagOpen className="text-lg" />
@@ -218,11 +220,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                 {wishlistState.wishlistArray.some(
                   (item) => item.id === data.id
                 ) ? (
-                  <Icon.Heart
-                    size={18}
-                    weight="fill"
-                    className="text-white"
-                  />
+                  <Icon.Heart size={18} weight="fill" className="text-white" />
                 ) : (
                   <Icon.Heart size={18} />
                 )}
@@ -254,7 +252,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
                 className="add-cart-btn w-8 h-8 bg-white flex items-center justify-center rounded-full box-shadow-small duration-300"
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleAddToCart();
+                  handleAddToCart(data);
                 }}
               >
                 <Icon.ShoppingBagOpen />

@@ -344,7 +344,7 @@ export default function BreadcrumbImg() {
                                 setBreed(null);
                               }}
                             >
-                              <Icon.X className="cursor-pointer" />
+                              {/* <Icon.X className="cursor-pointer" /> */}
                               <span>{breed.name}</span>
                             </div>
                           )}
@@ -355,22 +355,10 @@ export default function BreadcrumbImg() {
                                 setBreed(null);
                               }}
                             >
-                              <Icon.X className="cursor-pointer" />
+                              {/* <Icon.X className="cursor-pointer" /> */}
                               <span>{category.tank_type}</span>
                             </div>
                           )}
-                        </div>
-                        <div
-                          className="clear-btn flex items-center px-2 py-1 gap-1 rounded-full border border-red cursor-pointer"
-                          onClick={handleClearAll}
-                        >
-                          <Icon.X
-                            color="rgb(219, 68, 68)"
-                            className="cursor-pointer"
-                          />
-                          <span className="text-button-uppercase text-red">
-                            Clear All
-                          </span>
                         </div>
                       </>
                     )}

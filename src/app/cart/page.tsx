@@ -11,13 +11,20 @@ import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { useCart } from "@/context/CartContext";
 import { countdownTime } from "@/store/countdownTime";
 import { CartItem } from "@/type/CartItem";
-import { getCartFromLocalStorage, removeFromCart, updateCart } from "@/context/CartItemContext";
+import {
+  getCartFromLocalStorage,
+  removeFromCart,
+  updateCart,
+} from "@/context/CartItemContext";
 
 const Cart = () => {
   const router = useRouter();
 
   const [cart, setCart] = useState<CartItem[] | null>();
 
+  useEffect(() => {
+    setCart(getCartFromLocalStorage());
+  }, []);
   const handleUpdateToCart = (productId: string, quantity: number) => {
     updateCart(productId, quantity);
     setCart(getCartFromLocalStorage());
@@ -56,15 +63,18 @@ const Cart = () => {
                   Buy
                   <span className="text-button">
                     {" "}
-                    $
                     <span className="more-price">
                       {moneyForFreeship - totalCart > 0 ? (
-                        <>{moneyForFreeship - totalCart}</>
+                        <>
+                          {(moneyForFreeship - totalCart).toLocaleString(
+                            "vi-VI"
+                          )}
+                        </>
                       ) : (
                         0
                       )}
-                    </span>
-                    .00{" "}
+                    </span>{" "}
+                    VND
                   </span>
                   <span>more to get </span>
                   <span className="text-button">freeship</span>
@@ -102,7 +112,7 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="list-product-main w-full mt-3">
-                    {cart && (
+                    {cart &&
                       cart.map((product) => (
                         <div
                           className="item flex md:mt-7 md:pb-7 mt-5 pb-5 border-b border-line w-full"
@@ -112,7 +122,10 @@ const Cart = () => {
                             <div className="flex items-center gap-6">
                               <div className="bg-img md:w-[100px] w-20 aspect-[3/4]">
                                 <Image
-                                  src={product.imgUrl ?? "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Yuyuan_Garden.jpg/800px-Yuyuan_Garden.jpg"}
+                                  src={
+                                    product.imgUrl ??
+                                    "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Yuyuan_Garden.jpg/800px-Yuyuan_Garden.jpg"
+                                  }
                                   width={1000}
                                   height={1000}
                                   alt={product.name ?? "Product Image"}
@@ -132,43 +145,44 @@ const Cart = () => {
                           </div>
                           <div className="w-1/6 flex items-center justify-center">
                             <div className="quantity-block bg-surface md:p-3 p-2 flex items-center justify-between rounded-lg border border-line md:w-[100px] flex-shrink-0 w-20">
-                            <Icon.PlusSquare
-                              onClick={() =>
-                                handleUpdateToCart(
-                                  product.productId,
-                                  product.quantity + 1
-                                )
-                              }
-                              className="cursor-pointer"
-                            />
-                            <span className="mx-2">{product.quantity}</span>
-                            <Icon.MinusSquare
-                              onClick={() =>
-                                handleUpdateToCart(
-                                  product.productId,
-                                  product.quantity - 1
-                                )
-                              }
-                              className="cursor-pointer"
-                            />
+                              <Icon.PlusSquare
+                                onClick={() =>
+                                  handleUpdateToCart(
+                                    product.productId,
+                                    product.quantity + 1
+                                  )
+                                }
+                                className="cursor-pointer"
+                              />
+                              <span className="mx-2">{product.quantity}</span>
+                              <Icon.MinusSquare
+                                onClick={() =>
+                                  handleUpdateToCart(
+                                    product.productId,
+                                    product.quantity - 1
+                                  )
+                                }
+                                className="cursor-pointer"
+                              />
                             </div>
                           </div>
                           <div className="w-1/6 flex total-price items-center justify-center">
                             <div className="text-title text-center">
-                              {(product.quantity * product.unitPrice).toLocaleString("vi-VI")}
+                              {(
+                                product.quantity * product.unitPrice
+                              ).toLocaleString("vi-VI")}
                             </div>
                           </div>
                           <div className="w-1/12 flex items-center justify-center">
                             <Icon.XCircle
                               className="text-xl max-md:text-base text-red cursor-pointer hover:text-black duration-500"
                               onClick={() => {
-                                removeFromCart(product.productId);
+                                handleToRemoveCart(product.productId);
                               }}
                             />
                           </div>
                         </div>
-                      ))
-                    )}
+                      ))}
                   </div>
                 </div>
               </div>
@@ -179,8 +193,10 @@ const Cart = () => {
                 <div className="total-block py-5 flex justify-between border-b border-line">
                   <div className="text-title">Subtotal</div>
                   <div className="text-title">
-                    $<span className="total-product">{totalCart}</span>
-                    <span>.00</span>
+                    <span className="total-product">
+                      {totalCart.toLocaleString("vi-VI")}
+                    </span>
+                    <span> VND</span>
                   </div>
                 </div>
                 <div className="ship-block py-5 flex justify-between border-b border-line">
@@ -213,9 +229,9 @@ const Cart = () => {
                           id="local"
                           type="radio"
                           name="ship"
-                          value={30}
-                          checked={shipCart === 30}
-                          onChange={() => setShipCart(30)}
+                          value={30000}
+                          checked={shipCart === 30000}
+                          onChange={() => setShipCart(30000)}
                         />
                         <label
                           className="text-on-surface-variant1 pl-1"
@@ -229,9 +245,9 @@ const Cart = () => {
                           id="flat"
                           type="radio"
                           name="ship"
-                          value={40}
-                          checked={shipCart === 40}
-                          onChange={() => setShipCart(40)}
+                          value={40000}
+                          checked={shipCart === 40000}
+                          onChange={() => setShipCart(40000)}
                         />
                         <label
                           className="text-on-surface-variant1 pl-1"
@@ -242,12 +258,12 @@ const Cart = () => {
                       </div>
                     </div>
                     <div className="right">
-                      <div className="ship">$0.00</div>
+                      <div className="ship">0.00 VND</div>
                       <div className="local text-on-surface-variant1 mt-1">
-                        $30.00
+                        {(30000).toLocaleString("vi-VI")} VND
                       </div>
                       <div className="flat text-on-surface-variant1 mt-1">
-                        $40.00
+                        {(40000).toLocaleString("vi-VI")} VND
                       </div>
                     </div>
                   </div>
@@ -255,11 +271,10 @@ const Cart = () => {
                 <div className="total-cart-block pt-4 pb-4 flex justify-between">
                   <div className="heading5">Total</div>
                   <div className="heading5">
-                    $
                     <span className="total-cart heading5">
-                      {totalCart - + shipCart}
+                      {(totalCart + shipCart).toLocaleString("vi-VI")}
                     </span>
-                    <span className="heading5">.00</span>
+                    <span className="heading5"> VND</span>
                   </div>
                 </div>
                 <div className="block-button flex flex-col items-center gap-y-4 mt-5">

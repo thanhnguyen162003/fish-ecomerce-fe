@@ -48,7 +48,7 @@ const Checkout = () => {
         formData.paymentMethod,
         totalCart,
         jwtToken
-      ); // gọi API checkout ở đây nếu cần
+      ); 
       if (typeof response === "string" && response.includes("payos")) {
         console.log(response);
         

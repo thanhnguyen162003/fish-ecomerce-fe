@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { ProductType } from "@/type/ProductType";
+import { getCartFromLocalStorage } from "@/context/CartItemContext";
 
 interface Props {
   background: string;
@@ -48,7 +49,6 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
           PageNumber: 1,
         },
       });
-      console.log("manuone");
       localStorage.setItem(
         "myProduct",
         JSON.stringify(response.data as ProductType[])
@@ -109,12 +109,12 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
     >
       <div className={`mx-auto bg-full h-full ${background}`}>
         <div className="max-w-screen-xl mx-auto header-main flex justify-between h-full">
-          <div
+          {/* <div
             className={`menu-mobile-icon lg:hidden flex items-center`}
             onClick={handleMenuMobile}
           >
             <i className="icon-category text-2xl"></i>
-          </div>
+          </div> */}
           <div className={`left flex items-center gap-16`}>
             <Link
               href={"/"}
@@ -199,9 +199,9 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
                 onClick={openModalCart}
               >
                 <Icon.Handbag size={24} />
-                <span className="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-black w-4 h-4 flex items-center justify-center rounded-full">
-                  {cartState.cartArray.length}
-                </span>
+                {/* <span className="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-black w-4 h-4 flex items-center justify-center rounded-full">
+                  {getCartFromLocalStorage()?.length}
+                </span> */}
               </div>
             </div>
           </div>

@@ -18,30 +18,16 @@ import {
   removeFromCart,
   updateCart,
 } from "@/context/CartItemContext";
-const ModalCart = ({
-  serverTimeLeft,
-}: {
-  serverTimeLeft: CountdownTimeType;
-}) => {
-  const [timeLeft, setTimeLeft] = useState(serverTimeLeft);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(countdownTime());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    setCart(getCartFromLocalStorage());
-  }, []);
-
+const ModalCart = () => {
   const [activeTab, setActiveTab] = useState<string | undefined>("");
   const { isModalOpen, closeModalCart } = useModalCartContext();
   //   const { cartState, addToCart, removeFromCart, updateCart } = useCart();
   const [products, setProducts] = useState<ProductType[] | undefined>();
   const [cart, setCart] = useState<CartItem[] | null>();
+
+  useEffect(() => {
+    setCart(getCartFromLocalStorage());
+  }, [isModalOpen]);
 
   const handleAddToCart = (product: ProductType) => {
     const item: CartItem = {
