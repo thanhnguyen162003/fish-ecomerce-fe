@@ -16,6 +16,7 @@ import Brand from "@/components/Home6/Brand";
 import Footer from "@/components/Footer/Footer";
 import ModalNewsletter from "@/components/Modal/ModalNewsletter";
 import { ToastContainer } from "react-toastify";
+import { ProductListComponent } from "@/components/ProductList/ProductListComponent";
 
 export default function Home() {
   return (
@@ -25,7 +26,8 @@ export default function Home() {
         <SliderSix />
       </div>
       {/* <Collection /> */}
-      <TabFeatures data={productData} start={0} limit={8} />
+      {/* <TabFeatures data={productData} start={0} limit={8} /> */}
+      <ProductListComponent />
       <PopularProduct />
       {/* <FlashSale /> */}
       {/* <Testimonial data={testimonialData} limit={5} /> */}
