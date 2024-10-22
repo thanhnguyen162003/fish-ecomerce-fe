@@ -1,38 +1,38 @@
-import React from 'react'
-import TopNavThree from '@/components/Header/TopNav/TopNavThree'
-import BannerTop from '@/components/Home4/BannerTop'
-import SliderSix from '@/components/Slider/SliderSix'
-import Collection from '@/components/Home6/Collection'
-import productData from '@/data/Product.json'
-import TabFeatures from '@/components/Home2/TabFeatures'
-import PopularProduct from '@/components/Home6/PopularProduct'
-import FlashSale from '@/components/Home6/FlashSale'
-import testimonialData from '@/data/Testimonial.json'
-import Testimonial from '@/components/Home6/Testimonial'
-import BestSaleProduct from '@/components/Home6/BestSaleProduct'
-import Benefit from '@/components/Home1/Benefit'
-import Instagram from '@/components/Home6/Instagram'
-import Brand from '@/components/Home6/Brand'
-import Footer from '@/components/Footer/Footer'
-import ModalNewsletter from '@/components/Modal/ModalNewsletter'
-import { ToastContainer } from 'react-toastify'
+import React from "react";
+import TopNavThree from "@/components/Header/TopNav/TopNavThree";
+import BannerTop from "@/components/Home4/BannerTop";
+import SliderSix from "@/components/Slider/SliderSix";
+import Collection from "@/components/Home6/Collection";
+import productData from "@/data/Product.json";
+import TabFeatures from "@/components/Home2/TabFeatures";
+import PopularProduct from "@/components/Home6/PopularProduct";
+import FlashSale from "@/components/Home6/FlashSale";
+import testimonialData from "@/data/Testimonial.json";
+import Testimonial from "@/components/Home6/Testimonial";
+import BestSaleProduct from "@/components/Home6/BestSaleProduct";
+import Benefit from "@/components/Home1/Benefit";
+import Instagram from "@/components/Home6/Instagram";
+import Brand from "@/components/Home6/Brand";
+import Footer from "@/components/Footer/Footer";
+import ModalNewsletter from "@/components/Modal/ModalNewsletter";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   return (
     <>
-      <div id="header" className='relative w-full'>
+      <div id="header" className="relative w-full">
         {/* <BannerTop props="bg-black py-3" textColor='text-white' /> */}
         <SliderSix />
       </div>
-      <Collection />
+      {/* <Collection /> */}
       <TabFeatures data={productData} start={0} limit={8} />
       <PopularProduct />
       {/* <FlashSale /> */}
-      <Testimonial data={testimonialData} limit={5} />
+      {/* <Testimonial data={testimonialData} limit={5} /> */}
       {/* <BestSaleProduct data={productData} /> */}
       <Benefit props="md:pt-20 pt-10" />
       {/* <Brand /> */}
       {/* <ModalNewsletter /> */}
     </>
-  )
+  );
 }

@@ -84,7 +84,7 @@ const ModalCart = () => {
             e.stopPropagation();
           }}
         >
-          <div className="left w-1/2 border-r border-line py-6 max-md:hidden">
+          {/* <div className="left w-1/2 border-r border-line py-6 max-md:hidden">
             <div className="heading5 px-6 pb-3">You May Also Like</div>
             <div className="list px-6">
               {products?.map((product) => (
@@ -114,8 +114,13 @@ const ModalCart = () => {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="right cart-block md:w-1/2 w-full py-6 relative overflow-hidden">
+          </div> */}
+
+          {/*old div tag of "shopping card" */}
+          {/* <div className="right cart-block md:w-1/2 w-full py-6 relative overflow-hidden"> */}
+
+          {/*new div tag of "shopping card" */}
+          <div className=" cart-block  w-full py-6 relative overflow-hidden">
             <div className="heading px-6 pb-3 flex items-center justify-between relative">
               <div className="heading5">Shopping Cart</div>
               <div
@@ -449,6 +454,7 @@ const ModalCart = () => {
               </div>
             </div>
           </div>
+          {/*xoa cai "you also may like" thi phai vao styles/layout/model.css - line 305 de fix width*/}
         </div>
       </div>
     </>
