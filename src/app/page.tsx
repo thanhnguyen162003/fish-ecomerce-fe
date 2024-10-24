@@ -17,6 +17,8 @@ import Footer from "@/components/Footer/Footer";
 import ModalNewsletter from "@/components/Modal/ModalNewsletter";
 import { ToastContainer } from "react-toastify";
 import { ProductListComponent } from "@/components/ProductList/ProductListComponent";
+import { OrderHistory } from "./my-account/Order/OrderHistory";
+import { OrderDetail } from "./my-account/Order/OrderDetail";
 
 export default function Home() {
   return (
@@ -27,6 +29,8 @@ export default function Home() {
       </div>
       {/* <Collection /> */}
       {/* <TabFeatures data={productData} start={0} limit={8} /> */}
+      {/* <OrderHistory />
+      <OrderDetail /> */}
       <ProductListComponent />
       <PopularProduct />
       {/* <FlashSale /> */}
