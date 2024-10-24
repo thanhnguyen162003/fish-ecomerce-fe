@@ -27,7 +27,7 @@ const ModalCart = () => {
 
   useEffect(() => {
     setCart(getCartFromLocalStorage());
-  }, [isModalOpen]);
+  });
 
   const handleAddToCart = (product: ProductType) => {
     const item: CartItem = {
