@@ -77,6 +77,8 @@ export default function BreadcrumbImg() {
           ...(breed && { Breed: breed }),
           ...(sort && { Sort: sort }),
           ...(direction && { Direction: direction }),
+          ...(priceRange && { PriceFrom: priceRange.min}),
+          ...(priceRange && { PriceTo: priceRange.max}),
         },
       });
       console.log("response", response);
@@ -91,6 +93,8 @@ export default function BreadcrumbImg() {
 
   async function getTankProducts() {
     try {
+      console.log("priceRange", priceRange);
+      
       const response = await axios.get(`${apiUrl}/product/tanks`, {
         params: {
           PageSize: pageSize,
@@ -99,6 +103,8 @@ export default function BreadcrumbImg() {
           ...(category && { Category: category }),
           ...(sort && { Sort: sort }),
           ...(direction && { Direction: direction }),
+          ...(priceRange && { PriceFrom: priceRange.min}),
+          ...(priceRange && { PriceTo: priceRange.max}),
         },
       });
       console.log("response", response);
@@ -144,7 +150,7 @@ export default function BreadcrumbImg() {
     };
 
     fetchData();
-  }, [category, breed, pageNumber, pageSize, sort, direction, search, type]);
+  }, [category, breed, pageNumber, pageSize, sort, direction, search, type, priceRange]);
 
   const handleSortChange = (option: string) => {
     console.log(option);
@@ -190,6 +196,8 @@ export default function BreadcrumbImg() {
 
   const handlePriceChange = (values: number | number[]) => {
     if (Array.isArray(values)) {
+      console.log("priceRange");
+      
       setPriceRange({ min: values[0], max: values[1] });
       setPageNumber(0);
     }
@@ -410,7 +418,7 @@ export default function BreadcrumbImg() {
                 <Slider
                   range
                   defaultValue={[0, 100_000_000]}
-                  step={500_000}
+                  step={50}
                   min={0}
                   max={100_000_000}
                   onChange={handlePriceChange}
