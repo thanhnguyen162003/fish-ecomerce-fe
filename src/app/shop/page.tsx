@@ -25,8 +25,8 @@ export default function BreadcrumbImg() {
   const [breeds, setBreeds] = useState<BreedType[]>([]);
   const [breed, setBreed] = useState<BreedType | null>();
   const [totalProducts, setTotalProducts] = useState<number>(0);
-  const [pageSize, setPageSize] = useState<number>(9);
-  const [pageNumber, setPageNumber] = useState<number>(0);
+  const pageSize = 9;
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const [search, setSearch] = useState<string | null>();
   const [sort, setSort] = useState<string | null>();
   const [direction, setDirection] = useState<string | null>();
@@ -69,6 +69,8 @@ export default function BreadcrumbImg() {
 
   async function getFishProducts() {
     try {
+      console.log(pageSize);
+      
       const response = await axios.get(`${apiUrl}/product/fishs`, {
         params: {
           PageSize: pageSize,
@@ -77,8 +79,8 @@ export default function BreadcrumbImg() {
           ...(breed && { Breed: breed }),
           ...(sort && { Sort: sort }),
           ...(direction && { Direction: direction }),
-          ...(priceRange && { PriceFrom: priceRange.min}),
-          ...(priceRange && { PriceTo: priceRange.max}),
+          ...(priceRange && { PriceFrom: priceRange.min }),
+          ...(priceRange && { PriceTo: priceRange.max }),
         },
       });
       console.log("response", response);
@@ -90,11 +92,14 @@ export default function BreadcrumbImg() {
       console.error("Error fetching fish products:", error);
     }
   }
+  useEffect(() => {
+    setPageCount(Math.ceil(totalProducts / pageSize));
+  }, [totalProducts, pageSize]);
 
   async function getTankProducts() {
     try {
       console.log("priceRange", priceRange);
-      
+
       const response = await axios.get(`${apiUrl}/product/tanks`, {
         params: {
           PageSize: pageSize,
@@ -103,8 +108,8 @@ export default function BreadcrumbImg() {
           ...(category && { Category: category }),
           ...(sort && { Sort: sort }),
           ...(direction && { Direction: direction }),
-          ...(priceRange && { PriceFrom: priceRange.min}),
-          ...(priceRange && { PriceTo: priceRange.max}),
+          ...(priceRange && { PriceFrom: priceRange.min }),
+          ...(priceRange && { PriceTo: priceRange.max }),
         },
       });
       console.log("response", response);
@@ -124,8 +129,6 @@ export default function BreadcrumbImg() {
       const paginationData = JSON.parse(paginationHeader);
       const totalCount = paginationData.TotalCount;
       setTotalProducts(totalCount);
-      console.log("TotalCount:", totalCount);
-      console.log("totalProducts", totalProducts);
     }
   };
 
@@ -150,64 +153,69 @@ export default function BreadcrumbImg() {
     };
 
     fetchData();
-  }, [category, breed, pageNumber, pageSize, sort, direction, search, type, priceRange]);
+  }, [
+    category,
+    breed,
+    pageNumber,
+    pageSize,
+    sort,
+    direction,
+    search,
+    type,
+    priceRange,
+  ]);
 
   const handleSortChange = (option: string) => {
     console.log(option);
 
     setSort(option);
-    setPageNumber(0);
+    setPageNumber(1);
   };
 
   const handleSearch = (key: string) => {
     setSearch(key);
-    setPageNumber(0);
+    setPageNumber(1);
   };
 
   const handleChangePage = (opt: number) => {
-    setPageNumber(opt);
+    console.log("handleChangePage", opt);
+    
+    setPageNumber(opt+1);
   };
 
   const handleChangeType = (opt: string) => {
-    setPageNumber(0);
+    setPageNumber(1);
     setType(opt);
   };
 
   const handleDirection = (opt: string) => {
     setDirection(opt);
-    setPageNumber(0);
-  };
-
-  const handlePageSize = (op: string) => {
-    const pageSizeNumber = parseInt(op, 10);
-    setPageSize(pageSizeNumber);
-    setPageNumber(0);
+    setPageNumber(1);
   };
 
   const handleChangeCategory = (opt: CategoryType) => {
     setCategory(opt);
-    setPageNumber(0);
+    setPageNumber(1);
   };
 
   const handleChangeBreed = (opt: BreedType) => {
     setBreed(opt);
-    setPageNumber(0);
+    setPageNumber(1);
   };
 
   const handlePriceChange = (values: number | number[]) => {
     if (Array.isArray(values)) {
       console.log("priceRange");
-      
+
       setPriceRange({ min: values[0], max: values[1] });
-      setPageNumber(0);
+      setPageNumber(1);
     }
   };
 
   const handleClearAll = () => {
     setBreed(null);
     setDirection(null);
-    setPageNumber(0);
-    setPageSize(12);
+    setPageNumber(1);
     setSearch(null);
     setSort(null);
   };
