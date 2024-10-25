@@ -18,19 +18,32 @@ const Login = () => {
 
     const router = useRouter();
 
+    function setItemWithExpiry(key:string, value:any) {
+        const now = new Date();
+        
+        // Create an object to store the value and the expiration time (15 minutes from now)
+        const item = {
+            value: value,
+            expiry: now.getTime() + 15 * 60 * 1000, // 15 minutes in milliseconds
+        };
+        
+        // Save the item to localStorage as a string
+        localStorage.setItem(key, JSON.stringify(item));
+    }
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             setIsPending(true)
             const response = await login(email, password);
-            localStorage.setItem('jwtToken', response.data.token);
-            console.log(response.data.token);
-            var statusCode = response.request.status;
+            var statusCode = response.status;
             if (statusCode != null && statusCode >= 200 && statusCode <= 299) {
+                setItemWithExpiry('jwt_token', response.data.token)
                 router.push('/')
             }
             else if (statusCode === 400) {
-                setError("Login failed!")
+                let res = response.request.response.toLocaleString()
+                setError(res.substring(1, res.length-1))
             }
         } catch (err) {
             console.log(err);

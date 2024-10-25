@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export default async function login(email: string, password: string) {
@@ -8,11 +8,10 @@ export default async function login(email: string, password: string) {
             password: password
         }
         const response = await axios.post(`https://kingfish.azurewebsites.net/api/auth/login-customer`, user);
-        console.log(response);
         
         return response;
     } catch (error) {
-        console.log(error);
-        throw error
+        console.log("error", error);
+        return error as AxiosResponse
     }
 }

@@ -35,7 +35,7 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
   const { cartState } = useCart();
   const { openModalWishlist } = useModalWishlistContext();
   const { openModalSearch } = useModalSearchContext();
-  const [email, setEmail] = useState<string | null>("");
+  const [jwt, setJwt] = useState<string | null>("");
 
   const handleOpenSubNavMobile = (index: number) => {
     setOpenSubNavMobile(openSubNavMobile === index ? null : index);
@@ -58,15 +58,34 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
     }
   }
 
+  const getWithExpiry = (key: string) => {
+    const itemStr = localStorage.getItem(key);
+  
+    // If the item doesn't exist, return null
+    if (!itemStr) {
+      return null;
+    }
+  
+    const item = JSON.parse(itemStr);
+    const now = new Date();
+  
+    // If the item has expired, remove it and return null
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key);
+      return null;
+    }
+  
+    return item.value;
+  };  
+
   useEffect(() => {
-    console.log("something");
-    getFishProducts();
-    setEmail(localStorage.getItem("jwtToken"));
-  }, []);
+    setJwt(localStorage.getItem("jwt_token"));
+    getWithExpiry('jwt_token')
+  });
 
   const handleSignOut = () => {
-    localStorage.removeItem("jwtToken");
-    router.refresh();
+    localStorage.removeItem("jwt_token");
+    setJwt('')
   };
 
   const [fixedHeader, setFixedHeader] = useState(false);
@@ -156,7 +175,7 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
                   className={`login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-pearlWhite box-shadow-small 
                                             ${openLoginPopup ? "open" : ""}`}
                 >
-                  {email === null && (
+                  {jwt === null && (
                     <div>
                       <Link
                         href={"/login"}
@@ -175,7 +194,7 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
                       </div>
                     </div>
                   )}
-                  {email !== null && (
+                  {jwt !== null && (
                     <div>
                       <Link
                         href={"/my-account"}
