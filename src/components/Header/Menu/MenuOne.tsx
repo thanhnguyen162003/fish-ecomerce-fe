@@ -79,12 +79,12 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
   };  
 
   useEffect(() => {
-    setJwt(localStorage.getItem("jwt_token"));
-    getWithExpiry('jwt_token')
+    setJwt(localStorage.getItem("jwtToken"));
+    getWithExpiry('jwtToken')
   });
 
   const handleSignOut = () => {
-    localStorage.removeItem("jwt_token");
+    localStorage.removeItem("jwtToken");
     setJwt('')
   };
 

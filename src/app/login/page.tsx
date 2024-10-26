@@ -38,7 +38,7 @@ const Login = () => {
             const response = await login(email, password);
             var statusCode = response.status;
             if (statusCode != null && statusCode >= 200 && statusCode <= 299) {
-                setItemWithExpiry('jwt_token', response.data.token)
+                setItemWithExpiry('jwtToken', response.data.token)
                 router.push('/')
             }
             else if (statusCode === 400) {
