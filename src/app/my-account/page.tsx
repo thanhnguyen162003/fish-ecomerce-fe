@@ -27,27 +27,39 @@ const MyAccount = () => {
     const [oldPassword, setOldPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const getWithExpiry = (key: string) => {
+        const itemStr = localStorage.getItem(key);
+      
+        // If the item doesn't exist, return null
+        if (!itemStr) {
+          return null;
+        }
+      
+        const item = JSON.parse(itemStr);
+        const now = new Date();
+      
+        // If the item has expired, remove it and return null
+        if (now.getTime() > item.expiry) {
+            toast.warning("Phiên đăng nhập đã hết hạn");
+            localStorage.removeItem(key);
+            return null;
+        }
+      
+        return item.value;
+      }; 
+
     useEffect(() => {
         const fetchCustomer = async () => {
-            const token = localStorage.getItem('jwtToken');
+            const token = getWithExpiry('jwtToken');
 
             if (!token) {
                 router.push('/login');
                 return;
             }
 
-            const item = JSON.parse(token);
-
-            const now = new Date();
-  
-            if (now.getTime() > item.expiry) {
-                localStorage.removeItem('jwtToken');
-                router.push('/login');
-            }
-
             try {
                 setIsLoading(true);
-                const data = await getCustomer(item.value);
+                const data = await getCustomer(token);
                 setCustomer(data.data);
             } catch (error) {
                 console.error('Error fetching customer data:', error);
@@ -87,7 +99,12 @@ const MyAccount = () => {
 
     const handleUpdateInformation = async (e: React.FormEvent) => {
         e.preventDefault();
-        const token = localStorage.getItem('jwtToken');
+        const token = getWithExpiry('jwtToken');
+
+        if (!token) {
+            router.push('/login');
+            return;
+        }
 
         if (token && customer) {
             try {
@@ -122,8 +139,17 @@ const MyAccount = () => {
             newPassword: newPassword,
         };
 
-        const token = localStorage.getItem('jwtToken');
+        const token = getWithExpiry('jwtToken');
+
+        if (!token) {
+            router.push('/login');
+            return;
+        }
+        
         if(token){
+
+
+
             try {
 
                 if(newPassword !== confirmPassword){

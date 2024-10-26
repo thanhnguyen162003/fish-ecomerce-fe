@@ -85,7 +85,8 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
 
   const handleSignOut = () => {
     localStorage.removeItem("jwtToken");
-    setJwt('')
+    setJwt('');
+    router.push('/login')
   };
 
   const [fixedHeader, setFixedHeader] = useState(false);
