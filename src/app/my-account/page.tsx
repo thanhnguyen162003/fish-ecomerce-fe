@@ -36,10 +36,18 @@ const MyAccount = () => {
                 return;
             }
 
+            const item = JSON.parse(token);
+
+            const now = new Date();
+  
+            if (now.getTime() > item.expiry) {
+                localStorage.removeItem('jwtToken');
+                router.push('/login');
+            }
+
             try {
-                localStorage.setItem('jwtToken', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI2ZWE5MjBiZi01YzlkLTRkNDUtYTYxMi03ZjlmNjdmYmRlOTMiLCJ1bmlxdWVfbmFtZSI6InN0cmluZyIsIkZ1bGxuYW1lIjoiQ0jDkyBUSMOATkgiLCJyb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3Mjk3NTQwNTMsImV4cCI6MTcyOTc2MTI1MywiaWF0IjoxNzI5NzU0MDUzLCJpc3MiOiJLaW5nRmlzaEFwcERldiIsImF1ZCI6IktpbmdGaXNoQXBwRGV2VXNlcnMifQ.RmXC021z_KdiIClqmaSICSwlakcvGwLmwTNYhN-zubk")
                 setIsLoading(true);
-                const data = await getCustomer(token);
+                const data = await getCustomer(item.value);
                 setCustomer(data.data);
             } catch (error) {
                 console.error('Error fetching customer data:', error);
