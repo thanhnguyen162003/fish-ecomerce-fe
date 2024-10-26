@@ -14,6 +14,8 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const Register = () => {
 
     const [name, setName] = useState('');
+    const [username, setUserame] = useState('');
+    const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -31,7 +33,7 @@ const Register = () => {
         }
         try {
             setIsPending(true)
-            const response = await register(email, password, name);
+            const response = await register(email, password, name, phone, username);
             var statusCode = response.request.status;
             if (statusCode != null && statusCode >= 200 && statusCode <= 299) {
                 setShowSuccessMessage(true)
@@ -59,10 +61,22 @@ const Register = () => {
                             )}
                             <div className="heading4">Register</div>
                             <form className="md:mt-7 mt-4" onSubmit={handleRegister}>
-                                <div className="username ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="text" placeholder="Username *"
+                                <div className="username mt-5">
+                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="text" placeholder="Your Name *"
                                         value={name}
                                         onChange={e => setName(e.target.value)}
+                                        required />
+                                </div>
+                                <div className="username mt-5">
+                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="text" placeholder="Username *"
+                                        value={username}
+                                        onChange={e => setUserame(e.target.value)}
+                                        required />
+                                </div>
+                                <div className="username mt-5">
+                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="text" placeholder="Phone *"
+                                        value={phone}
+                                        onChange={e => setPhone(e.target.value)}
                                         required />
                                 </div>
                                 <div className="email mt-5">
