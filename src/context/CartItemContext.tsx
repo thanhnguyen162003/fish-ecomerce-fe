@@ -6,12 +6,17 @@ export const addToCart = (newItem: CartItem) => {
     const existingItem = cartItems.find(item => item.productId === newItem.productId);
     
     if (existingItem) {
+      
+      if((existingItem.quantity + 1) > existingItem.stock){
+        return "Số lượng sản phẩm trong giỏ hàng đã vượt quá số lượng hàng kho !";
+      }
       existingItem.quantity += newItem.quantity;
       existingItem.totalPrice = existingItem.quantity * existingItem.unitPrice;
     } else {
       cartItems.push(newItem);
     }
     localStorage.setItem("cart", JSON.stringify(cartItems));
+    return "Sản phẩm đã thêm vào giỏ hàng";
   };
   
   export const updateCart = (productId: string, newQuantity: number) => {

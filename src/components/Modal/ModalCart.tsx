@@ -86,40 +86,6 @@ const ModalCart = () => {
             e.stopPropagation();
           }}
         >
-          {/* <div className="left w-1/2 border-r border-line py-6 max-md:hidden">
-            <div className="heading5 px-6 pb-3">You May Also Like</div>
-            <div className="list px-6">
-              {products?.map((product) => (
-                <div
-                  key={product.id}
-                  className="item py-5 flex items-center justify-between gap-3 border-b border-line"
-                >
-                  <div className="infor flex items-center gap-5">
-                    <div className="">
-                      <div className="name text-button">{product.name}</div>
-                      <div className="flex items-center gap-2 mt-2">
-                        <div className="product-price text-title">
-                          {product.price.toLocaleString("vi-VN")} VND
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="text-xl bg-white w-10 h-10 rounded-xl border border-black flex items-center justify-center duration-300 cursor-pointer hover:bg-black hover:text-white"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleAddToCart(product);
-                    }}
-                  >
-                    <Icon.Handbag />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div> */}
-
-          {/*old div tag of "shopping card" */}
-          {/* <div className="right cart-block md:w-1/2 w-full py-6 relative overflow-hidden"> */}
 
           {/*new div tag of "shopping card" */}
           <div className=" cart-block  w-full py-6 relative overflow-hidden">
@@ -132,38 +98,8 @@ const ModalCart = () => {
                 <Icon.X size={14} />
               </div>
             </div>
-            {/* <div className="heading banner mt-3 px-6">
-              <div className="text">
-                Buy{" "}
-                <span className="text-button">
-                  {" "}
-                  <span className="more-price">
-                    {moneyForFreeship - totalCart > 0 ? (
-                      <>
-                        {(moneyForFreeship - totalCart).toLocaleString("vi-VN")}
-                      </>
-                    ) : (
-                      0
-                    )}
-                  </span>{" "}
-                  VND
-                </span>
-                <span> more to get </span>
-                <span className="text-button">freeship</span>
-              </div>
-              <div className="tow-bar-block mt-3">
-                <div
-                  className="progress-line"
-                  style={{
-                    width:
-                      totalCart <= moneyForFreeship
-                        ? `${(totalCart / moneyForFreeship) * 100}%`
-                        : `100%`,
-                  }}
-                ></div>
-              </div>
-            </div> */}
-            <div className="list-product px-6">
+            
+            <div className="flex-col flex h-[400px] overflow-y-scroll px-6">
               {cart &&
                 cart.map((product) => (
                   <div
@@ -229,29 +165,7 @@ const ModalCart = () => {
                 ))}
             </div>
             <div className="footer-modal bg-white absolute bottom-0 left-0 w-full">
-              {/* <div className="flex items-center justify-center lg:gap-14 gap-8 px-6 py-4 border-b border-line">
-                <div
-                  className="item flex items-center gap-3 cursor-pointer"
-                  onClick={() => handleActiveTab("note")}
-                >
-                  <Icon.NotePencil className="text-xl" />
-                  <div className="caption1">Note</div>
-                </div>
-                <div
-                  className="item flex items-center gap-3 cursor-pointer"
-                  onClick={() => handleActiveTab("shipping")}
-                >
-                  <Icon.Truck className="text-xl" />
-                  <div className="caption1">Shipping</div>
-                </div>
-                <div
-                  className="item flex items-center gap-3 cursor-pointer"
-                  onClick={() => handleActiveTab("coupon")}
-                >
-                  <Icon.Tag className="text-xl" />
-                  <div className="caption1">Coupon</div>
-                </div>
-              </div> */}
+              
               <div className="flex items-center justify-between pt-6 px-6">
                 <div className="heading5">Subtotal</div>
                 <div className="heading5">

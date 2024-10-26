@@ -28,6 +28,9 @@ import Rate from "@/components/Other/Rate";
 import { postFeedback } from "@/components/api/feedback/post";
 import { useRouter } from "next/navigation";
 import { Placeholder } from "@phosphor-icons/react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { toast } from "react-toastify";
+
 
 SwiperCore.use([Navigation, Thumbs]);
 
@@ -47,8 +50,11 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
   const [star, setStar] = useState<string>("4");
 
   let productMain = data;
+
   if (!productMain) {
-    return <div>...Đang tải sản phẩm</div>;
+    return <div className="w-full flex justify-center my-5 h-[500px] items-center">
+    <AiOutlineLoading3Quarters className="animate-spin h-[60px] w-[60px]" />
+  </div>
   }
 
   let averageStart = data?.feedbacks.reduce(
@@ -92,11 +98,13 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
       quantity: 1,
       unitPrice: product.price,
       totalPrice: product.price,
+      stock: product.stock_quantity,
       discount: 0,
       name: product.name || "",
       imgUrl: product.images[0]?.link || "/images/product/1000x1000.png",
     };
-    addToCart(item);
+    const message = addToCart(item);
+    toast.info(message)
   };
 
   const handleAddToWishlist = () => {
@@ -167,7 +175,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                         }
                         width={1000}
                         height={1000}
-                        alt="prd-img"
+                        alt="Hình ảnh sản phẩm"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -258,7 +266,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                     }`}
                     onClick={() => handleActiveTab("description")}
                   >
-                    <span className="heading5">Description</span>
+                    <span className="heading5">Mô tả</span>
                     <Icon.CaretDown />
                   </div>
                   <div
@@ -267,44 +275,55 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                     }`}
                   >
                     <div className="right">
-                      <div className="heading6">Award</div>
+                      <div className="heading6">Giải thưởng</div>
                       <div className="list-feature space-y-4 bg-gray-50 p-4 rounded-lg shadow-md">
-                        {productMain.fish?.awards?.map((award, index) => (
-                          <div
-                            key={index}
-                            className="award-item flex gap-3 items-start p-2 bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
-                          >
-                            <div className="icon text-primary flex-shrink-0">
-                              <Icon.Trophy
-                                size={24}
-                                className="text-yellow-500"
-                              />
+                        {productMain.fish?.awards && productMain.fish.awards.length > 0 ? (
+                          productMain.fish.awards.map((award, index) => (
+                            <div
+                              key={index}
+                              className="award-item flex gap-3 items-start p-2 bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+                            >
+                              <div className="icon text-primary flex-shrink-0">
+                                <Icon.Trophy size={24} className="text-yellow-500" />
+                              </div>
+                              <div className="award-content">
+                                <h4 className="font-semibold text-lg text-gray-800">
+                                  {award.name}
+                                  <span className="text-sm text-gray-500 ml-2">
+                                    ({new Date(award.award_date).toLocaleDateString()})
+                                  </span>
+                                </h4>
+                                <p className="text-sm text-gray-600 mt-1">{award.description}</p>
+                              </div>
                             </div>
-                            <div className="award-content">
-                              <h4 className="font-semibold text-lg text-gray-800">
-                                {award.name}
-                                <span className="text-sm text-gray-500 ml-2">
-                                  (
-                                  {new Date(
-                                    award.award_date
-                                  ).toLocaleDateString()}
-                                  )
-                                </span>
-                              </h4>
-                              <p className="text-sm text-gray-600 mt-1">
-                                {award.description}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
+                          ))
+                        ) : (
+                          <div className="font-semibold text-lg text-gray-800">Chưa có giải thưởng</div>
+                        )}
                       </div>
                     </div>
                     <div className="left md:mt-8 mt-5">
-                      <div className="heading6">Description</div>
+                      <div className="heading6">Giống cá</div>
                       <div className="text-secondary mt-2">
                         {productMain.fish
                           ? productMain.fish.breed.description
                           : "Koi Kohaku Là dòng Koi được yêu thích nhất. Là dòng Koi được lai tạo đầu tiên tại Nhật. Có lịch sử lâu đời (từ TK 19). Koi nổi bật với nước da trắng hơn tuyết, các điểm đỏ Hi lớn, phân bố đều, hài hòa trên thân. Kohaku nghĩa là đỏ và trắng. Kohaku gồm 7 phiên bản: menkaburi Kohaku; Kuchibeni Kohaku; Inazuma Kohalku; Maruten Kohaku; Straight Hi-kohaku; Tancho Kohaku; Doitsu Kohaku; Nidan Kohaku; Ginrin kohaku"}
+                      </div>
+                    </div>
+                    <div className="left md:mt-8 mt-5">
+                      <div className="heading6">Thông tin</div>
+                      <div className="text-secondary mt-2">
+                        {productMain.description && productMain.description.trim() !== ""
+                          ? productMain.description
+                          : "Không có mô tả"}
+                      </div>
+                    </div>
+                    <div className="left md:mt-8 mt-5">
+                      <div className="heading6">Thông tin chi tiết</div>
+                      <div className="text-secondary mt-2">
+                        {productMain.description_detail && productMain.description_detail.trim() !== ""
+                          ? productMain.description_detail
+                          : "Không có mô tả"}
                       </div>
                     </div>
                     {/* <div className="grid grid-cols-2 gap-[30px] md:mt-8 mt-5">
@@ -351,7 +370,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                     }`}
                     onClick={() => handleActiveTab("description")}
                   >
-                    <span className="heading5">Category</span>
+                    <span className="heading5">Mô tả</span>
                     <Icon.CaretDown />
                   </div>
                   <div
@@ -360,37 +379,46 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                     }`}
                   >
                     <div className="right">
+                    <div className="heading6">Phân loại</div>
                       <div className="list-feature space-y-4 bg-gray-50 p-4 rounded-lg shadow-md">
-                        {productMain.tank?.categories?.map(
-                          (category, index) => (
-                            <div
-                              key={index}
-                              className="award-item flex gap-3 items-start p-2 bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
-                            >
-                              <div className="icon text-primary flex-shrink-0">
-                                <Icon.Tag
-                                  size={24}
-                                  className="text-yellow-500"
-                                />
-                              </div>
-                              <div className="award-content">
-                                <h4 className="font-semibold text-lg text-gray-800">
-                                  {category.level}
-                                  <span className="text-sm text-gray-500 ml-2">
-                                    (
-                                    {new Date(
-                                      category.created_at
-                                    ).toLocaleDateString()}
-                                    )
-                                  </span>
-                                </h4>
-                                <p className="text-sm text-gray-600 mt-1">
-                                  {category.tank_type}
-                                </p>
-                              </div>
+                      {productMain.tank?.categories && productMain.tank.categories.length > 0 ? (
+                        productMain.tank.categories.map((category, index) => (
+                          <div
+                            key={index}
+                            className="category-item flex gap-3 items-start p-2 bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+                          >
+                            <div className="icon text-primary flex-shrink-0">
+                              <Icon.Tag size={24} className="text-yellow-500" />
                             </div>
-                          )
-                        )}
+                            <div className="category-content">
+                              <h4 className="font-semibold text-lg text-gray-800">
+                                {category.level}
+                              </h4>
+                              <p className="text-sm text-gray-600 mt-1">
+                                {category.tank_type}
+                              </p>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-sm text-gray-600">Không có phân loại</div>
+                      )}
+                      </div>
+                    </div>
+                    <div className="left md:mt-8 mt-5">
+                      <div className="heading6">Thông tin</div>
+                      <div className="text-secondary mt-2">
+                        {productMain.description && productMain.description.trim() !== ""
+                          ? productMain.description
+                          : "Không có mô tả"}
+                      </div>
+                    </div>
+                    <div className="left md:mt-8 mt-5">
+                      <div className="heading6">Thông tin chi tiết</div>
+                      <div className="text-secondary mt-2">
+                        {productMain.description_detail && productMain.description_detail.trim() !== ""
+                          ? productMain.description_detail
+                          : "Không có mô tả"}
                       </div>
                     </div>
                     {/* <div className="grid grid-cols-2 gap-[30px] md:mt-8 mt-5">
@@ -520,7 +548,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                                     src={"/images/avatar/3.png"}
                                     width={200}
                                     height={200}
-                                    alt="img"
+                                    alt="Hình ảnh sản phẩm"
                                     className="w-[52px] aspect-square rounded-full"
                                   />
                                 </div>

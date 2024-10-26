@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { Customer } from "@/type/customer";
 import { getCustomer } from "@/components/api/customer/customer.api";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const getWithExpiry = (key: string) => {
   const itemStr = localStorage.getItem(key);
@@ -42,6 +43,7 @@ const Checkout = () => {
   const [cart, setCart] = useState<CartItem[] | null>();
   const router = useRouter();
   const [user, setUser] = useState<Customer | undefined>();
+  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     firstName: "",
@@ -125,6 +127,7 @@ const Checkout = () => {
       setUser(response.data ?? null)
       setCart(getCartFromLocalStorage());
       checkTokenAndDecode();
+      setIsLoading(false)
     } catch (error) {
       console.error('Error fetching customer data:', error);
     }
@@ -144,6 +147,12 @@ const Checkout = () => {
   };
 
   cart && cart.map((item) => (totalCart += item.unitPrice * item.quantity));
+
+  if(isLoading){
+    <div className="w-full flex justify-center my-5 h-[500px] items-center">
+    <AiOutlineLoading3Quarters className="animate-spin h-[60px] w-[60px]" />
+  </div>
+  }
 
   return (
     <>

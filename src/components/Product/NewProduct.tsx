@@ -46,29 +46,8 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
       imgUrl: product.images[0]?.link || "/images/product/1000x1000.png",
     };
 
-    let cart = getCartFromLocalStorage();
-
-    if(cart){
-      const existingItemIndex = cart.findIndex((cartItem) => cartItem.productId === item.productId);
-
-      if (existingItemIndex > -1) {
-        // Sản phẩm đã tồn tại, kiểm tra xem số lượng hiện tại + 1 có vượt quá stock không
-        const existingItem = cart[existingItemIndex];
-        const newQuantity = existingItem.quantity + 1;
-    
-        if (newQuantity > product.stock_quantity) {
-          toast.warning("Số lượng sản phẩm trong giỏ hàng đã vượt quá số lượng hàng kho!");
-          return;
-        }
-    
-        addToCart(item);
-        toast.info("Sản phẩm đã thêm vào giỏ hàng")
-        return;
-      }
-    }
-
-    addToCart(item);
-    toast.info("Sản phẩm đã thêm vào giỏ hàng")
+    const message = addToCart(item);
+    toast.info(message)
     setCart(getCartFromLocalStorage());
   };
 
