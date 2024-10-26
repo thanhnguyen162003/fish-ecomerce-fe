@@ -30,7 +30,7 @@ const BlogDetailTwo = () => {
 
     const handleBlogDetail = (id: string) => {
         // Go to blog detail with id selected
-        router.push(`/blog/detail2?id=${id}`);
+        router.push(`/blog/detail?id=${id}`);
     };
 
     return (
@@ -44,15 +44,7 @@ const BlogDetailTwo = () => {
                             {/* <div className="blog-tag bg-green py-1 px-2.5 rounded-full text-button-uppercase inline-block">{blogMain.tag}</div> */}
                             <div className="heading3 mt-3">{blogMain.title}</div>
                             <div className="author flex items-center gap-4 mt-4">
-                                <div className="avatar w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                                    <Image
-                                        src={blogMain.avatar}
-                                        width={200}
-                                        height={200}
-                                        alt='avatar'
-                                        className='w-full h-full object-cover'
-                                    />
-                                </div>
+                                
                                 <div className='flex items-center gap-2'>
                                     <div className="caption1 text-secondary">by {blogMain.author}</div>
                                     <div className="line w-5 h-px bg-secondary"></div>
@@ -256,12 +248,9 @@ const BlogDetailTwo = () => {
                                         <div className="col-span-full message">
                                             <textarea className="border border-line px-4 py-3 w-full rounded-lg" id="message" name="message" placeholder="Your message *" required ></textarea>
                                         </div>
-                                        <div className="col-span-full flex items-start -mt-2 gap-2">
-                                            <input type="checkbox" id="saveAccount" name="saveAccount" className='mt-1.5' />
-                                            <label className="" htmlFor="saveAccount">Save my name, email, and website in this browser for the next time I comment.</label>
-                                        </div>
+                                    
                                         <div className="col-span-full sm:pt-3">
-                                            <button className='button-main bg-white text-black border border-black'>Submit Reviews</button>
+                                            <button className='button-main bg-white text-black border border-black'>Submit Comment</button>
                                         </div>
                                     </form>
                                 </div>
@@ -269,25 +258,8 @@ const BlogDetailTwo = () => {
                         </div>
                         <div className="right xl:w-1/4 lg:w-1/3 lg:pl-[45px]">
                             <div className="about-author">
-                                <div className="heading flex gap-5">
-                                    <div className="avatar w-[100px] h-[100px] rounded-full overflow-hidden flex-shrink-0">
-                                        <Image
-                                            src={blogMain.avatar}
-                                            width={500}
-                                            height={500}
-                                            alt='avatar'
-                                            priority={true}
-                                            className='w-full h-full object-cover'
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="heading6">{blogMain.author}</div>
-                                        <div className="caption1 text-secondary mt-1">200 Follower</div>
-                                        <div className="button-main bg-white text-black px-5 py-1 border border-line text-button rounded-full capitalize mt-2">Follow</div>
-                                    </div>
-                                </div>
-                                <div className="text-secondary mt-5">{blogMain.author} is a writer who draws. He’s the Bestselling author of “Number of The Year”. Donec vitae tortor efficitur, convallis lelobortis elit.</div>
                                 
+        
                             </div>
                             <div className="recent md:mt-10 mt-6">
                                 <div className="heading6">Recent Posts</div>
