@@ -13,11 +13,35 @@ import Image from "next/image";
 import { createOrder } from "@/components/api/order/checkout";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { Customer } from "@/type/customer";
+import { getCustomer } from "@/components/api/customer/customer.api";
+
+const getWithExpiry = (key: string) => {
+  const itemStr = localStorage.getItem(key);
+
+  // If the item doesn't exist, return null
+  if (!itemStr) {
+    return null;
+  }
+
+  const item = JSON.parse(itemStr);
+  const now = new Date();
+
+  // If the item has expired, remove it and return null
+  if (now.getTime() > item.expiry) {
+      toast.warning("Phiên đăng nhập đã hết hạn");
+      localStorage.removeItem(key);
+      return null;
+  }
+  return item.value;
+};
 
 const Checkout = () => {
   let [totalCart, setTotalCart] = useState<number>(0);
   const [email, setEmail] = useState("");
   const [cart, setCart] = useState<CartItem[] | null>();
+  const router = useRouter();
+  const [user, setUser] = useState<Customer | undefined>();
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     firstName: "",
@@ -40,14 +64,20 @@ const Checkout = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Ngăn việc reload trang
     console.log(formData); // Xử lý hoặc gửi API ở đây
-    var jwtToken = localStorage.getItem("jwtToken");
-    if (jwtToken && cart) {
+    var token = getWithExpiry("jwtToken");
+
+    if(!token){
+      router.push('/login')
+      return;
+    }
+
+    if (token && cart) {
       var response = await createOrder(
         cart,
-        formData.address + " " + formData.city,
+        formData.address,
         formData.paymentMethod,
         totalCart,
-        jwtToken
+        token
       ); 
       if (typeof response === "string" && response.includes("payos")) {
         console.log(response);
@@ -63,7 +93,8 @@ const Checkout = () => {
   };
 
   const checkTokenAndDecode = () => {
-    const token = localStorage.getItem("jwtToken");
+    const token = getWithExpiry("jwtToken");
+
     if (!token) {
       console.log("No token found in localStorage");
       return null;
@@ -79,10 +110,28 @@ const Checkout = () => {
     }
   };
   useEffect(() => {
-    console.log("something");
-    setCart(getCartFromLocalStorage());
-    checkTokenAndDecode();
-  }, []);
+    const fetchCustomer = async () => {
+      console.log("something");
+    var token = getWithExpiry('jwtToken');
+
+    if(!token){
+      router.push('/login');
+      return;
+    }
+
+    try {
+      var response = await getCustomer(token);
+      console.log(response.data)
+      setUser(response.data ?? null)
+      setCart(getCartFromLocalStorage());
+      checkTokenAndDecode();
+    } catch (error) {
+      console.error('Error fetching customer data:', error);
+    }
+    };
+
+    fetchCustomer();
+  }, [router]);
 
   const handleUpdateToCart = (productId: string, quantity: number) => {
     updateCart(productId, quantity);
@@ -124,13 +173,13 @@ const Checkout = () => {
           <div className="left flex lg:justify-end w-full">
             <div className="lg:max-w-[716px] flex-shrink-0 w-full lg:pt-20 pt-12 lg:pr-[70px] pl-[16px] max-lg:pr-[16px]">
               <form onSubmit={handleSubmit}>
-                <div className="login flex justify-between gap-4">
+                {/* <div className="login flex justify-between gap-4">
                   <h4 className="heading4">Contact</h4>
                   <Link href={"/login"} className="text-button underline">
                     Login here
                   </Link>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <input
                     type="text"
                     name="emailOrPhone" // Added name attribute
@@ -140,7 +189,7 @@ const Checkout = () => {
                     placeholder="Email or mobile phone number"
                     required
                   />
-                </div>
+                </div> */}
                 <div className="information md:mt-10 mt-6">
                   <div className="heading5">Delivery</div>
                   <div className="deli_type mt-5">
@@ -152,30 +201,30 @@ const Checkout = () => {
                       name="paymentMethod" // Ensure this name matches the formData key
                       value={formData.paymentMethod} // This binds the value to formData
                       onChange={handleChange} // Triggers the handleChange to update state
-                      className="border-line mt-2 px-4 py-3 w-full rounded-lg cursor-pointer"
+                      className="border-2 border-gray-300 mt-2 px-4 py-3 w-full rounded-lg cursor-pointer bg-white text-black"
                     >
-                      <option value="1">Thanh toán trực tuyến</option>{" "}
+                      <option value="1">Banking</option>{" "}
                       {/* Online Payment */}
-                      <option value="0">Thanh toán trực tiếp</option>{" "}
+                      <option value="0">Ship COD</option>{" "}
                       {/* In-store Payment */}
                     </select>
                   </div>
 
                   <div className="form-checkout mt-5">
                     <div className="grid sm:grid-cols-2 gap-4 gap-y-5 flex-wrap">
-                      <div className="">
+                      <div className="col-span-full relative">
                         <input
-                          className="border-line px-4 py-3 w-full rounded-lg"
+                          className="border-line pl-4 pr-12 py-3 w-full rounded-lg"
                           id="firstName"
                           name="firstName" // Added name attribute
                           type="text"
-                          value={formData.firstName}
+                          value={user?.name ?? ""}
                           onChange={handleChange}
-                          placeholder="First Name (optional)"
+                          placeholder="Họ & Tên"
                           required
                         />
                       </div>
-                      <div className="">
+                      {/* <div className="">
                         <input
                           className="border-line px-4 py-3 w-full rounded-lg"
                           id="lastName"
@@ -186,20 +235,20 @@ const Checkout = () => {
                           placeholder="Last Name"
                           required
                         />
-                      </div>
+                      </div> */}
                       <div className="col-span-full relative">
                         <input
                           className="border-line pl-4 pr-12 py-3 w-full rounded-lg"
                           id="address"
                           name="address" // Added name attribute
                           type="text"
-                          value={formData.address}
+                          value={user?.address}
                           onChange={handleChange}
-                          placeholder="Address"
+                          placeholder="Địa chỉ"
                           required
                         />
                       </div>
-                      <div className="">
+                      {/* <div className="">
                         <input
                           className="border-line px-4 py-3 w-full rounded-lg"
                           id="apartment"
@@ -207,7 +256,7 @@ const Checkout = () => {
                           type="text"
                           value={formData.apartment}
                           onChange={handleChange}
-                          placeholder="Apartment, suite, etc. (optional)"
+                          placeholder="Số nhà, Hẻm, ... (optional)"
                         />
                       </div>
                       <div className="">
@@ -218,11 +267,11 @@ const Checkout = () => {
                           type="text"
                           value={formData.city}
                           onChange={handleChange}
-                          placeholder="City"
+                          placeholder="Thành phố"
                           required
                         />
-                      </div>
-                      <div className="">
+                      </div> */}
+                      {/* <div className="">
                         <input
                           className="border-line px-4 py-3 w-full rounded-lg"
                           id="zipcode"
@@ -233,7 +282,7 @@ const Checkout = () => {
                           placeholder="Zip Code"
                           required
                         />
-                      </div>
+                      </div> */}
                     </div>
                     <div className="block-button md:mt-10 mt-6">
                       <button

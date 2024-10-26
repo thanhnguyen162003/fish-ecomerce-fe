@@ -18,6 +18,7 @@ import {
   removeFromCart,
   updateCart,
 } from "@/context/CartItemContext";
+import { toast } from "react-toastify";
 const ModalCart = () => {
   const [activeTab, setActiveTab] = useState<string | undefined>("");
   const { isModalOpen, closeModalCart } = useModalCartContext();
@@ -35,6 +36,7 @@ const ModalCart = () => {
       quantity: 1,
       unitPrice: product.price,
       totalPrice: product.price,
+      stock: product.stock_quantity,
       discount: 0,
       name: product.name || "",
       imgUrl: product.images[0]?.link || "/images/product/1000x1000.png",
@@ -195,21 +197,24 @@ const ModalCart = () => {
                         <div className="flex items-center justify-between gap-2 mt-3 w-full">
                           <div className="flex items-center text-gray-600 capitalize">
                             <Icon.PlusSquare
-                              onClick={() =>
-                                handleUpdateToCart(
-                                  product.productId,
-                                  product.quantity + 1
-                                )
+                              onClick={() =>{
+                                  if (product.quantity < product.stock) {
+                                    handleUpdateToCart(product.productId, product.quantity + 1);
+                                  } else {
+                                    toast.warning("Số lượng sản phẩm vượt quá hàng kho!");
+                                  }
+                                }  
                               }
                               className="cursor-pointer"
                             />
                             <span className="mx-2">{product.quantity}</span>
                             <Icon.MinusSquare
-                              onClick={() =>
-                                handleUpdateToCart(
-                                  product.productId,
-                                  product.quantity - 1
-                                )
+                              onClick={() => {
+                                if (product.quantity > 1) {
+                                  handleUpdateToCart(product.productId, product.quantity - 1);
+                                }
+                              }
+                                
                               }
                               className="cursor-pointer"
                             />
@@ -224,7 +229,7 @@ const ModalCart = () => {
                 ))}
             </div>
             <div className="footer-modal bg-white absolute bottom-0 left-0 w-full">
-              <div className="flex items-center justify-center lg:gap-14 gap-8 px-6 py-4 border-b border-line">
+              {/* <div className="flex items-center justify-center lg:gap-14 gap-8 px-6 py-4 border-b border-line">
                 <div
                   className="item flex items-center gap-3 cursor-pointer"
                   onClick={() => handleActiveTab("note")}
@@ -246,7 +251,7 @@ const ModalCart = () => {
                   <Icon.Tag className="text-xl" />
                   <div className="caption1">Coupon</div>
                 </div>
-              </div>
+              </div> */}
               <div className="flex items-center justify-between pt-6 px-6">
                 <div className="heading5">Subtotal</div>
                 <div className="heading5">
@@ -258,16 +263,25 @@ const ModalCart = () => {
                   <Link
                     href={"/cart"}
                     className="button-main basis-1/2 bg-white border border-black text-black text-center uppercase"
-                    onClick={closeModalCart}
+                    onClick={(e) => {
+                      if (cart && cart.length === 0) {
+                        e.preventDefault(); // Ngăn chuyển hướng nếu giỏ hàng trống
+                        toast.info("Giỏ hàng đang trống, xin hãy thêm sản phẩm.")
+
+                      } else {
+                        closeModalCart(); // Đóng modal nếu giỏ hàng có item
+                      }
+                    }}
                   >
                     View cart
                   </Link>
                   <Link
-                    href={cart && cart.length > 0 ? "/checkout" : "#"}
+                    href={"/checkout"}
                     className="button-main basis-1/2 text-center uppercase"
                     onClick={(e) => {
                       if (cart && cart.length === 0) {
                         e.preventDefault(); // Ngăn chuyển hướng nếu giỏ hàng trống
+                        toast.info("Giỏ hàng đang trống, xin hãy thêm sản phẩm.")
                       } else {
                         closeModalCart(); // Đóng modal nếu giỏ hàng có item
                       }
@@ -283,7 +297,7 @@ const ModalCart = () => {
                   Or continue shopping
                 </div>
               </div>
-              <div
+              {/* <div
                 className={`tab-item note-block ${
                   activeTab === "note" ? "active" : ""
                 }`}
@@ -317,8 +331,8 @@ const ModalCart = () => {
                     Cancel
                   </div>
                 </div>
-              </div>
-              <div
+              </div> */}
+              {/* <div
                 className={`tab-item note-block ${
                   activeTab === "shipping" ? "active" : ""
                 }`}
@@ -415,8 +429,8 @@ const ModalCart = () => {
                     Cancel
                   </div>
                 </div>
-              </div>
-              <div
+              </div> */}
+              {/* <div
                 className={`tab-item note-block ${
                   activeTab === "coupon" ? "active" : ""
                 }`}
@@ -457,7 +471,7 @@ const ModalCart = () => {
                     Cancel
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           {/*xoa cai "you also may like" thi phai vao styles/layout/model.css - line 305 de fix width*/}

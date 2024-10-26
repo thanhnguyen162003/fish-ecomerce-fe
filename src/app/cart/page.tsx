@@ -16,6 +16,7 @@ import {
   removeFromCart,
   updateCart,
 } from "@/context/CartItemContext";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const router = useRouter();
@@ -32,18 +33,18 @@ const Cart = () => {
 
   const handleToRemoveCart = (productId: string) => {
     removeFromCart(productId);
-    setCart(getCartFromLocalStorage());
+    const updatedCart = getCartFromLocalStorage();
+    setCart(updatedCart);
+    if (!updatedCart || updatedCart.length === 0) {
+      router.push("/shop"); // Điều hướng về trang chủ hoặc bất kỳ trang nào bạn muốn
+      toast.info("Giỏ hàng trống. Bạn đã được chuyển về trang chủ.");
+    }
   };
 
-  let moneyForFreeship = 150;
   let [totalCart, setTotalCart] = useState<number>(0);
-  let [shipCart, setShipCart] = useState<number>(30);
+  let [shipCart, setShipCart] = useState<number>(30000);
 
   cart && cart.map((item) => (totalCart += item.unitPrice * item.quantity));
-
-  if (totalCart < moneyForFreeship) {
-    shipCart = 30;
-  }
 
   const redirectToCheckout = () => {
     router.push(`/checkout?ship=${shipCart}`);
@@ -147,20 +148,24 @@ const Cart = () => {
                             <div className="quantity-block bg-surface md:p-3 p-2 flex items-center justify-between rounded-lg border border-line md:w-[100px] flex-shrink-0 w-20">
                               <Icon.PlusSquare
                                 onClick={() =>
-                                  handleUpdateToCart(
-                                    product.productId,
-                                    product.quantity + 1
-                                  )
+                                {
+                                  if (product.quantity < product.stock) {
+                                    handleUpdateToCart(product.productId, product.quantity + 1);
+                                  } else {
+                                    toast.warning("Số lượng sản phẩm vượt quá hàng kho!");
+                                  }
+                                }
                                 }
                                 className="cursor-pointer"
                               />
                               <span className="mx-2">{product.quantity}</span>
                               <Icon.MinusSquare
                                 onClick={() =>
-                                  handleUpdateToCart(
-                                    product.productId,
-                                    product.quantity - 1
-                                  )
+                                {
+                                  if (product.quantity > 1) {
+                                    handleUpdateToCart(product.productId, product.quantity - 1);
+                                  }
+                                }
                                 }
                                 className="cursor-pointer"
                               />
@@ -203,7 +208,7 @@ const Cart = () => {
                   <div className="text-title">Shipping</div>
                   <div className="choose-type flex gap-12">
                     <div className="left">
-                      <div className="type">
+                      {/* <div className="type">
                         {moneyForFreeship - totalCart > 0 ? (
                           <input
                             id="shipping"
@@ -223,7 +228,7 @@ const Cart = () => {
                         <label className="pl-1" htmlFor="shipping">
                           Free Shipping:
                         </label>
-                      </div>
+                      </div> */}
                       <div className="type mt-1">
                         <input
                           id="local"
@@ -237,7 +242,7 @@ const Cart = () => {
                           className="text-on-surface-variant1 pl-1"
                           htmlFor="local"
                         >
-                          Local:
+                          Thường:
                         </label>
                       </div>
                       <div className="type mt-1">
@@ -245,25 +250,25 @@ const Cart = () => {
                           id="flat"
                           type="radio"
                           name="ship"
-                          value={40000}
-                          checked={shipCart === 40000}
-                          onChange={() => setShipCart(40000)}
+                          value={100000}
+                          checked={shipCart === 100000}
+                          onChange={() => setShipCart(100000)}
                         />
                         <label
                           className="text-on-surface-variant1 pl-1"
                           htmlFor="flat"
                         >
-                          Flat Rate:
+                          Hỏa tốc:
                         </label>
                       </div>
                     </div>
                     <div className="right">
-                      <div className="ship">0.00 VND</div>
+                      {/* <div className="ship">0.00 VND</div> */}
                       <div className="local text-on-surface-variant1 mt-1">
                         {(30000).toLocaleString("vi-VI")} VND
                       </div>
                       <div className="flat text-on-surface-variant1 mt-1">
-                        {(40000).toLocaleString("vi-VI")} VND
+                        {(100000).toLocaleString("vi-VI")} VND
                       </div>
                     </div>
                   </div>
