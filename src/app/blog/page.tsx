@@ -94,12 +94,12 @@ const BlogDefault = () => {
                             )}
                         </div>
                         <div className="right xl:w-1/4 md:w-1/3 xl:pl-[52px] md:pl-8">
-                            <form className='form-search relative w-full h-12'>
+                            {/* <form className='form-search relative w-full h-12'>
                                 <input className='py-2 px-4 w-full h-full border border-line rounded-lg' type="text" placeholder='Search' />
                                 <button>
                                     <Icon.MagnifyingGlass className='heading6 text-secondary hover:text-black duration-300 absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer' />
                                 </button>
-                            </form>
+                            </form> */}
                             <div className="recent md:mt-10 mt-6 pb-8 border-b border-line">
                                 <div className="heading6">Recent Posts</div>
                                 <div className="list-recent pt-1">
@@ -113,7 +113,7 @@ const BlogDefault = () => {
                                                 className='w-20 h-20 object-cover rounded-lg flex-shrink-0'
                                             />
                                             <div>
-                                                <div className="blog-tag whitespace-nowrap bg-green py-0.5 px-2 rounded-full text-button-uppercase text-xs inline-block">{item.tag}</div>
+                                                {/* <div className="blog-tag whitespace-nowrap bg-green py-0.5 px-2 rounded-full text-button-uppercase text-xs inline-block">{item.tag}</div> */}
                                                 <div className="text-title mt-1">{item.title}</div>
                                             </div>
                                         </div>

@@ -41,7 +41,7 @@ const BlogDetailTwo = () => {
                 <div className="container lg:pt-20 md:pt-14 pt-10">
                     <div className="blog-content flex justify-between max-lg:flex-col gap-y-10">
                         <div className="main xl:w-3/4 lg:w-2/3 lg:pr-[15px]">
-                            <div className="blog-tag bg-green py-1 px-2.5 rounded-full text-button-uppercase inline-block">{blogMain.tag}</div>
+                            {/* <div className="blog-tag bg-green py-1 px-2.5 rounded-full text-button-uppercase inline-block">{blogMain.tag}</div> */}
                             <div className="heading3 mt-3">{blogMain.title}</div>
                             <div className="author flex items-center gap-4 mt-4">
                                 <div className="avatar w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
@@ -87,59 +87,18 @@ const BlogDetailTwo = () => {
                                 <div className="body1 mt-4">For bras, I love our Cotton Jersey Scoop Bralette – it{String.raw`'s`} lined with this amazing power mesh so you get great support and is so comfy I can sleep in it. I also love our Seamless Sculpt Bodysuit – it{String.raw`'s`} the perfect all in one sculpting, shaping and smoothing shapewear piece with different levels of support woven throughout.</div>
                                 <div className="heading4 md:mt-8 mt-5">How did SKIMS start?</div>
                                 <div className="body1 mt-4">This is such a hard question! Honestly, every time we drop a new collection I get obsessed with it. The pieces that have been my go-tos though are some of our simplest styles that we launched with. I wear our Fits Everybody Thong every single day – it is the only underwear I have now, it{String.raw`'s`} so comfortable and stretchy and light enough that you can wear anything over it.</div>
-                                <div className="quote-block md:mt-8 mt-5 py-6 md:px-10 px-6 border border-line md:rounded-[20px] rounded-2xl flex items-center md:gap-10 gap-6">
+                                {/* <div className="quote-block md:mt-8 mt-5 py-6 md:px-10 px-6 border border-line md:rounded-[20px] rounded-2xl flex items-center md:gap-10 gap-6">
                                     <Icon.Quotes className='text-green text-3xl rotate-180 flex-shrink-0' weight='fill' />
                                     <div>
                                         <div className="heading6">{String.raw`"`}For bras, I love our Cotton Jersey Scoop Bralette – it{String.raw`'s`} lined with this amazing power mesh so you get great support and is so comfy I can sleep in it.{String.raw`"`}</div>
                                         <div className="text-button-uppercase text-secondary mt-4">- Anthony Bourdain</div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="body1 md:mt-8 mt-5">For bras, I love our Cotton Jersey Scoop Bralette – it{String.raw`'s`} lined with this amazing power mesh so you get great support and is so comfy I can sleep in it. I also love our Seamless Sculpt Bodysuit – it{String.raw`'s`} the perfect all in one sculpting, shaping and smoothing shapewear piece with different levels of support woven throughout.</div>
                             </div>
                             <div className="action flex items-center justify-between flex-wrap gap-5 md:mt-8 mt-5">
-                                <div className="left flex items-center gap-3 flex-wrap">
-                                    <p>Tag:</p>
-                                    <div className="list flex items-center gap-3 flex-wrap">
-                                        <div
-                                            className={`tags bg-surface py-1.5 px-4 rounded-full text-button-uppercase cursor-pointer duration-300 hover:bg-black hover:text-white`}
-                                            onClick={() => handleBlogClick('fashion')}
-                                        >
-                                            fashion
-                                        </div>
-                                        <div
-                                            className={`tags bg-surface py-1.5 px-4 rounded-full text-button-uppercase cursor-pointer duration-300 hover:bg-black hover:text-white`}
-                                            onClick={() => handleBlogClick('yoga')}
-                                        >
-                                            yoga
-                                        </div>
-                                        <div
-                                            className={`tags bg-surface py-1.5 px-4 rounded-full text-button-uppercase cursor-pointer duration-300 hover:bg-black hover:text-white`}
-                                            onClick={() => handleBlogClick('organic')}
-                                        >
-                                            organic
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="right list-social flex items-center gap-3 flex-wrap">
-                                    <p>Share:</p>
-                                    <div className="list flex items-center gap-3 flex-wrap">
-                                        <Link href={'https://www.facebook.com/'} target='_blank' className='bg-surface w-10 h-10 flex items-center justify-center rounded-full duration-300 hover:bg-black hover:text-white'>
-                                            <div className="icon-facebook duration-100"></div>
-                                        </Link>
-                                        <Link href={'https://www.instagram.com/'} target='_blank' className='bg-surface w-10 h-10 flex items-center justify-center rounded-full duration-300 hover:bg-black hover:text-white'>
-                                            <div className="icon-instagram duration-100"></div>
-                                        </Link>
-                                        <Link href={'https://www.twitter.com/'} target='_blank' className='bg-surface w-10 h-10 flex items-center justify-center rounded-full duration-300 hover:bg-black hover:text-white'>
-                                            <div className="icon-twitter duration-100"></div>
-                                        </Link>
-                                        <Link href={'https://www.youtube.com/'} target='_blank' className='bg-surface w-10 h-10 flex items-center justify-center rounded-full duration-300 hover:bg-black hover:text-white'>
-                                            <div className="icon-youtube duration-100"></div>
-                                        </Link>
-                                        <Link href={'https://www.pinterest.com/'} target='_blank' className='bg-surface w-10 h-10 flex items-center justify-center rounded-full duration-300 hover:bg-black hover:text-white'>
-                                            <div className="icon-pinterest duration-100"></div>
-                                        </Link>
-                                    </div>
-                                </div>
+                            
+                                
                             </div>
                             <div className="next-pre flex items-center justify-between md:mt-8 mt-5 py-6 border-y border-line">
                                 {blogId === '1' ? (
@@ -185,26 +144,7 @@ const BlogDetailTwo = () => {
                             <div className="list-comment md:mt-[60px] mt-8">
                                 <div className="heading flex items-center justify-between flex-wrap gap-4">
                                     <div className="heading4">03 Comments</div>
-                                    <div className="right flex items-center gap-3">
-                                        <label htmlFor='select-filter' className="uppercase">Sort by:</label>
-                                        <div className="select-block relative">
-                                            <select
-                                                id="select-filter"
-                                                name="select-filter"
-                                                className='text-button py-2 pl-3 md:pr-14 pr-10 rounded-lg bg-white border border-line'
-                                                defaultValue={'Sorting'}
-                                            >
-                                                <option value="Sorting" disabled>Sorting</option>
-                                                <option value="newest">Newest</option>
-                                                <option value="5star">5 Star</option>
-                                                <option value="4star">4 Star</option>
-                                                <option value="3star">3 Star</option>
-                                                <option value="2star">2 Star</option>
-                                                <option value="1star">1 Star</option>
-                                            </select>
-                                            <Icon.CaretDown size={12} className='absolute top-1/2 -translate-y-1/2 md:right-4 right-2' />
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div className="list-review mt-6">
                                     <div className="item">
@@ -237,21 +177,7 @@ const BlogDetailTwo = () => {
                                             </div>
                                         </div>
                                         <div className="mt-3">I can{String.raw`'t`} get enough of the fashion pieces from this brand. They have a great selection for every occasion and the prices are reasonable. The shipping is fast and the items always arrive in perfect condition.</div>
-                                        <div className="action flex justify-between mt-3">
-                                            <div className="left flex items-center gap-4">
-                                                <div className="like-btn flex items-center gap-1 cursor-pointer">
-                                                    <Icon.HandsClapping size={18} />
-                                                    <div className="text-button">20</div>
-                                                </div>
-                                                <div className="hide-rep-btn flex items-center gap-1 cursor-pointer">
-                                                    <Icon.Chat size={18} />
-                                                    <div className="text-button">Hide Replies</div>
-                                                </div>
-                                            </div>
-                                            <div className="right">
-                                                <div className="reply-btn text-button text-secondary">Reply</div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                     <div className="item md:mt-8 mt-5">
                                         <div className="heading flex items-center justify-between">
@@ -279,25 +205,11 @@ const BlogDetailTwo = () => {
                                                 </div>
                                             </div>
                                             <div className="more-action cursor-pointer">
-                                                <Icon.DotsThree size={24} weight='bold' />
+                                                {/* <Icon.DotsThree size={24} weight='bold' /> */}
                                             </div>
                                         </div>
                                         <div className="mt-3">I can{String.raw`'t`} get enough of the fashion pieces from this brand. They have a great selection for every occasion and the prices are reasonable. The shipping is fast and the items always arrive in perfect condition.</div>
-                                        <div className="action flex justify-between mt-3">
-                                            <div className="left flex items-center gap-4">
-                                                <div className="like-btn flex items-center gap-1 cursor-pointer">
-                                                    <Icon.HandsClapping size={18} />
-                                                    <div className="text-button">20</div>
-                                                </div>
-                                                <div className="hide-rep-btn flex items-center gap-1 cursor-pointer">
-                                                    <Icon.Chat size={18} />
-                                                    <div className="text-button">Hide Replies</div>
-                                                </div>
-                                            </div>
-                                            <div className="right">
-                                                <div className="reply-btn text-button text-secondary">Reply</div>
-                                            </div>
-                                        </div>
+                                    
                                     </div>
                                     <div className="item md:mt-8 mt-5">
                                         <div className="heading flex items-center justify-between">
@@ -329,21 +241,7 @@ const BlogDetailTwo = () => {
                                             </div>
                                         </div>
                                         <div className="mt-3">I can{String.raw`'t`} get enough of the fashion pieces from this brand. They have a great selection for every occasion and the prices are reasonable. The shipping is fast and the items always arrive in perfect condition.</div>
-                                        <div className="action flex justify-between mt-3">
-                                            <div className="left flex items-center gap-4">
-                                                <div className="like-btn flex items-center gap-1 cursor-pointer">
-                                                    <Icon.HandsClapping size={18} />
-                                                    <div className="text-button">20</div>
-                                                </div>
-                                                <div className="hide-rep-btn flex items-center gap-1 cursor-pointer">
-                                                    <Icon.Chat size={18} />
-                                                    <div className="text-button">Hide Replies</div>
-                                                </div>
-                                            </div>
-                                            <div className="right">
-                                                <div className="reply-btn text-button text-secondary">Reply</div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div id="form-review" className='form-review md:p-10 p-6 bg-surface rounded-xl md:mt-10 mt-6'>
@@ -389,23 +287,7 @@ const BlogDetailTwo = () => {
                                     </div>
                                 </div>
                                 <div className="text-secondary mt-5">{blogMain.author} is a writer who draws. He’s the Bestselling author of “Number of The Year”. Donec vitae tortor efficitur, convallis lelobortis elit.</div>
-                                <div className="list-social mt-4 flex items-center gap-6 flex-wrap">
-                                    <Link href={'https://www.facebook.com/'} target='_blank' className=''>
-                                        <div className="icon-facebook md:text-xl duration-100"></div>
-                                    </Link>
-                                    <Link href={'https://www.instagram.com/'} target='_blank' className=''>
-                                        <div className="icon-instagram md:text-xl duration-100"></div>
-                                    </Link>
-                                    <Link href={'https://www.twitter.com/'} target='_blank' className=''>
-                                        <div className="icon-twitter md:text-xl duration-100"></div>
-                                    </Link>
-                                    <Link href={'https://www.youtube.com/'} target='_blank' className=''>
-                                        <div className="icon-youtube md:text-xl duration-100"></div>
-                                    </Link>
-                                    <Link href={'https://www.pinterest.com/'} target='_blank' className=''>
-                                        <div className="icon-pinterest md:text-xl duration-100"></div>
-                                    </Link>
-                                </div>
+                                
                             </div>
                             <div className="recent md:mt-10 mt-6">
                                 <div className="heading6">Recent Posts</div>
@@ -420,26 +302,20 @@ const BlogDetailTwo = () => {
                                                 className='w-20 h-20 object-cover rounded-lg flex-shrink-0'
                                             />
                                             <div>
-                                                <div className="blog-tag whitespace-nowrap bg-green py-0.5 px-2 rounded-full text-button-uppercase text-xs inline-block">{item.tag}</div>
+                                                {/* <div className="blog-tag whitespace-nowrap bg-green py-0.5 px-2 rounded-full text-button-uppercase text-xs inline-block">{item.tag}</div> */}
                                                 <div className="text-title mt-1">{item.title}</div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
-                            <div className="subcribe md:mt-10 mt-6 bg-surface p-6 rounded-[20px]">
-                                <div className="text-center heading5">Subscribe For Daily Newsletter</div>
-                                <form className='mt-5'>
-                                    <input className='text-center md:h-[50px] h-[44px] w-full px-4 rounded-xl' type="text" placeholder='Your email address' />
-                                    <button className='button-main text-center w-full mt-4'>Sign Up</button>
-                                </form>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
-                <div className='lg:pb-20 md:pb-14 pb-10'>
+                {/* <div className='lg:pb-20 md:pb-14 pb-10'>
                     <NewsInsight data={blogData} start={0} limit={3} />
-                </div>
+                </div> */}
             </div>
         </>
     )
