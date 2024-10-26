@@ -130,7 +130,7 @@ const ModalCart = () => {
                 <Icon.X size={14} />
               </div>
             </div>
-            <div className="heading banner mt-3 px-6">
+            {/* <div className="heading banner mt-3 px-6">
               <div className="text">
                 Buy{" "}
                 <span className="text-button">
@@ -160,7 +160,7 @@ const ModalCart = () => {
                   }}
                 ></div>
               </div>
-            </div>
+            </div> */}
             <div className="list-product px-6">
               {cart &&
                 cart.map((product) => (
@@ -263,9 +263,15 @@ const ModalCart = () => {
                     View cart
                   </Link>
                   <Link
-                    href={"/checkout"}
+                    href={cart && cart.length > 0 ? "/checkout" : "#"}
                     className="button-main basis-1/2 text-center uppercase"
-                    onClick={closeModalCart}
+                    onClick={(e) => {
+                      if (cart && cart.length === 0) {
+                        e.preventDefault(); // Ngăn chuyển hướng nếu giỏ hàng trống
+                      } else {
+                        closeModalCart(); // Đóng modal nếu giỏ hàng có item
+                      }
+                    }}
                   >
                     Check Out
                   </Link>

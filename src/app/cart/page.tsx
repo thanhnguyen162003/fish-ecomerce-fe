@@ -59,7 +59,7 @@ const Cart = () => {
           <div className="content-main flex justify-between max-xl:flex-col gap-y-8">
             <div className="xl:w-2/3 xl:pr-3 w-full">
               <div className="heading banner mt-5">
-                <div className="text">
+                {/* <div className="text">
                   Buy
                   <span className="text-button">
                     {" "}
@@ -78,8 +78,8 @@ const Cart = () => {
                   </span>
                   <span>more to get </span>
                   <span className="text-button">freeship</span>
-                </div>
-                <div className="tow-bar-block mt-4">
+                </div> */}
+                {/* <div className="tow-bar-block mt-4">
                   <div
                     className="progress-line"
                     style={{
@@ -89,7 +89,7 @@ const Cart = () => {
                           : `100%`,
                     }}
                   ></div>
-                </div>
+                </div> */}
               </div>
               <div className="list-product w-full sm:mt-7 mt-5">
                 <div className="w-full">
