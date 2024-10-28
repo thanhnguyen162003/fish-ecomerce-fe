@@ -44,6 +44,7 @@ const Checkout = () => {
   const router = useRouter();
   const [user, setUser] = useState<Customer | undefined>();
   const [isLoading, setIsLoading] = useState(true);
+  const [isPending, setIsPending] = useState(false);
   const [formData, setFormData] = useState({
     emailOrPhone: "",
     firstName: "",
@@ -72,6 +73,8 @@ const Checkout = () => {
       router.push('/login')
       return;
     }
+
+    setIsPending(true);
 
     if (token && cart) {
       var response = await createOrder(
@@ -299,14 +302,20 @@ const Checkout = () => {
                         />
                       </div> */}
                     </div>
-                    <div className="block-button md:mt-10 mt-6">
-                      <button
-                        type="submit"
-                        className="button-main w-full tracking-widest"
-                      >
-                        Pay now
-                      </button>
+                    {!isPending ? (
+                      <div className="block-button md:mt-10 mt-6">
+                        <button
+                          type="submit"
+                          className="button-main w-full tracking-widest"
+                        >
+                          Pay now
+                        </button>
                     </div>
+                    ) : (
+                      <div className="w-full flex justify-center md:mt-10 mt-6 items-center">
+                        <AiOutlineLoading3Quarters className="animate-spin h-[52px] w-[52px]" />
+                      </div>
+                    )}
                   </div>
                 </div>
               </form>
