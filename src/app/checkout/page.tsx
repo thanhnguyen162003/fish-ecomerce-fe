@@ -78,6 +78,7 @@ const Checkout = () => {
         cart,
         formData.address,
         formData.paymentMethod,
+        formData.firstName,
         totalCart,
         token
       ); 
@@ -126,6 +127,11 @@ const Checkout = () => {
       console.log(response.data)
       setUser(response.data ?? null)
       setCart(getCartFromLocalStorage());
+      setFormData((prevData) => ({
+        ...prevData,
+        firstName: response.data?.name || "", // Giả sử name là trường chứa tên
+        address: response.data?.address || "", // Giả sử address là trường chứa địa chỉ
+      }));
       checkTokenAndDecode();
       setIsLoading(false)
     } catch (error) {

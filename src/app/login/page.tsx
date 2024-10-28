@@ -9,6 +9,8 @@ import Footer from '@/components/Footer/Footer';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import login from '@/components/api/auth/login';
 import { useRouter } from 'next/navigation';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -24,7 +26,7 @@ const Login = () => {
         // Create an object to store the value and the expiration time (15 minutes from now)
         const item = {
             value: value,
-            expiry: now.getTime() + 15 * 60 * 1000, // 15 minutes in milliseconds
+            expiry: now.getTime() + 2 * 60 * 60 * 1000, // 15 minutes in milliseconds
         };
         
         // Save the item to localStorage as a string
@@ -43,11 +45,11 @@ const Login = () => {
             }
             else if (statusCode === 400) {
                 let res = response.request.response.toLocaleString()
-                setError(res.substring(1, res.length-1))
+                toast.warning(res.substring(1, res.length-1))
             }
         } catch (err) {
             console.log(err);
-            setError('Invalid username or password');
+            toast.warning('Invalid username or password');
         } finally {
             setIsPending(false)
         }
@@ -86,7 +88,7 @@ const Login = () => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
-                                {error && <div className="error mt-4 text-red-600">{error}</div>}
+                                {/* {error && <div className="error mt-4 text-red-600">{error}</div>} */}
                                 <div className="flex items-center justify-between mt-5">
                                     <div className='flex items-center'>
                                         <div className="block-input">
@@ -101,9 +103,15 @@ const Login = () => {
                                     </div>
                                     <Link href={'/forgot-password'} className='font-semibold hover:underline'>Forgot Your Password?</Link>
                                 </div>
-                                <div className="block-button md:mt-7 mt-4">
-                                    <button className="button-main" disabled={isPending}>Login</button>
-                                </div>
+                                {!isPending ? (
+                                    <div className="block-button md:mt-7 mt-4">
+                                        <button className="button-main" disabled={isPending}>Login</button>
+                                    </div>
+                                ) : (
+                                    <div className="w-full flex justify-center md:mt-7 mt-4 items-center">
+                                        <AiOutlineLoading3Quarters className="animate-spin h-[52px] w-[52px]" />
+                                    </div>
+                                )}
                             </form>
                         </div>
                         <div className="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">

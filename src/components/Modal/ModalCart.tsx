@@ -90,7 +90,7 @@ const ModalCart = () => {
           {/*new div tag of "shopping card" */}
           <div className=" cart-block  w-full py-6 relative overflow-hidden">
             <div className="heading px-6 pb-3 flex items-center justify-between relative">
-              <div className="heading5">Shopping Cart</div>
+              <div className="heading5">Giỏ hàng</div>
               <div
                 className="close-btn absolute right-6 top-0 w-6 h-6 rounded-full bg-surface flex items-center justify-center duration-300 cursor-pointer hover:bg-black hover:text-white"
                 onClick={closeModalCart}
@@ -127,7 +127,7 @@ const ModalCart = () => {
                               handleToRemoveCart(product.productId)
                             }
                           >
-                            Remove
+                            Xóa
                           </div>
                         </div>
                         <div className="flex items-center justify-between gap-2 mt-3 w-full">
@@ -167,7 +167,7 @@ const ModalCart = () => {
             <div className="footer-modal bg-white absolute bottom-0 left-0 w-full">
               
               <div className="flex items-center justify-between pt-6 px-6">
-                <div className="heading5">Subtotal</div>
+                <div className="heading5">Tạm tính</div>
                 <div className="heading5">
                   {totalCart.toLocaleString("vi-VI")} VND
                 </div>
@@ -187,7 +187,7 @@ const ModalCart = () => {
                       }
                     }}
                   >
-                    View cart
+                    Xem giỏ hàng
                   </Link>
                   <Link
                     href={"/checkout"}
@@ -201,14 +201,14 @@ const ModalCart = () => {
                       }
                     }}
                   >
-                    Check Out
+                    Thanh toán
                   </Link>
                 </div>
                 <div
                   onClick={closeModalCart}
                   className="text-button-uppercase mt-4 text-center has-line-before cursor-pointer inline-block"
                 >
-                  Or continue shopping
+                  Tiếp tục mua sắm
                 </div>
               </div>
               {/* <div

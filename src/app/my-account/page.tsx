@@ -40,7 +40,7 @@ const MyAccount = () => {
       
         // If the item has expired, remove it and return null
         if (now.getTime() > item.expiry) {
-            toast.warning("Phiên đăng nhập đã hết hạn");
+            toast.info("Phiên đăng nhập đã hết hạn");
             localStorage.removeItem(key);
             return null;
         }

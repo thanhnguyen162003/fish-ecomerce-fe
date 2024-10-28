@@ -24,6 +24,7 @@ export const createOrder = async (
   cartItems: CartItem[]|null|undefined,
   shipAddress: string,
   paymentMethod: number,
+  fullName: string,
   totalPrice: number,
   token: string
 ) => {
@@ -32,6 +33,7 @@ export const createOrder = async (
             totalPrice: totalPrice,
             paymentMethod: paymentMethod,
             shipAddress: shipAddress,
+            fullName: fullName,
             orderDetails: convertCartToOrderDetails(cartItems),
           };
         
