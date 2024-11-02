@@ -36,25 +36,25 @@ const Login = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            setIsPending(true)
+            setIsPending(true);
             const response = await login(email, password);
-            var statusCode = response.status;
+            const statusCode = response.status;
+    
             if (statusCode != null && statusCode >= 200 && statusCode <= 299) {
-                setItemWithExpiry('jwtToken', response.data.token)
-                router.push('/')
-            }
-            else if (statusCode === 400) {
-                let res = response.request.response.toLocaleString()
-                toast.warning(res.substring(1, res.length-1))
+                setItemWithExpiry('jwtToken', response.data.token);
+                window.location.href = '/'; // This will reload the page and navigate to home
+            } else if (statusCode === 400) {
+                let res = response.request.response.toLocaleString();
+                toast.warning(res.substring(1, res.length - 1));
             }
         } catch (err) {
             console.log(err);
             toast.warning('Invalid username or password');
         } finally {
-            setIsPending(false)
+            setIsPending(false);
         }
     };
-
+    
     return (
         <>
             <div id="header" className='relative w-full'>
