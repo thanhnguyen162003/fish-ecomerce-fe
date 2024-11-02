@@ -1,14 +1,9 @@
 'use client'
 import React, { useState } from 'react';
-import axios from 'axios';
 import Link from 'next/link';
-import TopNavOne from '@/components/Header/TopNav/TopNavOne';
-import MenuOne from '@/components/Header/Menu/MenuOne';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
-import Footer from '@/components/Footer/Footer';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import login from '@/components/api/auth/login';
-import { useRouter } from 'next/navigation';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 
@@ -17,8 +12,6 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isPending, setIsPending] = useState(false)
-
-    const router = useRouter();
 
     function setItemWithExpiry(key:string, value:any) {
         const now = new Date();
@@ -36,25 +29,25 @@ const Login = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            setIsPending(true);
+            setIsPending(true)
             const response = await login(email, password);
-            const statusCode = response.status;
-    
+            var statusCode = response.status;
             if (statusCode != null && statusCode >= 200 && statusCode <= 299) {
-                setItemWithExpiry('jwtToken', response.data.token);
-                window.location.href = '/'; // This will reload the page and navigate to home
-            } else if (statusCode === 400) {
-                let res = response.request.response.toLocaleString();
-                toast.warning(res.substring(1, res.length - 1));
+                setItemWithExpiry('jwtToken', response.data.token)
+                window.location.href = '/';
+            }
+            else if (statusCode === 400) {
+                let res = response.request.response.toLocaleString()
+                toast.warning(res.substring(1, res.length-1))
             }
         } catch (err) {
             console.log(err);
             toast.warning('Invalid username or password');
         } finally {
-            setIsPending(false);
+            setIsPending(false)
         }
     };
-    
+
     return (
         <>
             <div id="header" className='relative w-full'>
