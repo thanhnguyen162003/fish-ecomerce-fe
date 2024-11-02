@@ -31,7 +31,7 @@ const SliderSix = () => {
                                     <div className="text-content basis-1/2">
                                         <div className="text-sub-display">Các loại bể cá</div>
                                         <div className="text-display md:mt-5 mt-2">Bể cá</div>
-                                        <Link href='/shop/breadcrumb-img' className="button-main md:mt-8 mt-3">Khám phá ngay</Link>
+                                        <Link href='/shop' className="button-main md:mt-8 mt-3">Khám phá ngay</Link>
                                     </div>
                                     <div className="sub-img absolute sm:w-[55%] w-3/5 2xl:-right-[60px] -right-[16px] bottom-0">
                                         <Image
@@ -52,7 +52,7 @@ const SliderSix = () => {
                                     <div className="text-content basis-1/2">
                                         <div className="text-sub-display">Các loại cá</div>
                                         <div className="text-display md:mt-5 mt-2">Cá koi</div>
-                                        <Link href='/shop/breadcrumb-img' className="button-main md:mt-8 mt-3">Khám phá ngay</Link>
+                                        <Link href='/shop' className="button-main md:mt-8 mt-3">Khám phá ngay</Link>
                                     </div>
                                     <div className="sub-img absolute w-1/2 right-[0] sm:-bottom-7 bottom-0">
                                         <Image
@@ -73,7 +73,7 @@ const SliderSix = () => {
                                     <div className="text-content basis-1/2">
                                         <div className="text-sub-display">Các loại phụ kiện cho cá</div>
                                         <div className="text-display md:mt-5 mt-2">Phụ kiện</div>
-                                        <Link href='/shop/breadcrumb-img' className="button-main md:mt-8 mt-3">Khám phá ngay</Link>
+                                        <Link href='/shop' className="button-main md:mt-8 mt-3">Khám phá ngay</Link>
                                     </div>
                                     <div className="sub-img absolute sm:w-3/5 w-2/3 2xl:-right-[60px] -right-[36px] bottom-0 sm:-bottom-[30px]">
                                         <Image
