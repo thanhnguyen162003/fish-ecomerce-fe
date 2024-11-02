@@ -2,12 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Link from 'next/link'
 import Image from 'next/image'
-import TopNavOne from '@/components/Header/TopNav/TopNavOne'
-import MenuOne from '@/components/Header/Menu/MenuOne'
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
-import Footer from '@/components/Footer/Footer'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { Customer } from '@/type/customer'
 import { useRouter } from 'next/navigation'
@@ -21,6 +17,7 @@ const MyAccount = () => {
     const router = useRouter();
     const [customer, setCustomer] = useState<Customer | undefined>();
     const [isLoading, setIsLoading] = useState(true);
+    const [isUpdating, setIsUpdating] = useState(false); // New loading state for updates
     const [customerFormChanged, setCustomerFormChanged] = useState(false);
     const [passwordFormChanged, setPasswordFormChanged] = useState(false);
     const [newPassword, setNewPassword] = useState('');
@@ -29,24 +26,24 @@ const MyAccount = () => {
 
     const getWithExpiry = (key: string) => {
         const itemStr = localStorage.getItem(key);
-      
+
         // If the item doesn't exist, return null
         if (!itemStr) {
-          return null;
+            return null;
         }
-      
+
         const item = JSON.parse(itemStr);
         const now = new Date();
-      
+
         // If the item has expired, remove it and return null
         if (now.getTime() > item.expiry) {
             toast.info("Phiên đăng nhập đã hết hạn");
             localStorage.removeItem(key);
             return null;
         }
-      
+
         return item.value;
-      }; 
+    };
 
     useEffect(() => {
         const fetchCustomer = async () => {
@@ -81,9 +78,9 @@ const MyAccount = () => {
         const { name, value } = e.target;
         setCustomer(prevState => prevState ? { ...prevState, [name]: value } : undefined);
         setCustomerFormChanged(true);
-      };
+    };
 
-    const handlePasswordChange  = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         if (name === 'newPassword' || name === 'confirmPassword') {
             setPasswordFormChanged(true);
@@ -107,13 +104,14 @@ const MyAccount = () => {
         }
 
         if (token && customer) {
+            setIsUpdating(true); // Set loading state for updates
             try {
-                // Xác thực thông tin khách hàng
+                // Validate customer data
                 EditCustomerSchema.parse(customer);
                 
-                // Cập nhật thông tin khách hàng
-                var response = await updateCustomer(token, customer);
-                if(response && response.status === 200){
+                // Update customer information
+                const response = await updateCustomer(token, customer);
+                if (response && response.status === 200) {
                     toast.success("Cập nhật thông tin thành công");
                     setCustomerFormChanged(false);
                 }
@@ -124,16 +122,18 @@ const MyAccount = () => {
                         autoClose: 5000
                     });
                 } else {
-                    if(error instanceof AxiosError)
-                    console.error('Error updating customer information:', error.response?.data.message);
+                    if (error instanceof AxiosError)
+                        console.error('Error updating customer information:', error.response?.data.message);
                 }
+            } finally {
+                setIsUpdating(false); // Reset loading state
             }
         }
     };
 
     const handleUpdatePassword = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         const passwordData = {
             oldPassword: oldPassword,
             newPassword: newPassword,
@@ -145,14 +145,11 @@ const MyAccount = () => {
             router.push('/login');
             return;
         }
-        
-        if(token){
 
-
-
+        if (token) {
+            setIsUpdating(true); // Set loading state for updates
             try {
-
-                if(newPassword !== confirmPassword){
+                if (newPassword !== confirmPassword) {
                     toast.error("Mật khẩu mới và xác nhận mật khẩu không khớp", {
                         autoClose: 500
                     });
@@ -160,15 +157,14 @@ const MyAccount = () => {
                 }
 
                 ChangePasswordSchema.parse(passwordData);
-                
-                var response = await changePassword(token, passwordData);
-                if(response || response.data.status == 200){
+
+                const response = await changePassword(token, passwordData);
+                if (response && response.data.status === 200) {
                     toast.success("Cập nhật mật khẩu thành công");
                     setOldPassword('');
                     setNewPassword('');
                     setPasswordFormChanged(false);
                 }
-                toast.error
             } catch (error) {
                 if (error instanceof z.ZodError) {
                     error.errors.forEach(e => {
@@ -177,24 +173,26 @@ const MyAccount = () => {
                         });
                     });
                 }
-                if (error instanceof AxiosError){
+                if (error instanceof AxiosError) {
                     toast.warning(error.response?.data.message, {
                         autoClose: 500
                     });
                 }
+            } finally {
+                setIsUpdating(false); // Reset loading state
             }
         }
-        
     };
 
-    if (isLoading) {
-        return <div>Loading...</div>;
+    if (isLoading == true) {
+        return <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
+    </div>;
     }
 
     if (!customer) {
         return <div>No customer data available</div>;
     }
-
       return (
         <>
             <div id="header" className='relative w-full'>
@@ -303,9 +301,9 @@ const MyAccount = () => {
                                         <button 
                                             type="submit" 
                                             className={`button-main ${!customerFormChanged ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                            disabled={!customerFormChanged}
+                                            disabled={!customerFormChanged || isUpdating} // Disable if updating
                                         >
-                                            Lưu
+                                            {isUpdating ? 'Updating...' : 'Lưu'}
                                         </button>
                                     </div>
                                 </form>
@@ -349,9 +347,9 @@ const MyAccount = () => {
                                         <button 
                                             type="submit" 
                                             className={`button-main ${!passwordFormChanged ? 'opacity-50 cursor-not-allowed' : ''}`} 
-                                            disabled={!passwordFormChanged}
+                                            disabled={!passwordFormChanged || isUpdating} // Disable if updating
                                         >
-                                            Đổi mật khẩu
+                                            {isUpdating ? 'Updating...' : 'Đổi mật khẩu'}
                                         </button>
                                     </div>
                                 </form>
