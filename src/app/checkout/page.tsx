@@ -30,9 +30,9 @@ const getWithExpiry = (key: string) => {
 
   // If the item has expired, remove it and return null
   if (now.getTime() > item.expiry) {
-      toast.warning("Phiên đăng nhập đã hết hạn");
-      localStorage.removeItem(key);
-      return null;
+    toast.warning("Phiên đăng nhập đã hết hạn");
+    localStorage.removeItem(key);
+    return null;
   }
   return item.value;
 };
@@ -56,7 +56,9 @@ const Checkout = () => {
     paymentMethod: 1, // default value
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -69,8 +71,8 @@ const Checkout = () => {
     console.log(formData); // Xử lý hoặc gửi API ở đây
     var token = getWithExpiry("jwtToken");
 
-    if(!token){
-      router.push('/login')
+    if (!token) {
+      router.push("/login");
       return;
     }
 
@@ -84,14 +86,13 @@ const Checkout = () => {
         formData.firstName,
         totalCart,
         token
-      ); 
+      );
       if (typeof response === "string" && response.includes("payos")) {
         console.log(response);
-        
-        window.location.href = response
-      }
-      else{
-        toast.error(response)
+
+        window.location.href = response;
+      } else {
+        toast.error(response);
       }
     } else {
       route.push("/login");
@@ -118,28 +119,28 @@ const Checkout = () => {
   useEffect(() => {
     const fetchCustomer = async () => {
       console.log("something");
-    var token = getWithExpiry('jwtToken');
+      var token = getWithExpiry("jwtToken");
 
-    if(!token){
-      router.push('/login');
-      return;
-    }
+      if (!token) {
+        router.push("/login");
+        return;
+      }
 
-    try {
-      var response = await getCustomer(token);
-      console.log(response.data)
-      setUser(response.data ?? null)
-      setCart(getCartFromLocalStorage());
-      setFormData((prevData) => ({
-        ...prevData,
-        firstName: response.data?.name || "", // Giả sử name là trường chứa tên
-        address: response.data?.address || "", // Giả sử address là trường chứa địa chỉ
-      }));
-      checkTokenAndDecode();
-      setIsLoading(false)
-    } catch (error) {
-      console.error('Error fetching customer data:', error);
-    }
+      try {
+        var response = await getCustomer(token);
+        console.log(response.data);
+        setUser(response.data ?? null);
+        setCart(getCartFromLocalStorage());
+        setFormData((prevData) => ({
+          ...prevData,
+          firstName: response.data?.name || "", // Giả sử name là trường chứa tên
+          address: response.data?.address || "", // Giả sử address là trường chứa địa chỉ
+        }));
+        checkTokenAndDecode();
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching customer data:", error);
+      }
     };
 
     fetchCustomer();
@@ -157,10 +158,10 @@ const Checkout = () => {
 
   cart && cart.map((item) => (totalCart += item.unitPrice * item.quantity));
 
-  if(isLoading){
+  if (isLoading) {
     <div className="w-full flex justify-center my-5 h-[500px] items-center">
-    <AiOutlineLoading3Quarters className="animate-spin h-[60px] w-[60px]" />
-  </div>
+      <AiOutlineLoading3Quarters className="animate-spin h-[60px] w-[60px]" />
+    </div>;
   }
 
   return (
@@ -221,8 +222,7 @@ const Checkout = () => {
                       onChange={handleChange} // Triggers the handleChange to update state
                       className="border-2 border-gray-300 mt-2 px-4 py-3 w-full rounded-lg cursor-pointer bg-white text-black"
                     >
-                      <option value="1">Banking</option>{" "}
-                      {/* Online Payment */}
+                      <option value="1">Banking</option> {/* Online Payment */}
                       <option value="0">Ship COD</option>{" "}
                       {/* In-store Payment */}
                     </select>
@@ -236,7 +236,7 @@ const Checkout = () => {
                           id="firstName"
                           name="firstName" // Added name attribute
                           type="text"
-                          value={user?.name ?? ""}
+                          value={formData.firstName ?? ""}
                           onChange={handleChange}
                           placeholder="Họ & Tên"
                           required
@@ -260,7 +260,7 @@ const Checkout = () => {
                           id="address"
                           name="address" // Added name attribute
                           type="text"
-                          value={user?.address}
+                          value={formData.address ?? ""}
                           onChange={handleChange}
                           placeholder="Địa chỉ"
                           required
@@ -310,7 +310,7 @@ const Checkout = () => {
                         >
                           Pay now
                         </button>
-                    </div>
+                      </div>
                     ) : (
                       <div className="w-full flex justify-center md:mt-10 mt-6 items-center">
                         <AiOutlineLoading3Quarters className="animate-spin h-[52px] w-[52px]" />

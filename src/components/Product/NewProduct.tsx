@@ -17,7 +17,7 @@ import Marquee from "react-fast-marquee";
 import Rate from "../Other/Rate";
 import { CartItem } from "@/type/CartItem";
 import { addToCart, getCartFromLocalStorage } from "@/context/CartItemContext";
-import { toast } from "react-toastify"
+import { toast } from "react-toastify";
 
 interface ProductProps {
   data: ProductType;
@@ -47,7 +47,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
     };
 
     const message = addToCart(item);
-    toast.info(message)
+    toast.info(message);
     setCart(getCartFromLocalStorage());
   };
 

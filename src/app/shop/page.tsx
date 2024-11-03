@@ -67,7 +67,7 @@ export default function BreadcrumbImg() {
 
   async function getFishProducts() {
     try {
-      console.log("breed", breed);      
+      console.log("breed", breed);
       const response = await axios.get(`${apiUrl}/product/fishs`, {
         params: {
           PageSize: pageSize,
@@ -126,7 +126,6 @@ export default function BreadcrumbImg() {
       setLoading(true); // Start loading
       try {
         if (type === "Hồ Cá") {
-
           await getTankProducts();
         }
         if (type === "Cá Cảnh") {
@@ -163,7 +162,7 @@ export default function BreadcrumbImg() {
   };
 
   const handleChangePage = (opt: number) => {
-    setPageNumber(opt+1);
+    setPageNumber(opt + 1);
   };
 
   const handleChangeType = (opt: string) => {
@@ -380,6 +379,27 @@ export default function BreadcrumbImg() {
             </div>
 
             <div className="sidebar lg:w-1/4 md:w-1/3 w-full md:pl-12">
+              <div className="filter-type pb-8 border-line">
+                <div className="heading6">Tìm kiếm sản phẩm</div>
+                <div className="form-search relative mt-4">
+                  <Icon.MagnifyingGlass
+                    className="absolute heading5 right-6 top-1/2 -translate-y-1/2 cursor-pointer"
+                    onClick={() => {
+                      handleSearch(search as string);
+                    }}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Tìm kiếm ..."
+                    className="text-button-lg h-14 rounded-2xl border border-line w-full pl-6 pr-12"
+                    value={search as string}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && handleSearch(search as string)
+                    }
+                  />
+                </div>
+              </div>
               <div className="filter-type pb-8 border-b border-line">
                 <div className="heading6">Phân loại sản phẩm</div>
                 <div className="list-type mt-4">
