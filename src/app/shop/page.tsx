@@ -44,7 +44,6 @@ export default function BreadcrumbImg() {
       try {
         const response = await handleGetCategory();
         var categoriesRes = response?.data as CategoryType[];
-        console.log("categories: ", categoriesRes);
         setCategories(categoriesRes);
       } catch (error) {
         console.log(error);
@@ -54,7 +53,6 @@ export default function BreadcrumbImg() {
       try {
         const response = await hanldeGetBreed();
         var breedsRes = response?.data as BreedType[];
-        console.log("breeds: ", breedsRes);
         setBreeds(breedsRes);
       } catch (error) {
         console.log(error);
@@ -69,23 +67,19 @@ export default function BreadcrumbImg() {
 
   async function getFishProducts() {
     try {
-      console.log(pageSize);
-      
+      console.log("breed", breed);      
       const response = await axios.get(`${apiUrl}/product/fishs`, {
         params: {
           PageSize: pageSize,
           PageNumber: pageNumber,
           ...(search && { Search: search }),
-          ...(breed && { Breed: breed }),
+          ...(breed && { Breed: breed.name }),
           ...(sort && { Sort: sort }),
           ...(direction && { Direction: direction }),
           ...(priceRange && { PriceFrom: priceRange.min }),
           ...(priceRange && { PriceTo: priceRange.max }),
         },
       });
-      console.log("response", response);
-      console.log("data", response.data);
-      console.log("fishes response", response.data as ProductType[]);
       setProducts(response.data as ProductType[]);
       getTotalCount(response);
     } catch (error) {
@@ -98,23 +92,18 @@ export default function BreadcrumbImg() {
 
   async function getTankProducts() {
     try {
-      console.log("priceRange", priceRange);
-
       const response = await axios.get(`${apiUrl}/product/tanks`, {
         params: {
           PageSize: pageSize,
           PageNumber: pageNumber,
           ...(search && { Search: search }),
-          ...(category && { Category: category }),
+          ...(category && { Category: category.tank_type }),
           ...(sort && { Sort: sort }),
           ...(direction && { Direction: direction }),
           ...(priceRange && { PriceFrom: priceRange.min }),
           ...(priceRange && { PriceTo: priceRange.max }),
         },
       });
-      console.log("response", response);
-      console.log("data", response.data);
-      console.log("tanks response", response.data as ProductType[]);
       setProducts(response.data as ProductType[]);
       getTotalCount(response);
       return response;
@@ -137,12 +126,10 @@ export default function BreadcrumbImg() {
       setLoading(true); // Start loading
       try {
         if (type === "Hồ Cá") {
-          console.log("work here");
 
           await getTankProducts();
         }
         if (type === "Cá Cảnh") {
-          console.log("work here too");
           await getFishProducts();
         }
       } catch (error) {
@@ -166,8 +153,6 @@ export default function BreadcrumbImg() {
   ]);
 
   const handleSortChange = (option: string) => {
-    console.log(option);
-
     setSort(option);
     setPageNumber(1);
   };
@@ -178,14 +163,13 @@ export default function BreadcrumbImg() {
   };
 
   const handleChangePage = (opt: number) => {
-    console.log("handleChangePage", opt);
-    
     setPageNumber(opt+1);
   };
 
   const handleChangeType = (opt: string) => {
     setPageNumber(1);
     setType(opt);
+    handleClearAll();
   };
 
   const handleDirection = (opt: string) => {
@@ -205,8 +189,6 @@ export default function BreadcrumbImg() {
 
   const handlePriceChange = (values: number | number[]) => {
     if (Array.isArray(values)) {
-      console.log("priceRange");
-
       setPriceRange({ min: values[0], max: values[1] });
       setPageNumber(1);
     }
@@ -297,7 +279,7 @@ export default function BreadcrumbImg() {
                         Theo
                       </option>
                       <option value="price">Giá</option>
-                      <option value="">Ngày</option>
+                      <option value="date">Ngày</option>
                     </select>
                     <Icon.CaretDown
                       size={12}
