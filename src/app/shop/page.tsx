@@ -14,7 +14,7 @@ import handleGetCategory from "@/components/api/products/category";
 import handleGetTankProduct from "@/components/api/products/tankproduct";
 import axios, { AxiosResponse } from "axios";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Category from "@/components/Organic/Category";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
@@ -27,11 +27,11 @@ export default function BreadcrumbImg() {
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const pageSize = 9;
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [search, setSearch] = useState<string | null>();
+  const [search, setSearch] = useState<string>("");
   const [sort, setSort] = useState<string | null>();
   const [direction, setDirection] = useState<string | null>();
   const [pageCount, setPageCount] = useState(1);
-  const [type, setType] = useState<string | null>("Cá Cảnh");
+  const [type, setType] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
     min: 0,
@@ -39,25 +39,35 @@ export default function BreadcrumbImg() {
   });
   const apiUrl = "https://kingfish.azurewebsites.net/api/v1";
   const router = useRouter();
+
+  const param = useSearchParams()
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      await getProducts();
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setLoading(false);
+    }
+  };  
+
   useEffect(() => {
-    async function getCategories() {
-      try {
-        const response = await handleGetCategory();
-        var categoriesRes = response?.data as CategoryType[];
-        setCategories(categoriesRes);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    async function getBreedes() {
-      try {
-        const response = await hanldeGetBreed();
-        var breedsRes = response?.data as BreedType[];
-        setBreeds(breedsRes);
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    const initialQuery = param.get("query") as string;
+    const initialType = param.get("type") as string;
+  
+    // Chỉ gán initial values nếu `type` hoặc `search` chưa có giá trị
+    if (!type && initialType) setType(initialType);
+    if (!search && initialQuery) setSearch(initialQuery);
+  
+    fetchData();  // Gọi fetch lần đầu tiên
+  }, []); // Chạy khi mount lần đầu tiên
+  
+  useEffect(() => {
+    fetchData();  // Gọi lại fetch mỗi khi các tham số thay đổi
+  }, [category, breed, pageNumber, pageSize, sort, direction, search, type, priceRange]);  
+
+  useEffect(() => {
     if (type === "Hồ Cá") {
       getCategories();
     } else {
@@ -65,52 +75,54 @@ export default function BreadcrumbImg() {
     }
   }, [type]);
 
-  async function getFishProducts() {
+  async function getCategories() {
     try {
-      console.log("breed", breed);
-      const response = await axios.get(`${apiUrl}/product/fishs`, {
-        params: {
-          PageSize: pageSize,
-          PageNumber: pageNumber,
-          ...(search && { Search: search }),
-          ...(breed && { Breed: breed.name }),
-          ...(sort && { Sort: sort }),
-          ...(direction && { Direction: direction }),
-          ...(priceRange && { PriceFrom: priceRange.min }),
-          ...(priceRange && { PriceTo: priceRange.max }),
-        },
-      });
+      const response = await handleGetCategory();
+      var categoriesRes = response?.data as CategoryType[];
+      setCategories(categoriesRes);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function getBreedes() {
+    try {
+      const response = await hanldeGetBreed();
+      var breedsRes = response?.data as BreedType[];
+      setBreeds(breedsRes);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getProducts = async() => {
+    try {
+      // Xác định endpoint API và các params cụ thể dựa trên type
+      const endpoint = type === "Cá Cảnh" ? `${apiUrl}/product/fishs` : `${apiUrl}/product/tanks`;
+      const params = {
+        PageSize: pageSize,
+        PageNumber: pageNumber,
+        ...(search && { Search: search.trim() }),
+        ...(sort && { Sort: sort }),
+        ...(direction && { Direction: direction }),
+        ...(priceRange && { PriceFrom: priceRange.min }),
+        ...(priceRange && { PriceTo: priceRange.max }),
+        ...(type === "Cá Cảnh" && breed && { Breed: breed.name }), // Thêm Breed nếu là fish
+        ...(type === "Hồ Cá" && category && { Category: category.tank_type }), // Thêm Category nếu là tank
+      };
+  
+      // Thực hiện gọi API
+      const response = await axios.get(endpoint, { params });
       setProducts(response.data as ProductType[]);
       getTotalCount(response);
     } catch (error) {
-      console.error("Error fetching fish products:", error);
+      console.error(`Error fetching ${type} products:`, error);
     }
   }
+  
+
   useEffect(() => {
     setPageCount(Math.ceil(totalProducts / pageSize));
   }, [totalProducts, pageSize]);
-
-  async function getTankProducts() {
-    try {
-      const response = await axios.get(`${apiUrl}/product/tanks`, {
-        params: {
-          PageSize: pageSize,
-          PageNumber: pageNumber,
-          ...(search && { Search: search }),
-          ...(category && { Category: category.tank_type }),
-          ...(sort && { Sort: sort }),
-          ...(direction && { Direction: direction }),
-          ...(priceRange && { PriceFrom: priceRange.min }),
-          ...(priceRange && { PriceTo: priceRange.max }),
-        },
-      });
-      setProducts(response.data as ProductType[]);
-      getTotalCount(response);
-      return response;
-    } catch (error) {
-      console.error("Error fetching tank products:", error);
-    }
-  }
 
   const getTotalCount = (response: any) => {
     const paginationHeader = response?.headers["x-pagination"];
@@ -120,36 +132,6 @@ export default function BreadcrumbImg() {
       setTotalProducts(totalCount);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true); // Start loading
-      try {
-        if (type === "Hồ Cá") {
-          await getTankProducts();
-        }
-        if (type === "Cá Cảnh") {
-          await getFishProducts();
-        }
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false); // Stop loading after data is fetched
-      }
-    };
-
-    fetchData();
-  }, [
-    category,
-    breed,
-    pageNumber,
-    pageSize,
-    sort,
-    direction,
-    search,
-    type,
-    priceRange,
-  ]);
 
   const handleSortChange = (option: string) => {
     setSort(option);
@@ -195,9 +177,10 @@ export default function BreadcrumbImg() {
 
   const handleClearAll = () => {
     setBreed(null);
+    setCategory(null)
     setDirection(null);
     setPageNumber(1);
-    setSearch(null);
+    // setSearch(null);
     setSort(null);
   };
 

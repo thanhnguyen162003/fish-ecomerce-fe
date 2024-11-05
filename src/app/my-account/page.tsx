@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Image from 'next/image'
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-import { Customer } from '@/type/customer'
+import { Customer } from '@/type/Customer'
 import { useRouter } from 'next/navigation'
 import { getCustomer, updateCustomer } from '@/components/api/customer/customer.api'
 import { ChangePasswordSchema , EditCustomerSchema } from '@/schemas/account'
