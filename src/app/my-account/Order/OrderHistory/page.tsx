@@ -1,4 +1,5 @@
 "use client";
+import { repayOrder } from "@/components/api/order/checkout";
 import { GetOrderListAPI, Order } from "@/components/api/order/order";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { useRouter } from "next/navigation";
@@ -57,11 +58,31 @@ const [pageNumber, setPageNumber] = useState(1);
       }
   };
   fetchData()
-  }, [])
+  }, [pageNumber, pageSize])
 
 const handleDetail = (order: Order) => {
   const orderJson = JSON.stringify({ order });
   router.push(`/my-account/Order/OrderDetail?orderCode=${order.orderCode}`);
+}
+
+const handlePay = async (order: Order) => {
+  var token = getWithExpiry("jwtToken");
+
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+    setIsLoading(true)
+    if (token && order?.orderCode) {
+      var response = await repayOrder(order.orderCode,token);
+      if (typeof response === "string" && response.includes("payos")) {
+        window.location.href = response;
+      } else {
+        toast.error(response);
+      }
+    } else {
+      router.push("/login");
+    }
 }
    if (isLoading == true) {
         return <div className="flex justify-center items-center h-screen">
@@ -118,9 +139,9 @@ const handleDetail = (order: Order) => {
                       }
                       onClick={(e) => handleDetail(order)}
                     >
-                      Detail
+                      Chi Tiết
                     </button>
-                    {/* <button
+                    <button
                       style={{
                         backgroundColor: "#DB4444", // Red
                         color: "#FFFFFF", // White text
@@ -136,9 +157,10 @@ const handleDetail = (order: Order) => {
                       onMouseOut={(e) =>
                         (e.currentTarget.style.backgroundColor = "#DB4444")
                       }
+onClick={() => handlePay(order)}
                     >
-                      Delete
-                    </button> */}
+                      Thanh toán
+                    </button>
                   </div>
                 </td>
               </tr>
