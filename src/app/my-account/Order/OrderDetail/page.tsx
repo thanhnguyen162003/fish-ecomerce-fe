@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 
 const OrderDetail = () => {  
     
-    const [orderDetailList, setOrderDetailList] = useState<Order>();
-    const router = useRouter();
-    useEffect(() => {
-        if (router.query.order) {
-          const order = JSON.parse(decodeURIComponent(router.query.order as string));
-          setOrderDetailList(order);
-        }
-      }, [router.query]);
+    // const [orderDetailList, setOrderDetailList] = useState<Order>();
+    // const router = useRouter();
+    // useEffect(() => {
+    //     if (router.query.order) {
+    //       const order = JSON.parse(decodeURIComponent(router.query.order as string));
+    //       setOrderDetailList(order);
+    //     }
+    //   }, [router.query]);
 
     return (
     //   <div className="container mx-auto space-y-4">
