@@ -1,5 +1,6 @@
 "use client";
 import { GetOrderListAPI, Order } from "@/components/api/order/order";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -60,12 +61,20 @@ const [pageNumber, setPageNumber] = useState(1);
 
 const handleDetail = (order: Order) => {
   const orderJson = JSON.stringify({ order });
-  router.push(`/my-account/OrderDetail?order=${encodeURIComponent(orderJson)}`);
+  router.push(`/my-account/Order/OrderDetail?orderCode=${order.orderCode}`);
 }
-
+   if (isLoading == true) {
+        return <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-gray-900"></div>
+    </div>;
+    }
   return (
+    <>
+    <div id="header" className='relative w-full'>
+                <Breadcrumb heading="Order History" />
+            </div>
     <div className="container mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Order History</h1>
+      {/* <h1 className="text-2xl font-bold mb-4">Order History</h1> */}
       {orders && orders.length === 0 ? (
         <p>No orders found.</p>
       ) : (
@@ -76,6 +85,7 @@ const handleDetail = (order: Order) => {
           <thead>
             <tr className="bg-[#4d7fff] text-white rounded-xl">
               <th className="px-4 py-2 text-left">Order ID</th>
+              <th className="px-4 py-2 text-left">Order Date</th>
               <th className="px-4 py-2 text-left">Status</th>
               <th className="px-4 py-2 text-left">Total</th>
               <th className="px-4 py-2 text-left">Action</th>
@@ -83,10 +93,11 @@ const handleDetail = (order: Order) => {
           </thead>
           <tbody>
             {orders && orders.map((order, index) => (
-              <tr key={order.order_code} className="border-t">
-                <td className="px-4 py-2 rounded-l-xl">{order.order_code}</td>
+              <tr key={order.orderCode} className="border-t">
+                <td className="px-4 py-2 rounded-l-xl">{order.orderCode}</td>
+                <td className="px-4 py-2">{order.orderDate}</td>
                 <td className="px-4 py-2">{order.status}</td>
-                <td className="px-4 py-2">{order.total_price}</td>
+                <td className="px-4 py-2">{order.totalPrice.toLocaleString("vi-VI")} VND</td>
                 <td className="px-4 py-2 rounded-r-xl flex items-center">
                   <div className="flex space-x-4">
                     <button
@@ -136,6 +147,7 @@ const handleDetail = (order: Order) => {
         </table>
       )}
     </div>
+    </>
   );
 };
 export default OrderHistory
