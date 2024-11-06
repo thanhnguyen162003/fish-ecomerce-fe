@@ -13,7 +13,7 @@ import Image from "next/image";
 import { createOrder } from "@/components/api/order/checkout";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { Customer } from "@/type/Customer";
+import { Customer } from "@/type/customer";
 import { getCustomer } from "@/components/api/customer/customer.api";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 

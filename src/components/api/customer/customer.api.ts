@@ -1,4 +1,4 @@
-import { Customer } from "@/type/Customer";
+import { Customer } from "@/type/customer";
 import axios from "axios";
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
