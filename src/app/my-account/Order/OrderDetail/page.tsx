@@ -3,7 +3,7 @@ import { Order } from "@/components/api/order/order";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export const OrderDetail = () => {  
+const OrderDetail = () => {  
     
     const [orderDetailList, setOrderDetailList] = useState<Order>();
     const router = useRouter();
@@ -60,4 +60,4 @@ export const OrderDetail = () => {
     <></>
     );
   };
-  
+  export default OrderDetail
