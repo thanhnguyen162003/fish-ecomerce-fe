@@ -193,6 +193,10 @@ const MyAccount = () => {
     if (!customer) {
         return <div>No customer data available</div>;
     }
+
+    const handleYourOrders = () => {
+        router.push("/my-account/Order/OrderHistory")
+    }
       return (
         <>
             <div id="header" className='relative w-full'>
@@ -222,7 +226,9 @@ const MyAccount = () => {
                                     </div>
                                     <div className="item px-5 py-4 flex items-center gap-3 cursor-pointer mt-2">
                                         <Icon.Bag size={20} weight='bold' />
-                                        <div className="heading6">Your Orders</div>
+                                        <div className="heading6">
+                                            <button onClick={handleYourOrders}>Your Orders</button>
+                                        </div>
                                     </div>
                                     {/* <div className="item px-5 py-4 flex items-center gap-3 cursor-pointer mt-2">
                                         <Icon.MapPin size={20} weight='bold' />
