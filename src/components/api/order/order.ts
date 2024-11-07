@@ -47,7 +47,7 @@ export interface Order{
             Authorization: `Bearer ${token}`,
           }, params
         });
-        return response.data;
+        return response;
       } catch (error) {
         console.error("Error fetching customer:", error);
         throw error;
