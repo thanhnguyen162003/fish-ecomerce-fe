@@ -46,9 +46,9 @@ export default function RootLayout({
             className="bg-blue-500 text-white"
           />
           <div className="flex-grow">{children}</div>
-          <ModalCart/>
+          <ModalCart />
           <ModalWishlist />
-          <ModalSearch />
+          {/* <ModalSearch /> */}
           <ModalQuickview />
           <ModalCompare />
           <Footer background="bg-[#4d7fff]" text="text-pearlWhite" />

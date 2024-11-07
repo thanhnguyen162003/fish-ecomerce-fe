@@ -8,30 +8,38 @@ import Product from "@/components/Product/NewProduct";
 import HandlePagination from "@/components/Other/HandlePagination";
 import Slider from "rc-slider";
 import hanldeGetBreed from "@/components/api/products/breed";
-import { CategoryType } from "@/type/CategoryType";
+import { TankCategoryType } from "@/type/CategoryType";
 import { BreedType } from "@/type/BreedType";
-import handleGetCategory from "@/components/api/products/category";
 import handleGetTankProduct from "@/components/api/products/tankproduct";
 import axios, { AxiosResponse } from "axios";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Category from "@/components/Organic/Category";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import handleGetTankCategory from "@/components/api/products/category";
+import { string } from "zod";
 
 export default function BreadcrumbImg() {
+  enum ProductTypeList {
+    HoCa = "Hồ Cá",
+    CaCanh = "Cá Cảnh",
+    CayThuySinh = "Cây Thủy Sinh",
+    PhuKien = "Phụ Kiện",
+  }
+  const productTypes = Object.values(ProductTypeList);
   const [products, setProducts] = useState<ProductType[]>([]);
-  const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [category, setCategory] = useState<CategoryType | null>();
+  const [tankCategories, setTankCategories] = useState<TankCategoryType[]>([]);
+  const [tankCategory, setTankCategory] = useState<TankCategoryType | null>();
   const [breeds, setBreeds] = useState<BreedType[]>([]);
   const [breed, setBreed] = useState<BreedType | null>();
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const pageSize = 9;
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string | null>();
   const [sort, setSort] = useState<string | null>();
   const [direction, setDirection] = useState<string | null>();
   const [pageCount, setPageCount] = useState(1);
-  const [type, setType] = useState<string>("");
+  const [type, setType] = useState<string | null>(ProductTypeList.CaCanh);
   const [loading, setLoading] = useState<boolean>(true);
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({
     min: 0,
@@ -40,89 +48,78 @@ export default function BreadcrumbImg() {
   const apiUrl = "https://kingfish.azurewebsites.net/api/v1";
   const router = useRouter();
 
-  const param = useSearchParams()
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      await getProducts();
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    async function getTankCategories() {
+      try {
+        const response = await handleGetTankCategory();
+        var categoriesRes = response?.data as TankCategoryType[];
+        setTankCategories(categoriesRes);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  };  
-
-  useEffect(() => {
-    const initialQuery = param.get("query") as string;
-    const initialType = param.get("type") as string;
-  
-    // Chỉ gán initial values nếu `type` hoặc `search` chưa có giá trị
-    if (!type && initialType) setType(initialType);
-    if (!search && initialQuery) setSearch(initialQuery);
-  
-    fetchData();  // Gọi fetch lần đầu tiên
-  }, []); // Chạy khi mount lần đầu tiên
-  
-  useEffect(() => {
-    fetchData();  // Gọi lại fetch mỗi khi các tham số thay đổi
-  }, [category, breed, pageNumber, pageSize, sort, direction, search, type, priceRange]);  
-
-  useEffect(() => {
+    async function getBreedes() {
+      try {
+        const response = await hanldeGetBreed();
+        var breedsRes = response?.data as BreedType[];
+        setBreeds(breedsRes);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     if (type === "Hồ Cá") {
-      getCategories();
+      getTankCategories();
     } else {
       getBreedes();
     }
   }, [type]);
 
-  async function getCategories() {
+  async function getFishProducts() {
     try {
-      const response = await handleGetCategory();
-      var categoriesRes = response?.data as CategoryType[];
-      setCategories(categoriesRes);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  async function getBreedes() {
-    try {
-      const response = await hanldeGetBreed();
-      var breedsRes = response?.data as BreedType[];
-      setBreeds(breedsRes);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const getProducts = async() => {
-    try {
-      // Xác định endpoint API và các params cụ thể dựa trên type
-      const endpoint = type === "Cá Cảnh" ? `${apiUrl}/product/fishs` : `${apiUrl}/product/tanks`;
-      const params = {
-        PageSize: pageSize,
-        PageNumber: pageNumber,
-        ...(search && { Search: search.trim() }),
-        ...(sort && { Sort: sort }),
-        ...(direction && { Direction: direction }),
-        ...(priceRange && { PriceFrom: priceRange.min }),
-        ...(priceRange && { PriceTo: priceRange.max }),
-        ...(type === "Cá Cảnh" && breed && { Breed: breed.name }), // Thêm Breed nếu là fish
-        ...(type === "Hồ Cá" && category && { Category: category.tank_type }), // Thêm Category nếu là tank
-      };
-  
-      // Thực hiện gọi API
-      const response = await axios.get(endpoint, { params });
+      console.log("breed", breed);
+      const response = await axios.get(`${apiUrl}/product/fishs`, {
+        params: {
+          PageSize: pageSize,
+          PageNumber: pageNumber,
+          ...(search && { Search: search }),
+          ...(breed && { Breed: breed.name }),
+          ...(sort && { Sort: sort }),
+          ...(direction && { Direction: direction }),
+          ...(priceRange && { PriceFrom: priceRange.min }),
+          ...(priceRange && { PriceTo: priceRange.max }),
+        },
+      });
       setProducts(response.data as ProductType[]);
       getTotalCount(response);
     } catch (error) {
-      console.error(`Error fetching ${type} products:`, error);
+      console.error("Error fetching fish products:", error);
     }
   }
-  
-
   useEffect(() => {
     setPageCount(Math.ceil(totalProducts / pageSize));
   }, [totalProducts, pageSize]);
+
+  async function getTankProducts() {
+    try {
+      const response = await axios.get(`${apiUrl}/product/tanks`, {
+        params: {
+          PageSize: pageSize,
+          PageNumber: pageNumber,
+          ...(search && { Search: search }),
+          ...(tankCategory && { Category: tankCategory.tank_type }),
+          ...(sort && { Sort: sort }),
+          ...(direction && { Direction: direction }),
+          ...(priceRange && { PriceFrom: priceRange.min }),
+          ...(priceRange && { PriceTo: priceRange.max }),
+        },
+      });
+      setProducts(response.data as ProductType[]);
+      getTotalCount(response);
+      return response;
+    } catch (error) {
+      console.error("Error fetching tank products:", error);
+    }
+  }
 
   const getTotalCount = (response: any) => {
     const paginationHeader = response?.headers["x-pagination"];
@@ -132,6 +129,36 @@ export default function BreadcrumbImg() {
       setTotalProducts(totalCount);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true); // Start loading
+      try {
+        if (type === "Hồ Cá") {
+          await getTankProducts();
+        }
+        if (type === "Cá Cảnh") {
+          await getFishProducts();
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false); // Stop loading after data is fetched
+      }
+    };
+
+    fetchData();
+  }, [
+    tankCategory,
+    breed,
+    pageNumber,
+    pageSize,
+    sort,
+    direction,
+    search,
+    type,
+    priceRange,
+  ]);
 
   const handleSortChange = (option: string) => {
     setSort(option);
@@ -158,8 +185,8 @@ export default function BreadcrumbImg() {
     setPageNumber(1);
   };
 
-  const handleChangeCategory = (opt: CategoryType) => {
-    setCategory(opt);
+  const handleChangeCategory = (opt: TankCategoryType) => {
+    setTankCategory(opt);
     setPageNumber(1);
   };
 
@@ -177,10 +204,9 @@ export default function BreadcrumbImg() {
 
   const handleClearAll = () => {
     setBreed(null);
-    setCategory(null)
     setDirection(null);
     setPageNumber(1);
-    // setSearch(null);
+    setSearch(null);
     setSort(null);
   };
 
@@ -300,7 +326,7 @@ export default function BreadcrumbImg() {
                   </div>
                 )}
 
-                {(breed || category) && (
+                {(breed || tankCategory) && (
                   <>
                     <div className="list flex items-center gap-3">
                       <div className="w-px h-4 bg-line"></div>
@@ -315,7 +341,7 @@ export default function BreadcrumbImg() {
                           <span>{breed.name}</span>
                         </div>
                       )}
-                      {type === "Hồ Cá" && category && (
+                      {type === "Hồ Cá" && tankCategory && (
                         <div
                           className="item flex items-center px-2 py-1 gap-1 bg-linear rounded-full capitalize"
                           onClick={() => {
@@ -323,7 +349,7 @@ export default function BreadcrumbImg() {
                           }}
                         >
                           {/* <Icon.X className="cursor-pointer" /> */}
-                          <span>{category.tank_type}</span>
+                          <span>{tankCategory.tank_type}</span>
                         </div>
                       )}
                     </div>
@@ -385,7 +411,7 @@ export default function BreadcrumbImg() {
               </div>
               <div className="filter-type pb-8 border-b border-line">
                 <div className="heading6">Phân loại sản phẩm</div>
-                <div className="list-type mt-4">
+                {/* <div className="list-type mt-4">
                   <div
                     className={`item flex items-center justify-between cursor-pointer active}`}
                     onClick={() => handleChangeType("Cá Cảnh")}
@@ -405,6 +431,28 @@ export default function BreadcrumbImg() {
                     </div>
                   </div>
                 </div>
+                <div className="list-type mt-4">
+                  <div
+                    className={`item flex items-center justify-between cursor-pointer active}`}
+                    onClick={() => handleChangeType("Cây Thủy Sinh")}
+                  >
+                    <div className="text-secondary has-line-before hover:text-black capitalize">
+                      Cây Thủy Sinh
+                    </div>
+                  </div>
+                </div> */}
+                {productTypes.map((type, index) => (
+                  <div key={index} className="list-type mt-4">
+                    <div
+                      className="item flex items-center justify-between cursor-pointer"
+                      onClick={() => handleChangeType(type)}
+                    >
+                      <div className="text-secondary has-line-before hover:text-black capitalize">
+                        {type}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
               <div className="filter-price pb-8 border-b border-line mt-8">
                 <div className="heading6">Khoảng giá</div>
@@ -435,10 +483,10 @@ export default function BreadcrumbImg() {
 
               {type === "Hồ Cá" && (
                 <div className="filter-color pb-8 border-b border-line mt-8">
-                  <div className="heading6">Category</div>
+                  <div className="heading6">Phân Loại</div>
                   <div className="list-color flex items-center flex-wrap gap-3 gap-y-4 mt-4">
-                    {categories !== null &&
-                      categories.map((item, index) => (
+                    {tankCategories !== null &&
+                      tankCategories.map((item, index) => (
                         <div
                           key={index}
                           className="brand-item flex items-center justify-between"
@@ -449,7 +497,7 @@ export default function BreadcrumbImg() {
                                 type="checkbox"
                                 name={item.tank_type}
                                 id={item.id}
-                                checked={category === item}
+                                checked={tankCategory === item}
                                 onChange={() => handleChangeCategory(item)}
                               />
                               <Icon.CheckSquare

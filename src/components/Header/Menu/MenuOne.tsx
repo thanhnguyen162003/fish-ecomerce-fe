@@ -54,33 +54,33 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
 
   const getWithExpiry = (key: string) => {
     const itemStr = localStorage.getItem(key);
-  
+
     // If the item doesn't exist, return null
     if (!itemStr) {
       return null;
     }
-  
+
     const item = JSON.parse(itemStr);
     const now = new Date();
-  
+
     // If the item has expired, remove it and return null
     if (now.getTime() > item.expiry) {
       localStorage.removeItem(key);
       return null;
     }
-  
+
     return item.value;
-  };  
+  };
 
   useEffect(() => {
     setJwt(localStorage.getItem("jwtToken"));
-    getWithExpiry('jwtToken')
+    getWithExpiry("jwtToken");
   });
 
   const handleSignOut = () => {
     localStorage.removeItem("jwtToken");
-    setJwt('');
-    router.push('/login')
+    setJwt("");
+    router.push("/login");
   };
 
   const [fixedHeader, setFixedHeader] = useState(false);
@@ -159,10 +159,10 @@ const MenuOne: React.FC<Props> = ({ background, text }) => {
             </div>
           </div>
           <div className="right flex gap-12">
-            <div className="max-md:hidden search-icon flex items-center cursor-pointer relative">
+            {/* <div className="max-md:hidden search-icon flex items-center cursor-pointer relative">
               <Icon.MagnifyingGlass size={24} onClick={openModalSearch} />
               <div className="line absolute bg-line w-px h-6 -right-6"></div>
-            </div>
+            </div> */}
             <div className="list-action flex items-center gap-4">
               <div className="user-icon flex items-center justify-center cursor-pointer">
                 <Icon.User size={24} onClick={handleLoginPopup} />
