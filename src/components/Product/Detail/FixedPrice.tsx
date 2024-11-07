@@ -129,25 +129,6 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
       window.location.reload();
     }
   };
-
-  // //   const handleAddToCompare = () => {
-  // //     // if product existed in wishlit, remove from wishlist and set state to false
-  // //     if (compareState.compareArray.length < 3) {
-  // //       if (
-  // //         compareState.compareArray.some((item) => item.id === productMain.id)
-  // //       ) {
-  // //         removeFromCompare(productMain.id);
-  // //       } else {
-  // //         // else, add to wishlist and set state to true
-  // //         addToCompare(productMain);
-  // //       }
-  // //     } else {
-  // //       alert("Compare up to 3 products");
-  // //     }
-
-  //     openModalCompare();
-  //   };
-
   const handleActiveTab = (tab: string) => {
     setActiveTab((prevTab) => (prevTab === tab ? undefined : tab));
   };
@@ -228,32 +209,31 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
           <div className="container flex justify-between gap-y-6 flex-wrap md:py-20 py-10">
             <div className="desc-tab md:w-1/2 w-full lg:pr-[30px] md:pr-4">
               <div className="get-it pb-6 border-b border-line">
-                <div className="heading5">Get it today</div>
+                <div className="heading5">Mua ngay trong hôm nay</div>
                 <div className="item flex items-center gap-3 mt-4">
                   <div className="icon-delivery-truck text-4xl"></div>
                   <div>
-                    <div className="text-title">Free shipping</div>
+                    <div className="text-title">Miễn phí ship</div>
                     <div className="caption1 text-secondary mt-1">
-                      Free shipping on orders over $75.
+                      Miễn phí ship cho đơn hàng trên 100 ngàn
                     </div>
                   </div>
                 </div>
                 <div className="item flex items-center gap-3 mt-4">
                   <div className="icon-phone-call text-4xl"></div>
                   <div>
-                    <div className="text-title">Support everyday</div>
+                    <div className="text-title">Hỗ trợ miễn phí</div>
                     <div className="caption1 text-secondary mt-1">
-                      Support from 8:30 AM to 10:00 PM everyday
+                      Hỗ trợ từ 8h sáng đến 7h tối
                     </div>
                   </div>
                 </div>
                 <div className="item flex items-center gap-3 mt-4">
                   <div className="icon-return text-4xl"></div>
                   <div>
-                    <div className="text-title">100 Day Returns</div>
+                    <div className="text-title">Trả hàng</div>
                     <div className="caption1 text-secondary mt-1">
-                      Not impressed? Get a refund. You have 100 days to break
-                      our hearts.
+                      Trả hàng nếu không đúng mô tả
                     </div>
                   </div>
                 </div>
@@ -326,40 +306,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                           : "Không có mô tả"}
                       </div>
                     </div>
-                    {/* <div className="grid grid-cols-2 gap-[30px] md:mt-8 mt-5">
-                <div className="item">
-                  <div className="icon-delivery-truck text-4xl"></div>
-                  <div className="heading6 mt-4">Shipping Faster</div>
-                  <div className="text-secondary mt-2">
-                    Use on walls, furniture, doors and many more surfaces.
-                    The possibilities are endless.
-                  </div>
-                </div>
-                <div className="item">
-                  <div className="icon-cotton text-4xl"></div>
-                  <div className="heading6 mt-4">Cotton Material</div>
-                  <div className="text-secondary mt-2">
-                    Use on walls, furniture, doors and many more surfaces.
-                    The possibilities are endless.
-                  </div>
-                </div>
-                <div className="item">
-                  <div className="icon-guarantee text-4xl"></div>
-                  <div className="heading6 mt-4">High Quality</div>
-                  <div className="text-secondary mt-2">
-                    Use on walls, furniture, doors and many more surfaces.
-                    The possibilities are endless.
-                  </div>
-                </div>
-                <div className="item">
-                  <div className="icon-leaves-compatible text-4xl"></div>
-                  <div className="heading6 mt-4">highly compatible</div>
-                  <div className="text-secondary mt-2">
-                    Use on walls, furniture, doors and many more surfaces.
-                    The possibilities are endless.
-                  </div>
-                </div>
-              </div> */}
+                
                   </div>
                 </div>
               ) : (
@@ -421,40 +368,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                           : "Không có mô tả"}
                       </div>
                     </div>
-                    {/* <div className="grid grid-cols-2 gap-[30px] md:mt-8 mt-5">
-                    <div className="item">
-                      <div className="icon-delivery-truck text-4xl"></div>
-                      <div className="heading6 mt-4">Shipping Faster</div>
-                      <div className="text-secondary mt-2">
-                        Use on walls, furniture, doors and many more surfaces.
-                        The possibilities are endless.
-                      </div>
-                    </div>
-                    <div className="item">
-                      <div className="icon-cotton text-4xl"></div>
-                      <div className="heading6 mt-4">Cotton Material</div>
-                      <div className="text-secondary mt-2">
-                        Use on walls, furniture, doors and many more surfaces.
-                        The possibilities are endless.
-                      </div>
-                    </div>
-                    <div className="item">
-                      <div className="icon-guarantee text-4xl"></div>
-                      <div className="heading6 mt-4">High Quality</div>
-                      <div className="text-secondary mt-2">
-                        Use on walls, furniture, doors and many more surfaces.
-                        The possibilities are endless.
-                      </div>
-                    </div>
-                    <div className="item">
-                      <div className="icon-leaves-compatible text-4xl"></div>
-                      <div className="heading6 mt-4">highly compatible</div>
-                      <div className="text-secondary mt-2">
-                        Use on walls, furniture, doors and many more surfaces.
-                        The possibilities are endless.
-                      </div>
-                    </div>
-                  </div> */}
+                  
                   </div>
                 </div>
               )}
@@ -572,10 +486,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                             <div className="mt-3">{feedback.content}</div>
                             <div className="action mt-3">
                               <div className="flex items-center gap-4">
-                                <div className="like-btn flex items-center gap-1 cursor-pointer">
-                                  <Icon.HandsClapping size={18} />
-                                  <div className="text-button">20</div>
-                                </div>
+                              
                               </div>
                             </div>
                           </div>
@@ -629,46 +540,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                     </div>
                   </div>
                 </div>
-                {/* <div className="flex justify-between">
-                <div>
-                  <div className="caption2 text-secondary font-semibold uppercase">
-                    {productMain.type}
-                  </div>
-                  <div className="heading4 mt-1">{productMain.name}</div>
-                </div>
-                {productMain && <div
-                  className={`add-wishlist-btn w-12 h-12 flex items-center justify-center border border-line cursor-pointer rounded-xl duration-300 hover:bg-black hover:text-white ${
-                    wishlistState.wishlistArray.some(
-                      (item) => item.id == productMain.id
-                    )
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={handleAddToWishlist}
-                >
-                  {wishlistState.wishlistArray.some(
-                    (item) => item.id == productMain.id
-                  ) ? (
-                    <>
-                      <Icon.Heart
-                        size={24}
-                        weight="fill"
-                        className="text-white"
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <Icon.Heart size={24} />
-                    </>
-                  )}
-                </div>}
-              </div> 
-                <div className="flex items-center mt-3">
-                <Rate currentRate={productMain.rate} size={14} />
-                <span className="caption1 text-secondary">
-                  (1.234 reviews)
-                </span>
-              </div> */}
+              
                 <div className="flex flex-col gap-3 mt-5 pb-6 border-b border-gray-300">
                   <div className="flex items-center gap-3 flex-wrap">
                     <div className="product-price text-xl font-semibold text-gray-800">
@@ -713,10 +585,12 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                           Size: {productMain.tank?.size}
                         </p>
                       )}
-                      {productMain.tank?.size_information && (
+                      {productMain.tank?.size_information ? (
                         <p className="text-gray-700">
-                          Size information: {productMain.tank?.size_information}
+                          Size information: {productMain.tank.size_information}
                         </p>
+                        ) : (
+                        <></>
                       )}
                       {productMain.tank?.glass_type && (
                         <p className="text-gray-700">
@@ -729,19 +603,6 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
               </div>
             </div>
           </div>
-
-          {/* <div className="related-product md:pb-20 pb-10">
-          <div className="container">
-            <div className="heading3 text-center">Related Products</div>
-            <div className="list-product hide-product-sold  grid lg:grid-cols-4 grid-cols-2 md:gap-[30px] gap-5 md:mt-10 mt-6">
-              {data
-                .slice(Number(productId), Number(productId) + 4)
-                .map((item, index) => (
-                  <Product key={index} data={item} type="grid" />
-                ))}
-            </div>
-          </div>
-        </div> */}
         </div>
       </div>
     </>

@@ -35,7 +35,7 @@ const ProductFixedPrice = () => {
       }
       getProducts()
       console.log("product", product?.description);
-    }, [])
+    }, [product?.description, productId, type])
     return (
         <>
             <div id="header" className='relative w-full'>
