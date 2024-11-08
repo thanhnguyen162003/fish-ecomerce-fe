@@ -60,7 +60,7 @@ export const createOrder = async (
 export const repayOrder = async (orderCode: number, token:string) => {
   try {
     const response = await axios.post(
-      "https://kingfish.azurewebsites.net/api/v1/order",
+      "https://localhost:7158/api/v1/payment",
       orderCode,
       {
         headers: {
