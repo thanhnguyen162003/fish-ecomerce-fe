@@ -221,11 +221,6 @@ const BlogDetailTwo = () => {
                                                         <div className="span text-line">-</div>
                                                         <Rate currentRate={5} size={12} />
                                                     </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="text-secondary2">1 days ago</div>
-                                                        <div className="text-secondary2">-</div>
-                                                        <div className="text-secondary2"><span>Yellow</span> / <span>XL</span></div>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="more-action cursor-pointer">
@@ -274,7 +269,7 @@ const BlogDetailTwo = () => {
                                                 className='w-20 h-20 object-cover rounded-lg flex-shrink-0'
                                             />
                                             <div>
-                                                {/* <div className="blog-tag whitespace-nowrap bg-green py-0.5 px-2 rounded-full text-button-uppercase text-xs inline-block">{item.tag}</div> */}
+                                            
                                                 <div className="text-title mt-1">{item.title}</div>
                                             </div>
                                         </div>
@@ -285,9 +280,7 @@ const BlogDetailTwo = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className='lg:pb-20 md:pb-14 pb-10'>
-                    <NewsInsight data={blogData} start={0} limit={3} />
-                </div> */}
+                
             </div>
         </>
     )
