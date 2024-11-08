@@ -190,7 +190,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
         </div>
       )}
 
-      {type === "marketplace" && (
+      {/* {type === "marketplace" && (
         <div
           className="product-item style-marketplace p-4 border border-line rounded-2xl"
           onClick={() => handleDetailProduct(data.id)}
@@ -264,7 +264,7 @@ const Product: React.FC<ProductProps> = ({ data, type }) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

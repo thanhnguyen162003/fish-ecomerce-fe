@@ -8,7 +8,7 @@ import Product from "@/components/Product/NewProduct";
 import HandlePagination from "@/components/Other/HandlePagination";
 import Slider from "rc-slider";
 import hanldeGetBreed from "@/components/api/products/breed";
-import { TankCategoryType } from "@/type/CategoryType";
+import { CategoryType, TankCategoryType } from "@/type/CategoryType";
 import { BreedType } from "@/type/BreedType";
 import handleGetTankProduct from "@/components/api/products/tankproduct";
 import axios, { AxiosResponse } from "axios";
@@ -16,7 +16,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Category from "@/components/Organic/Category";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import handleGetTankCategory from "@/components/api/products/category";
+import {handleGetTankCategory, handleGetCategory} from "@/components/api/products/category";
 import { string } from "zod";
 
 export default function BreadcrumbImg() {
@@ -32,6 +32,8 @@ export default function BreadcrumbImg() {
   const [tankCategory, setTankCategory] = useState<TankCategoryType | null>();
   const [breeds, setBreeds] = useState<BreedType[]>([]);
   const [breed, setBreed] = useState<BreedType | null>();
+  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const [category, setCategory] = useState<CategoryType | null>();
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const pageSize = 9;
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -67,10 +69,21 @@ export default function BreadcrumbImg() {
         console.log(error);
       }
     }
-    if (type === "Hồ Cá") {
+    async function getCategories(type : number) {
+      try {
+        const response = await handleGetCategory(type);
+        var catesRes = response?.data as CategoryType[];
+        setCategories(catesRes);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (type === ProductTypeList.HoCa) {
       getTankCategories();
-    } else {
+    } else if(type === ProductTypeList.CaCanh) {
       getBreedes();
+    } else {
+      getCategories(type === ProductTypeList.CayThuySinh ? 0 : 1)
     }
   }, [type]);
 
@@ -121,6 +134,50 @@ export default function BreadcrumbImg() {
     }
   }
 
+  async function getPlantProducts() {
+    try {
+      const response = await axios.get(`${apiUrl}/product/plant`, {
+        params: {
+          PageSize: pageSize,
+          PageNumber: pageNumber,
+          ...(search && { Search: search }),
+          ...(category && { Category: category.name }),
+          ...(sort && { Sort: sort }),
+          ...(direction && { Direction: direction }),
+          ...(priceRange && { PriceFrom: priceRange.min }),
+          ...(priceRange && { PriceTo: priceRange.max }),
+        },
+      });
+      setProducts(response.data as ProductType[]);
+      getTotalCount(response);
+      return response;
+    } catch (error) {
+      console.error("Error fetching tank products:", error);
+    }
+  }
+
+  async function getToolProducts() {
+    try {
+      const response = await axios.get(`${apiUrl}/product/tool`, {
+        params: {
+          PageSize: pageSize,
+          PageNumber: pageNumber,
+          ...(search && { Search: search }),
+          ...(category && { Category: category.name }),
+          ...(sort && { Sort: sort }),
+          ...(direction && { Direction: direction }),
+          ...(priceRange && { PriceFrom: priceRange.min }),
+          ...(priceRange && { PriceTo: priceRange.max }),
+        },
+      });
+      setProducts(response.data as ProductType[]);
+      getTotalCount(response);
+      return response;
+    } catch (error) {
+      console.error("Error fetching tank products:", error);
+    }
+  }
+
   const getTotalCount = (response: any) => {
     const paginationHeader = response?.headers["x-pagination"];
     if (paginationHeader) {
@@ -134,11 +191,17 @@ export default function BreadcrumbImg() {
     const fetchData = async () => {
       setLoading(true); // Start loading
       try {
-        if (type === "Hồ Cá") {
+        if (type === ProductTypeList.HoCa) {
           await getTankProducts();
         }
-        if (type === "Cá Cảnh") {
+        if (type === ProductTypeList.CaCanh) {
           await getFishProducts();
+        }
+        if (type === ProductTypeList.CayThuySinh){
+          await getPlantProducts();
+        }
+        if(type === ProductTypeList.PhuKien){
+          await getToolProducts();
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -149,6 +212,7 @@ export default function BreadcrumbImg() {
 
     fetchData();
   }, [
+    category,
     tankCategory,
     breed,
     pageNumber,
@@ -185,8 +249,13 @@ export default function BreadcrumbImg() {
     setPageNumber(1);
   };
 
-  const handleChangeCategory = (opt: TankCategoryType) => {
+  const handleChangeTankCategory = (opt: TankCategoryType) => {
     setTankCategory(opt);
+    setPageNumber(1);
+  };
+
+  const handleChangeCategory = (opt: CategoryType) => {
+    setCategory(opt);
     setPageNumber(1);
   };
 
@@ -326,7 +395,7 @@ export default function BreadcrumbImg() {
                   </div>
                 )}
 
-                {(breed || tankCategory) && (
+                {(breed || tankCategory || category) && (
                   <>
                     <div className="list flex items-center gap-3">
                       <div className="w-px h-4 bg-line"></div>
@@ -350,6 +419,28 @@ export default function BreadcrumbImg() {
                         >
                           {/* <Icon.X className="cursor-pointer" /> */}
                           <span>{tankCategory.tank_type}</span>
+                        </div>
+                      )}
+                      {type === ProductTypeList.CayThuySinh && category && (
+                        <div
+                          className="item flex items-center px-2 py-1 gap-1 bg-linear rounded-full capitalize"
+                          onClick={() => {
+                            setCategory(null);
+                          }}
+                        >
+                          {/* <Icon.X className="cursor-pointer" /> */}
+                          <span>{category.name}</span>
+                        </div>
+                      )}
+                      {type === ProductTypeList.PhuKien && category && (
+                        <div
+                          className="item flex items-center px-2 py-1 gap-1 bg-linear rounded-full capitalize"
+                          onClick={() => {
+                            setCategory(null);
+                          }}
+                        >
+                          {/* <Icon.X className="cursor-pointer" /> */}
+                          <span>{category.name}</span>
                         </div>
                       )}
                     </div>
@@ -498,7 +589,7 @@ export default function BreadcrumbImg() {
                                 name={item.tank_type}
                                 id={item.id}
                                 checked={tankCategory === item}
-                                onChange={() => handleChangeCategory(item)}
+                                onChange={() => handleChangeTankCategory(item)}
                               />
                               <Icon.CheckSquare
                                 size={20}
@@ -537,6 +628,82 @@ export default function BreadcrumbImg() {
                                 id={item.id}
                                 checked={breed === item}
                                 onChange={() => handleChangeBreed(item)}
+                              />
+                              <Icon.CheckSquare
+                                size={20}
+                                weight="fill"
+                                className="icon-checkbox"
+                              />
+                            </div>
+                            <label
+                              htmlFor={item.id}
+                              className="brand-name capitalize pl-2 cursor-pointer"
+                            >
+                              {item.name}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {type === ProductTypeList.CayThuySinh && (
+                <div className="filter-color pb-8 border-b border-gray-300 mt-8">
+                  <div className="heading6">Phân loại</div>
+                  <div className="list-color flex items-center flex-wrap gap-3 gap-y-4 mt-4">
+                    {categories &&
+                      categories.map((item, index) => (
+                        <div
+                          key={index}
+                          className="brand-item flex items-center justify-between"
+                        >
+                          <div className="left flex items-center cursor-pointer">
+                            <div className="block-input">
+                              <input
+                                type="checkbox"
+                                name={item.name}
+                                id={item.id}
+                                checked={category === item}
+                                onChange={() => handleChangeCategory(item)}
+                              />
+                              <Icon.CheckSquare
+                                size={20}
+                                weight="fill"
+                                className="icon-checkbox"
+                              />
+                            </div>
+                            <label
+                              htmlFor={item.id}
+                              className="brand-name capitalize pl-2 cursor-pointer"
+                            >
+                              {item.name}
+                            </label>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+
+              {type === ProductTypeList.PhuKien && (
+                <div className="filter-color pb-8 border-b border-gray-300 mt-8">
+                  <div className="heading6">Phân loại</div>
+                  <div className="list-color flex items-center flex-wrap gap-3 gap-y-4 mt-4">
+                    {categories &&
+                      categories.map((item, index) => (
+                        <div
+                          key={index}
+                          className="brand-item flex items-center justify-between"
+                        >
+                          <div className="left flex items-center cursor-pointer">
+                            <div className="block-input">
+                              <input
+                                type="checkbox"
+                                name={item.name}
+                                id={item.id}
+                                checked={category === item}
+                                onChange={() => handleChangeCategory(item)}
                               />
                               <Icon.CheckSquare
                                 size={20}
