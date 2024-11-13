@@ -255,37 +255,41 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                     }`}
                   >
                     <div className="right">
-                      <div className="heading6">Giải thưởng</div>
-                      <div className="list-feature space-y-4 bg-gray-50 p-4 rounded-lg shadow-md">
-                        {productMain.fish?.awards && productMain.fish.awards.length > 0 ? (
-                          productMain.fish.awards.map((award, index) => (
-                            <div
-                              key={index}
-                              className="award-item flex gap-3 items-start p-2 bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
-                            >
-                              <div className="icon text-primary flex-shrink-0">
-                                <Icon.Trophy size={24} className="text-yellow-500" />
-                              </div>
-                              <div className="award-content">
-                                <h4 className="font-semibold text-lg text-gray-800">
-                                  {award.name}
-                                  <span className="text-sm text-gray-500 ml-2">
-                                    ({new Date(award.award_date).toLocaleDateString()})
-                                  </span>
-                                </h4>
-                                <p className="text-sm text-gray-600 mt-1">{award.description}</p>
-                              </div>
-                            </div>
-                          ))
-                        ) : (
-                          <div className="font-semibold text-lg text-gray-800">Chưa có giải thưởng</div>
-                        )}
-                      </div>
+                      {productMain.fish?.date_of_birth && (
+                        <div>
+                          <div className="heading6">Giải thưởng</div>
+                            <div className="list-feature space-y-4 bg-gray-50 p-4 rounded-lg shadow-md">
+                            {productMain.fish?.awards && productMain.fish.awards.length > 0 ? (
+                              productMain.fish.awards.map((award, index) => (
+                                <div
+                                  key={index}
+                                  className="award-item flex gap-3 items-start p-2 bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+                                >
+                                  <div className="icon text-primary flex-shrink-0">
+                                    <Icon.Trophy size={24} className="text-yellow-500" />
+                                  </div>
+                                  <div className="award-content">
+                                    <h4 className="font-semibold text-lg text-gray-800">
+                                      {award.name}
+                                      <span className="text-sm text-gray-500 ml-2">
+                                        ({new Date(award.award_date).toLocaleDateString()})
+                                      </span>
+                                    </h4>
+                                    <p className="text-sm text-gray-600 mt-1">{award.description}</p>
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="font-semibold text-lg text-gray-800">Chưa có giải thưởng</div>
+                            )}
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <div className="left md:mt-8 mt-5">
                       <div className="heading6">Giống cá</div>
                       <div className="text-secondary mt-2">
-                        {productMain.fish
+                        {productMain.fish?.breed
                           ? productMain.fish.breed.description
                           : "Koi Kohaku Là dòng Koi được yêu thích nhất. Là dòng Koi được lai tạo đầu tiên tại Nhật. Có lịch sử lâu đời (từ TK 19). Koi nổi bật với nước da trắng hơn tuyết, các điểm đỏ Hi lớn, phân bố đều, hài hòa trên thân. Kohaku nghĩa là đỏ và trắng. Kohaku gồm 7 phiên bản: menkaburi Kohaku; Kuchibeni Kohaku; Inazuma Kohalku; Maruten Kohaku; Straight Hi-kohaku; Tancho Kohaku; Doitsu Kohaku; Nidan Kohaku; Ginrin kohaku"}
                       </div>
