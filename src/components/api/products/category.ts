@@ -12,7 +12,7 @@ export async function handleGetTankCategory() {
 
 export async function handleGetCategory(type : number) {
   try {
-    const response = await axios.get(`${apiUrl}/v1/category`,{params: {type: type}});
+    const response = await axios.get(`${apiUrl}/v1/category`,{params: {categoryType: type}});
     return response;
   } catch (error) {
     console.log(error);

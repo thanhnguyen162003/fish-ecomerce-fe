@@ -302,8 +302,13 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                       <div className="heading6">Thông tin chi tiết</div>
                       <div className="text-secondary mt-2">
                         {productMain.description_detail && productMain.description_detail.trim() !== ""
-                          ? productMain.description_detail
-                          : "Không có mô tả"}
+                        ? productMain.description_detail.split('\n').map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          ))
+                        : "Không có mô tả"}
                       </div>
                     </div>
                 
@@ -364,8 +369,13 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                       <div className="heading6">Thông tin chi tiết</div>
                       <div className="text-secondary mt-2">
                         {productMain.description_detail && productMain.description_detail.trim() !== ""
-                          ? productMain.description_detail
-                          : "Không có mô tả"}
+                        ? productMain.description_detail.split('\n').map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          ))
+                        : "Không có mô tả"}
                       </div>
                     </div>
                   
@@ -553,48 +563,48 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                   </div>
                   {productMain.type === "fish" ? (
                     <div className="mt-3 space-y-2">
-                      <p className="text-gray-700">
-                        Size: {productMain.fish?.size}
-                      </p>
-                      <p className="text-gray-700">
-                        Age: {productMain.fish?.age}
-                      </p>
-                      <p className="text-gray-700">
-                        Origin: {productMain.fish?.origin}
-                      </p>
-                      <p className="text-gray-700">
-                        Sex: {productMain.fish?.sex}
-                      </p>
-                      <p className="text-gray-700">
-                        Food amount: {productMain.fish?.food_amount}
-                      </p>
-                      <p className="text-gray-700">
-                        Weight: {productMain.fish?.weight}
-                      </p>
-                      <p className="text-gray-700">
-                        Health: {productMain.fish?.health}
-                      </p>
-                      <p className="text-gray-700">
-                        Date of birth: {productMain.fish?.date_of_birth}
-                      </p>
+                      {productMain.fish?.size && (
+                        <p className="text-gray-700">Kích thước: {productMain.fish.size}</p>
+                      )}
+                      {productMain.fish?.age && (
+                        <p className="text-gray-700">Tuổi: {productMain.fish.age}</p>
+                      )}
+                      {productMain.fish?.origin && (
+                        <p className="text-gray-700">Nguồn gốc: {productMain.fish.origin}</p>
+                      )}
+                      {productMain.fish?.sex && (
+                        <p className="text-gray-700">Giới tính: {productMain.fish.sex}</p>
+                      )}
+                      {productMain.fish?.food_amount && (
+                        <p className="text-gray-700">Lượng đồ ăn: {productMain.fish.food_amount}</p>
+                      )}
+                      {productMain.fish?.weight && (
+                        <p className="text-gray-700">Cân nặng: {productMain.fish.weight}</p>
+                      )}
+                      {productMain.fish?.health && (
+                        <p className="text-gray-700">Sức khỏe: {productMain.fish.health}</p>
+                      )}
+                      {productMain.fish?.date_of_birth && (
+                        <p className="text-gray-700">Ngày sinh: {productMain.fish.date_of_birth}</p>
+                      )}
                     </div>
                   ) : (
                     <div className="mt-3 space-y-2">
                       {productMain.tank?.size && (
                         <p className="text-gray-700">
-                          Size: {productMain.tank?.size}
+                          Kích cỡ: {productMain.tank?.size}
                         </p>
                       )}
                       {productMain.tank?.size_information ? (
                         <p className="text-gray-700">
-                          Size information: {productMain.tank.size_information}
+                          Thông số: {productMain.tank.size_information}
                         </p>
                         ) : (
                         <></>
                       )}
                       {productMain.tank?.glass_type && (
                         <p className="text-gray-700">
-                          Glass type: {productMain.tank?.glass_type}
+                          Loại kính: {productMain.tank?.glass_type}
                         </p>
                       )}
                     </div>
