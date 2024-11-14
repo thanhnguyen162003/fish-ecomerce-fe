@@ -8,5 +8,6 @@ export interface TankCategoryType {
 export interface CategoryType {
   id : string;
   name: string;
+  type: string;
   created_at: string;
 }

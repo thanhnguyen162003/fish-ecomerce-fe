@@ -107,18 +107,6 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
     toast.info(message)
   };
 
-  const handleAddToWishlist = () => {
-    // if product existed in wishlit, remove from wishlist and set state to false
-    if (
-      wishlistState.wishlistArray.some((item) => item.id == productMain?.id)
-    ) {
-      productMain?.id && removeFromWishlist(productMain?.id);
-    } else {
-      // else, add to wishlist and set state to true
-      productMain && addToWishlist(productMain);
-    }
-    openModalWishlist();
-  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(productMain.id, content, star);
@@ -208,7 +196,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
           </div>
           <div className="container flex justify-between gap-y-6 flex-wrap md:py-20 py-10">
             <div className="desc-tab md:w-1/2 w-full lg:pr-[30px] md:pr-4">
-              <div className="get-it pb-6 border-b border-line">
+              {/* <div className="get-it pb-6 border-b border-line">
                 <div className="heading5">Mua ngay trong hôm nay</div>
                 <div className="item flex items-center gap-3 mt-4">
                   <div className="icon-delivery-truck text-4xl"></div>
@@ -237,7 +225,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               {productMain.type === "fish" ? (
                 <div className="desc-block pb-6 border-b border-line mt-6">
                   <div
@@ -318,7 +306,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                 
                   </div>
                 </div>
-              ) : (
+              ) : productMain.type === "tank" ? (
                 <div className="desc-block pb-6 border-b border-line mt-6">
                   <div
                     className={`tab-item heading5 flex items-center justify-between cursor-pointer ${
@@ -353,6 +341,70 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                               <p className="text-sm text-gray-600 mt-1">
                                 {category.tank_type}
                               </p>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-sm text-gray-600">Không có phân loại</div>
+                      )}
+                      </div>
+                    </div>
+                    <div className="left md:mt-8 mt-5">
+                      <div className="heading6">Thông tin</div>
+                      <div className="text-secondary mt-2">
+                        {productMain.description && productMain.description.trim() !== ""
+                          ? productMain.description
+                          : "Không có mô tả"}
+                      </div>
+                    </div>
+                    <div className="left md:mt-8 mt-5">
+                      <div className="heading6">Thông tin chi tiết</div>
+                      <div className="text-secondary mt-2">
+                        {productMain.description_detail && productMain.description_detail.trim() !== ""
+                        ? productMain.description_detail.split('\n').map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          ))
+                        : "Không có mô tả"}
+                      </div>
+                    </div>
+                  
+                  </div>
+                </div>
+              ) : (
+                <div className="desc-block pb-6 border-b border-line mt-6">
+                  <div
+                    className={`tab-item heading5 flex items-center justify-between cursor-pointer ${
+                      activeTab === "description" ? "active" : ""
+                    }`}
+                    onClick={() => handleActiveTab("description")}
+                  >
+                    <span className="heading5">Mô tả</span>
+                    <Icon.CaretDown />
+                  </div>
+                  <div
+                    className={`desc-item md:pt-8 pt-5 description ${
+                      activeTab === "description" ? "open" : ""
+                    }`}
+                  >
+                    <div className="right">
+                    <div className="heading6">Phân loại</div>
+                      <div className="list-feature space-y-4 bg-gray-50 p-4 rounded-lg shadow-md">
+                      {productMain.categories && productMain.categories.length > 0 ? (
+                        productMain.categories.map((category, index) => (
+                          <div
+                            key={index}
+                            className="category-item flex gap-3 items-start p-2 bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
+                          >
+                            <div className="icon text-primary flex-shrink-0">
+                              <Icon.Tag size={24} className="text-yellow-500" />
+                            </div>
+                            <div className="category-content">
+                              <h4 className="font-semibold text-lg text-gray-800">
+                                {category.name}
+                              </h4>
                             </div>
                           </div>
                         ))

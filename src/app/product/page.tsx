@@ -23,10 +23,15 @@ const ProductFixedPrice = () => {
       const getProducts = async () => {
         setLoading(true)
         try {
-          const response = await axios.get(`${apiUrl}/product/${type}/${productId}`);
-          console.log("response", response);
-          console.log("data", response.data.data);
-          setProduct(response.data.data as ProductType);
+          if(type !== "tank" && type !== "fish"){
+            const response = await axios.get(`${apiUrl}/product/${productId}`);
+            setProduct(response.data.data as ProductType);
+          }else {
+            const response = await axios.get(`${apiUrl}/product/${type}/${productId}`);
+            console.log("response", response);
+            console.log("data", response.data.data);
+            setProduct(response.data.data as ProductType);
+          }
         } catch (error) {
           console.error("Error fetching fish products:", error);
         } finally{
