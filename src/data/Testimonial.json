@@ -1,182 +1,137 @@
 [
     {
         "id": "1",
-        "category": "fashion",
-        "title": "Variety of Styles!",
+        "category": "cá-cảnh",
+        "title": "Đa dạng các loại cá!",
         "name": "Fukuda E.",
         "avatar": "/images/avatar/1.png",
-        "date": "November 10, 2023",
-        "address": "Tokyo, Japan",
-        "description": "Anvouge's exceptional customer service and attention to detail make shopping with them a pleasure. They understand my fashion needs and help me find the perfect pieces every time.",
+        "date": "10 Tháng 11, 2023",
+        "address": "Tokyo, Nhật Bản",
+        "description": "Dịch vụ khách hàng tuyệt vời của cửa hàng cá cảnh này thực sự làm tôi hài lòng. Họ luôn hiểu nhu cầu của tôi và tư vấn những loài cá cũng như phụ kiện phù hợp nhất.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 5
     },
     {
         "id": "2",
-        "category": "fashion",
-        "title": "Quality of Clothing!",
+        "category": "cá-cảnh",
+        "title": "Chất lượng cá tuyệt vời!",
         "name": "Georgina S.",
         "avatar": "/images/avatar/2.png",
-        "date": "November 11, 2023",
-        "address": "Madrid, Spain",
-        "description": "I absolutely love this shop! The products are high-quality and the customer service is excellent. I always leave with exactly what I need and a smile on my face.",
+        "date": "11 Tháng 11, 2023",
+        "address": "Madrid, Tây Ban Nha",
+        "description": "Tôi rất thích mua sắm tại đây! Cá khỏe mạnh, phụ kiện chất lượng và dịch vụ khách hàng tuyệt vời. Tôi luôn rời cửa hàng với sự hài lòng.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 5
     },
     {
         "id": "3",
-        "category": "fashion",
-        "title": "Customer Service!",
+        "category": "cá-cảnh",
+        "title": "Dịch vụ khách hàng tốt!",
         "name": "Elizabeth A.",
         "avatar": "/images/avatar/3.png",
-        "date": "November 13, 2023",
-        "address": "Manchester, UK",
-        "description": "I love this shop! The products are always top-quality, and the staff is incredibly friendly and helpful. They go out of their way to make sure that I'm satisfied with my purchase.",
+        "date": "13 Tháng 11, 2023",
+        "address": "Manchester, Anh",
+        "description": "Tôi yêu cửa hàng này! Họ không chỉ cung cấp cá chất lượng mà đội ngũ nhân viên còn cực kỳ thân thiện và tận tâm.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 4
     },
     {
         "id": "4",
-        "category": "fashion",
-        "title": "Quality of Clothing!",
+        "category": "cá-cảnh",
+        "title": "Chất lượng cá vượt mong đợi!",
         "name": "Christin H.",
         "avatar": "/images/avatar/4.png",
-        "date": "November 15, 2023",
-        "address": "California, USA",
-        "description": "I can't get enough of Anvouge's high-quality clothing. It's comfortable, stylish, and always on-trend. The products are high-quality and the customer service is excellent.",
+        "date": "15 Tháng 11, 2023",
+        "address": "California, Mỹ",
+        "description": "Tôi không thể ngừng yêu thích các sản phẩm của cửa hàng này. Cá rất khỏe, đẹp và luôn được cung cấp đầy đủ thông tin về cách chăm sóc.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 5
     },
     {
         "id": "5",
-        "category": "fashion",
-        "title": "Customer Service!",
+        "category": "cá-cảnh",
+        "title": "Dịch vụ tận tâm!",
         "name": "Emily G.",
         "avatar": "/images/avatar/5.png",
-        "date": "November 18, 2023",
-        "address": "Paris, France",
-        "description": "Fantastic shop! Great selection, fair prices, and friendly staff. Highly recommended. The quality of the products is exceptional, and the prices are very reasonable!",
+        "date": "18 Tháng 11, 2023",
+        "address": "Paris, Pháp",
+        "description": "Cửa hàng này thật tuyệt vời! Cá khỏe mạnh, giá cả hợp lý và nhân viên luôn thân thiện. Tôi chắc chắn sẽ quay lại.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 4
     },
     {
         "id": "6",
-        "category": "fashion",
-        "title": "Variety of Styles!",
+        "category": "cá-biển",
+        "title": "Đa dạng các loại cá biển!",
         "name": "Carolina C.",
         "avatar": "/images/avatar/6.png",
-        "date": "November 19, 2023",
-        "address": "London, UK",
-        "description": "Anvouge's fashion collection is a game-changer! Their unique and trendy pieces have completely transformed my style. It's comfortable, stylish, and always on-trend.",
+        "date": "19 Tháng 11, 2023",
+        "address": "London, Anh",
+        "description": "Cửa hàng cung cấp nhiều loài cá biển độc đáo và chất lượng. Các sản phẩm của họ đã giúp bể cá của tôi trở nên rực rỡ hơn bao giờ hết.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 5
     },
     {
         "id": "7",
-        "category": "yoga",
-        "title": "Quality of Clothing!",
+        "category": "cá-cảnh",
+        "title": "Chất lượng cá biển tốt!",
         "name": "Christin H.",
         "avatar": "/images/avatar/4.png",
-        "date": "November 15, 2023",
-        "address": "California, USA",
-        "description": "Their unique and trendy pieces have completely transformed my style.",
+        "date": "15 Tháng 11, 2023",
+        "address": "California, Mỹ",
+        "description": "Họ thực sự hiểu rõ về cách chăm sóc cá biển và cung cấp những loài cá độc đáo.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 5
     },
     {
         "id": "8",
-        "category": "yoga",
-        "title": "Customer Service!",
+        "category": "cá-nước-ngọt",
+        "title": "Dịch vụ khách hàng chuyên nghiệp!",
         "name": "Emily G.",
         "avatar": "/images/avatar/5.png",
-        "date": "November 18, 2023",
-        "address": "Paris, France",
-        "description": "Exceptional customer service and attention to detail make shopping with them a pleasure",
+        "date": "18 Tháng 11, 2023",
+        "address": "Paris, Pháp",
+        "description": "Dịch vụ tư vấn nuôi cá rất chi tiết và nhân viên luôn sẵn sàng hỗ trợ.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 5
     },
     {
         "id": "9",
-        "category": "yoga",
-        "title": "Variety of Styles!",
+        "category": "cá-cảnh",
+        "title": "Phong phú các loài cá!",
         "name": "Carolina C.",
         "avatar": "/images/avatar/6.png",
-        "date": "November 19, 2023",
-        "address": "London, UK",
-        "description": "I can't get enough of Aquamarine high-quality clothing. It's comfortable, stylish, and always on-trend.",
+        "date": "19 Tháng 11, 2023",
+        "address": "London, Anh",
+        "description": "Tôi không thể ngừng yêu thích hồ cá mà cửa hàng giúp tôi xây dựng. Các loài cá đều khỏe mạnh và sinh động.",
         "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
+            "/images/fish/1000x1000.png",
+            "/images/fish/1000x1000.png"
         ],
         "star": 4
-    },
-    {
-        "id": "10",
-        "category": "yoga",
-        "title": "Variety of Styles!",
-        "name": "Fukuda E.",
-        "avatar": "/images/avatar/1.png",
-        "date": "November 10, 2023",
-        "address": "Tokyo, Japan",
-        "description": "Exceptional customer service and attention to detail make shopping with them a pleasure",
-        "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
-        ],
-        "star": 4
-    },
-    {
-        "id": "11",
-        "category": "yoga",
-        "title": "Quality of Clothing!",
-        "name": "Georgina S.",
-        "avatar": "/images/avatar/2.png",
-        "date": "November 11, 2023",
-        "address": "Madrid, Spain",
-        "description": "I love this shop! The products are high-quality, the customer service is excellent",
-        "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
-        ],
-        "star": 5
-    },
-    {
-        "id": "12",
-        "category": "yoga",
-        "title": "Customer Service!",
-        "name": "Elizabeth A.",
-        "avatar": "/images/avatar/3.png",
-        "date": "November 13, 2023",
-        "address": "Manchester, UK",
-        "description": "The products are always top-quality, and the staff is incredibly friendly and helpful",
-        "images": [
-            "/images/product/1000x1000.png",
-            "/images/product/1000x1000.png"
-        ],
-        "star": 5
     }
 ]
