@@ -59,8 +59,9 @@ const Wishlist = () => {
             sold: false,
             stock_quantity: 0,
             quantityPurchase: 0,
-            images:[],
-            feedbacks:[]
+            images: [],
+            feedbacks: [],
+            categories: []
         }];
     }
 
