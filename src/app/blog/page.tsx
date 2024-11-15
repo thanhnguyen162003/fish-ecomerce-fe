@@ -1,90 +1,81 @@
-'use client'
-import React, { useState } from 'react'
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import TopNavOne from '@/components/Header/TopNav/TopNavOne'
-import MenuOne from '@/components/Header/Menu/MenuOne'
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
-import blogData from '@/data/Blog.json'
 import BlogItem from '@/components/Blog/BlogItem';
-import Footer from '@/components/Footer/Footer'
-import HandlePagination from '@/components/Other/HandlePagination'
-import { useRouter } from 'next/navigation'
-import * as Icon from "@phosphor-icons/react/dist/ssr";
+import HandlePagination from '@/components/Other/HandlePagination';
+import { useRouter } from 'next/navigation';
+
+type Blog = {
+    id: string;
+    thumbnail: string | null;
+    slug: string;
+    title: string;
+    content: string;
+    staff_name: string;
+    date: string;
+    shortDesc?: string;
+};
 
 const BlogDefault = () => {
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState<number>(0);
     const productsPerPage = 3;
-    const offset = currentPage * productsPerPage;
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    let dataCategory = searchParams.get('category')
-    const [category, setCategory] = useState<string | null>(dataCategory);
+    const [blogs, setBlogs] = useState<Blog[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
-    const handleCategory = (category: string) => {
-        setCategory(prevCategory => prevCategory === category ? null : category)
-    }
+    useEffect(() => {
+        const fetchBlogs = async (): Promise<void> => {
+            try {
+                setLoading(true);
+                const response = await fetch(
+                    `https://kingfish.azurewebsites.net/api/v1/blog?PageNumber=${currentPage + 1}&PageSize=${productsPerPage}`
+                );
+                const data: Blog[] = await response.json();
+                setBlogs(data);
+            } catch (error) {
+                setError((error as Error).message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    const handleBlogClick = (blogId: string) => {
-        // Go to blog detail with blogId selected
-        router.push(`/blog/detail1?id=${blogId}`);
+        fetchBlogs();
+    }, [currentPage]);
+
+    const handleBlogClick = (slug: string): void => {
+        router.push(`/blog/detail?slug=${slug}`);
     };
 
-    let filteredData = blogData.filter(blog => {
-        let isCategoryMatched = true
-        if (category) {
-            isCategoryMatched = blog.category === category && blog.category !== 'underwear'
-        }
-
-        return isCategoryMatched
-    })
-
-    if (filteredData.length === 0) {
-        filteredData = [{
-            id: "no-data",
-            category: "no-data",
-            tag: "no-data",
-            title: "no-data",
-            date: "no-data",
-            author: "no-data",
-            avatar: "no-data",
-            thumbImg: "",
-            coverImg: "",
-            subImg: [
-                "",
-                ""
-            ],
-            shortDesc: "no-data",
-            description: "no-data",
-            slug: "no-data"
-        }];
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
-    const pageCount = Math.ceil(filteredData.length / productsPerPage);
-
-    // If page number 0, set current page = 0
-    if (pageCount === 0) {
-        setCurrentPage(0);
+    if (error) {
+        return <div>Error loading blogs. Please try again later.</div>;
     }
 
-    const currentProducts = filteredData.slice(offset, offset + productsPerPage);
+    const pageCount = Math.ceil(blogs.length / productsPerPage);
 
-    const handlePageChange = (selected: number) => {
+    const handlePageChange = (selected: number): void => {
         setCurrentPage(selected);
     };
 
     return (
         <>
-            <div id="header" className='relative w-full'>
-                <Breadcrumb heading='Blog' />
+            <div id="header" className="relative w-full">
+                <Breadcrumb heading="Blog" />
             </div>
-            <div className='blog default md:py-20 py-10'>
+            <div className="blog default md:py-20 py-10">
                 <div className="container">
                     <div className="flex justify-between max-md:flex-col gap-y-12">
                         <div className="left xl:w-3/4 md:w-2/3 pr-2">
                             <div className="list-blog flex flex-col md:gap-10 gap-8">
-                                {currentProducts.map(item => (
-                                    <BlogItem key={item.id} data={item} type='style-default' />
+                                {blogs.map((item: Blog) => (
+                                    <BlogItem key={item.id} data={item} type="style-default" />
                                 ))}
                             </div>
                             {pageCount > 1 && (
@@ -94,123 +85,35 @@ const BlogDefault = () => {
                             )}
                         </div>
                         <div className="right xl:w-1/4 md:w-1/3 xl:pl-[52px] md:pl-8">
-                            {/* <form className='form-search relative w-full h-12'>
-                                <input className='py-2 px-4 w-full h-full border border-line rounded-lg' type="text" placeholder='Search' />
-                                <button>
-                                    <Icon.MagnifyingGlass className='heading6 text-secondary hover:text-black duration-300 absolute top-1/2 -translate-y-1/2 right-4 cursor-pointer' />
-                                </button>
-                            </form> */}
                             <div className="recent md:mt-10 mt-6 pb-8 border-b border-line">
                                 <div className="heading6">Recent Posts</div>
                                 <div className="list-recent pt-1">
-                                    {blogData.slice(12, 15).map(item => (
-                                        <div className="item flex gap-4 mt-5 cursor-pointer" key={item.id} onClick={() => handleBlogClick(item.id)}>
+                                    {blogs.slice(0, 3).map((item: Blog) => (
+                                        <div
+                                            className="item flex gap-4 mt-5 cursor-pointer"
+                                            key={item.id}
+                                            onClick={() => handleBlogClick(item.slug)}
+                                        >
                                             <Image
-                                                src={item.thumbImg}
+                                                src={item.thumbnail || '/default-thumbnail.jpg'}
                                                 width={500}
                                                 height={400}
-                                                alt={item.thumbImg}
-                                                className='w-20 h-20 object-cover rounded-lg flex-shrink-0'
+                                                alt={item.title}
+                                                className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
                                             />
                                             <div>
-                                                {/* <div className="blog-tag whitespace-nowrap bg-green py-0.5 px-2 rounded-full text-button-uppercase text-xs inline-block">{item.tag}</div> */}
                                                 <div className="text-title mt-1">{item.title}</div>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
-                            {/* <div className="filter-category md:mt-10 mt-6 pb-8 border-b border-line">
-                                <div className="heading6">Categories</div>
-                                <div className="list-cate pt-1">
-                                    <div
-                                        className={`cate-item flex items-center justify-between cursor-pointer mt-3 ${category === 'fashion' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('fashion')}
-                                    >
-                                        <div className='capitalize has-line-before hover:text-black text-secondary'>Fashion</div>
-                                        <div className="text-secondary2">
-                                            ({blogData.filter(dataItem => dataItem.category === 'fashion').length})
-                                        </div>
-                                    </div>
-                                    <div
-                                        className={`cate-item flex items-center justify-between cursor-pointer mt-3 ${category === 'cosmetic' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('cosmetic')}
-                                    >
-                                        <div className='capitalize has-line-before hover:text-black text-secondary'>cosmetic</div>
-                                        <div className="text-secondary2">
-                                            ({blogData.filter(dataItem => dataItem.category === 'cosmetic').length})
-                                        </div>
-                                    </div>
-                                    <div
-                                        className={`cate-item flex items-center justify-between cursor-pointer mt-3 ${category === 'toys-kid' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('toys-kid')}
-                                    >
-                                        <div className='capitalize has-line-before hover:text-black text-secondary'>toys kid</div>
-                                        <div className="text-secondary2">
-                                            ({blogData.filter(dataItem => dataItem.category === 'toys-kid').length})
-                                        </div>
-                                    </div>
-                                    <div
-                                        className={`cate-item flex items-center justify-between cursor-pointer mt-3 ${category === 'yoga' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('yoga')}
-                                    >
-                                        <div className='capitalize has-line-before hover:text-black text-secondary'>yoga</div>
-                                        <div className="text-secondary2">
-                                            ({blogData.filter(dataItem => dataItem.category === 'yoga').length})
-                                        </div>
-                                    </div>
-                                    <div
-                                        className={`cate-item flex items-center justify-between cursor-pointer mt-3 ${category === 'organic' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('organic')}
-                                    >
-                                        <div className='capitalize has-line-before hover:text-black text-secondary'>organic</div>
-                                        <div className="text-secondary2">
-                                            ({blogData.filter(dataItem => dataItem.category === 'organic').length})
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
-                            {/* <div className="filter-tags md:mt-10 mt-6">
-                                <div className="heading6">Tags Cloud</div>
-                                <div className="list-tags flex items-center flex-wrap gap-3 mt-4">
-                                    <div
-                                        className={`tags bg-white border border-line py-1.5 px-4 rounded-full text-button-uppercase text-secondary cursor-pointer duration-300 hover:bg-black hover:text-white ${category === 'fashion' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('fashion')}
-                                    >
-                                        fashion
-                                    </div>
-                                    <div
-                                        className={`tags bg-white border border-line py-1.5 px-4 rounded-full text-button-uppercase text-secondary cursor-pointer duration-300 hover:bg-black hover:text-white ${category === 'cosmetic' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('cosmetic')}
-                                    >
-                                        cosmetic
-                                    </div>
-                                    <div
-                                        className={`tags bg-white border border-line py-1.5 px-4 rounded-full text-button-uppercase text-secondary cursor-pointer duration-300 hover:bg-black hover:text-white ${category === 'toy-kid' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('toys-kid')}
-                                    >
-                                        toys kid
-                                    </div>
-                                    <div
-                                        className={`tags bg-white border border-line py-1.5 px-4 rounded-full text-button-uppercase text-secondary cursor-pointer duration-300 hover:bg-black hover:text-white ${category === 'yoga' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('yoga')}
-                                    >
-                                        yoga
-                                    </div>
-                                    <div
-                                        className={`tags bg-white border border-line py-1.5 px-4 rounded-full text-button-uppercase text-secondary cursor-pointer duration-300 hover:bg-black hover:text-white ${category === 'organic' ? 'active' : ''}`}
-                                        onClick={() => handleCategory('organic')}
-                                    >
-                                        organic
-                                    </div>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default BlogDefault
+export default BlogDefault;

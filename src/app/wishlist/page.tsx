@@ -45,25 +45,6 @@ const Wishlist = () => {
     const totalProducts = filteredData.length
     const selectedType = type
 
-    if (filteredData.length === 0) {
-        filteredData = [{
-            id: 'no-data',
-            name: 'no-data',
-            type: 'no-data',
-            slug: 'no-data',
-            description_detail: 'no-data',
-            description: 'no-data',
-            supplier_id: 'no-data',
-            price: 0,
-            original_price: 0,
-            sold: false,
-            stock_quantity: 0,
-            quantityPurchase: 0,
-            images:[],
-            feedbacks:[]
-        }];
-    }
-
     // Tạo một bản sao của mảng đã lọc để sắp xếp
     let sortedData = [...filteredData];
 

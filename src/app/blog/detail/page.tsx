@@ -1,289 +1,101 @@
-'use client'
-import React, { useState } from 'react'
-import Image from 'next/image';
-import Link from 'next/link';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation'
-import TopNavOne from '@/components/Header/TopNav/TopNavOne'
-import MenuOne from '@/components/Header/Menu/MenuOne'
-import blogData from '@/data/Blog.json'
-import NewsInsight from '@/components/Home3/NewsInsight';
-import Footer from '@/components/Footer/Footer'
-import * as Icon from "@phosphor-icons/react/dist/ssr";
-import Rate from '@/components/Other/Rate';
+import Image from 'next/image';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 
-const BlogDetailTwo = () => {
-    const searchParams = useSearchParams()
-    const router = useRouter()
+type BlogDetail = {
+    id: string;
+    title: string;
+    slug: string;
+    content_html: string;
+    staff_name: string | null;
+    created_at: string;
+    thumbnail: string | null;
+};
 
-    let blogId = searchParams.get('id')
-    if (blogId === null) {
-        blogId = '14'
+const BlogDetailTwo: React.FC = () => {
+    const searchParams = useSearchParams();
+    const slug = searchParams.get('slug');
+    const [blogDetail, setBlogDetail] = useState<BlogDetail | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (!slug) {
+            setError('Blog slug not provided.');
+            setLoading(false);
+            return;
+        }
+
+        const fetchBlogDetail = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`https://kingfish.azurewebsites.net/api/v1/blog/slug/${slug}`);
+                if (!response.ok) {
+                    throw new Error(`Error fetching blog details: ${response.statusText}`);
+                }
+                const data: BlogDetail = await response.json();
+                setBlogDetail(data);
+            } catch (err: any) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchBlogDetail();
+    }, [slug]);
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
-    const blogMain = blogData[Number(blogId) - 1]
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
-    const handleBlogClick = (category: string) => {
-        // Go to blog detail with category selected
-        router.push(`/blog/default?category=${category}`);
-    };
-
-    const handleBlogDetail = (id: string) => {
-        // Go to blog detail with id selected
-        router.push(`/blog/detail?id=${id}`);
-    };
+    if (!blogDetail) {
+        return <div>No blog details available.</div>;
+    }
 
     return (
         <>
-            <div id="header" className='relative w-full'>
+            <div id="header" className="relative w-full">
+                <Breadcrumb heading="Blog Detail" />
             </div>
-            <div className='blog detail2 md:mt-[74px] mt-[56px] border-t border-line'>
-                <div className="container lg:pt-20 md:pt-14 pt-10">
-                    <div className="blog-content flex justify-between max-lg:flex-col gap-y-10">
-                        <div className="main xl:w-3/4 lg:w-2/3 lg:pr-[15px]">
-                            {/* <div className="blog-tag bg-green py-1 px-2.5 rounded-full text-button-uppercase inline-block">{blogMain.tag}</div> */}
-                            <div className="heading3 mt-3">{blogMain.title}</div>
-                            <div className="author flex items-center gap-4 mt-4">
-                                
-                                <div className='flex items-center gap-2'>
-                                    <div className="caption1 text-secondary">by {blogMain.author}</div>
-                                    <div className="line w-5 h-px bg-secondary"></div>
-                                    <div className="caption1 text-secondary">{blogMain.date}</div>
-                                </div>
-                            </div>
-                            <div className="bg-img md:py-10 py-6">
-                                <Image
-                                    src={blogMain.thumbImg}
-                                    width={5000}
-                                    height={4000}
-                                    alt={blogMain.thumbImg}
-                                    className='w-full object-cover rounded-3xl'
-                                />
-                            </div>
-                            <div className="content">
-                                <div className="body1">{blogMain.description}</div>
-                                <div className="heading4 md:mt-8 mt-5">How did SKIMS start?</div>
-                                <div className="body1 mt-2">I’ve always been passionate about underwear and shapewear and have a huge collection from over the years! When it came to shapewear, I could never find exactly what I was looking for and I would cut up pieces and sew them together to create the style and compression I needed.</div>
-                                <div className="grid sm:grid-cols-2 gap-[30px] md:mt-8 mt-5">
-                                    {blogMain.subImg.map((item, index) => (
-                                        <Image
-                                            key={index}
-                                            src={item}
-                                            width={3000}
-                                            height={2000}
-                                            alt={item}
-                                            className='w-full rounded-3xl'
-                                        />
-                                    ))}
-                                </div>
-                                <div className="body1 mt-4">For bras, I love our Cotton Jersey Scoop Bralette – it{String.raw`'s`} lined with this amazing power mesh so you get great support and is so comfy I can sleep in it. I also love our Seamless Sculpt Bodysuit – it{String.raw`'s`} the perfect all in one sculpting, shaping and smoothing shapewear piece with different levels of support woven throughout.</div>
-                                <div className="heading4 md:mt-8 mt-5">How did SKIMS start?</div>
-                                <div className="body1 mt-4">This is such a hard question! Honestly, every time we drop a new collection I get obsessed with it. The pieces that have been my go-tos though are some of our simplest styles that we launched with. I wear our Fits Everybody Thong every single day – it is the only underwear I have now, it{String.raw`'s`} so comfortable and stretchy and light enough that you can wear anything over it.</div>
-                                {/* <div className="quote-block md:mt-8 mt-5 py-6 md:px-10 px-6 border border-line md:rounded-[20px] rounded-2xl flex items-center md:gap-10 gap-6">
-                                    <Icon.Quotes className='text-green text-3xl rotate-180 flex-shrink-0' weight='fill' />
-                                    <div>
-                                        <div className="heading6">{String.raw`"`}For bras, I love our Cotton Jersey Scoop Bralette – it{String.raw`'s`} lined with this amazing power mesh so you get great support and is so comfy I can sleep in it.{String.raw`"`}</div>
-                                        <div className="text-button-uppercase text-secondary mt-4">- Anthony Bourdain</div>
-                                    </div>
-                                </div> */}
-                                <div className="body1 md:mt-8 mt-5">For bras, I love our Cotton Jersey Scoop Bralette – it{String.raw`'s`} lined with this amazing power mesh so you get great support and is so comfy I can sleep in it. I also love our Seamless Sculpt Bodysuit – it{String.raw`'s`} the perfect all in one sculpting, shaping and smoothing shapewear piece with different levels of support woven throughout.</div>
-                            </div>
-                            <div className="action flex items-center justify-between flex-wrap gap-5 md:mt-8 mt-5">
-                            
-                                
-                            </div>
-                            <div className="next-pre flex items-center justify-between md:mt-8 mt-5 py-6 border-y border-line">
-                                {blogId === '1' ? (
-                                    <>
-                                        <div className="left cursor-pointer"
-                                            onClick={() => handleBlogDetail(String(blogData.length))}
-                                        >
-                                            <div className="text-button-uppercase text-secondary2">Previous</div>
-                                            <div className="text-title mt-2">{blogData[blogData.length - 1].title}</div>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className="left cursor-pointer"
-                                            onClick={() => handleBlogDetail(blogData[Number(blogId) - 2].id)}
-                                        >
-                                            <div className="text-button-uppercase text-secondary2">Previous</div>
-                                            <div className="text-title mt-2">{blogData[Number(blogId) - 2].title}</div>
-                                        </div>
-                                    </>
-                                )}
-                                {Number(blogId) === blogData.length ? (
-                                    <>
-                                        <div className="right text-right cursor-pointer"
-                                            onClick={() => handleBlogDetail('1')}
-                                        >
-                                            <div className="text-button-uppercase text-secondary2">Next</div>
-                                            <div className="text-title mt-2">{blogData[0].title}</div>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className="right text-right cursor-pointer"
-                                            onClick={() => handleBlogDetail(blogData[Number(blogId)].id)}
-                                        >
-                                            <div className="text-button-uppercase text-secondary2">Next</div>
-                                            <div className="text-title mt-2">{blogData[Number(blogId)].title}</div>
-                                        </div>
-                                    </>
-                                )}
-
-                            </div>
-                            <div className="list-comment md:mt-[60px] mt-8">
-                                <div className="heading flex items-center justify-between flex-wrap gap-4">
-                                    <div className="heading4">03 Comments</div>
-                                    
-                                </div>
-                                <div className="list-review mt-6">
-                                    <div className="item">
-                                        <div className="heading flex items-center justify-between">
-                                            <div className="user-infor flex gap-4">
-                                                <div className="avatar">
-                                                    <Image
-                                                        src={'/images/avatar/1.png'}
-                                                        width={200}
-                                                        height={200}
-                                                        alt='img'
-                                                        className='w-[52px] aspect-square rounded-full'
-                                                    />
-                                                </div>
-                                                <div className="user">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="text-title">Tony Nguyen</div>
-                                                        <div className="span text-line">-</div>
-                                                        <Rate currentRate={5} size={12} />
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="text-secondary2">1 days ago</div>
-                                                        <div className="text-secondary2">-</div>
-                                                        <div className="text-secondary2"><span>Yellow</span> / <span>XL</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="more-action cursor-pointer">
-                                                <Icon.DotsThree size={24} weight='bold' />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">I can{String.raw`'t`} get enough of the fashion pieces from this brand. They have a great selection for every occasion and the prices are reasonable. The shipping is fast and the items always arrive in perfect condition.</div>
-                                        
-                                    </div>
-                                    <div className="item md:mt-8 mt-5">
-                                        <div className="heading flex items-center justify-between">
-                                            <div className="user-infor flex gap-4">
-                                                <div className="avatar">
-                                                    <Image
-                                                        src={'/images/avatar/2.png'}
-                                                        width={200}
-                                                        height={200}
-                                                        alt='img'
-                                                        className='w-[52px] aspect-square rounded-full'
-                                                    />
-                                                </div>
-                                                <div className="user">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="text-title">Guy Hawkins</div>
-                                                        <div className="span text-line">-</div>
-                                                        <Rate currentRate={4} size={12} />
-                                                    </div>
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="text-secondary2">1 days ago</div>
-                                                        <div className="text-secondary2">-</div>
-                                                        <div className="text-secondary2"><span>Yellow</span> / <span>XL</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="more-action cursor-pointer">
-                                                {/* <Icon.DotsThree size={24} weight='bold' /> */}
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">I can{String.raw`'t`} get enough of the fashion pieces from this brand. They have a great selection for every occasion and the prices are reasonable. The shipping is fast and the items always arrive in perfect condition.</div>
-                                    
-                                    </div>
-                                    <div className="item md:mt-8 mt-5">
-                                        <div className="heading flex items-center justify-between">
-                                            <div className="user-infor flex gap-4">
-                                                <div className="avatar">
-                                                    <Image
-                                                        src={'/images/avatar/3.png'}
-                                                        width={200}
-                                                        height={200}
-                                                        alt='img'
-                                                        className='w-[52px] aspect-square rounded-full'
-                                                    />
-                                                </div>
-                                                <div className="user">
-                                                    <div className="flex items-center gap-2">
-                                                        <div className="text-title">John Smith</div>
-                                                        <div className="span text-line">-</div>
-                                                        <Rate currentRate={5} size={12} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="more-action cursor-pointer">
-                                                <Icon.DotsThree size={24} weight='bold' />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3">I can{String.raw`'t`} get enough of the fashion pieces from this brand. They have a great selection for every occasion and the prices are reasonable. The shipping is fast and the items always arrive in perfect condition.</div>
-                                        
-                                    </div>
-                                </div>
-                                <div id="form-review" className='form-review md:p-10 p-6 bg-surface rounded-xl md:mt-10 mt-6'>
-                                    <div className="heading4">Leave A comment</div>
-                                    <form className="grid sm:grid-cols-2 gap-4 gap-y-5 md:mt-6 mt-3">
-                                        <div className="name ">
-                                            <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="text" placeholder="Your Name *" required />
-                                        </div>
-                                        <div className="mail ">
-                                            <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="email" type="email" placeholder="Your Email *" required />
-                                        </div>
-                                        <div className="col-span-full message">
-                                            <textarea className="border border-line px-4 py-3 w-full rounded-lg" id="message" name="message" placeholder="Your message *" required ></textarea>
-                                        </div>
-                                    
-                                        <div className="col-span-full sm:pt-3">
-                                            <button className='button-main bg-white text-black border border-black'>Submit Comment</button>
-                                        </div>
-                                    </form>
-                                </div>
+            <div className="blog detail md:py-20 py-10">
+                <div className="container">
+                    <div className="main lg:w-2/3 mx-auto">
+                        <div className="blog-title heading3">{blogDetail.title}</div>
+                        <div className="author flex items-center gap-4 mt-4">
+                            <div className="caption1 text-secondary">by {blogDetail.staff_name || 'Admin'}</div>
+                            <div className="line w-5 h-px bg-secondary"></div>
+                            <div className="caption1 text-secondary">
+                                {new Date(blogDetail.created_at).toLocaleDateString()}
                             </div>
                         </div>
-                        <div className="right xl:w-1/4 lg:w-1/3 lg:pl-[45px]">
-                            <div className="about-author">
-                                
-        
-                            </div>
-                            <div className="recent md:mt-10 mt-6">
-                                <div className="heading6">Recent Posts</div>
-                                <div className="list-recent pt-1">
-                                    {blogData.slice(12, 15).map(item => (
-                                        <div className="item flex gap-4 mt-5 cursor-pointer" key={item.id} onClick={() => handleBlogDetail(item.id)}>
-                                            <Image
-                                                src={item.thumbImg}
-                                                width={500}
-                                                height={400}
-                                                alt={item.thumbImg}
-                                                className='w-20 h-20 object-cover rounded-lg flex-shrink-0'
-                                            />
-                                            <div>
-                                            
-                                                <div className="text-title mt-1">{item.title}</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                            
+                        <div className="blog-image mt-6">
+                            <Image
+                                src={blogDetail.thumbnail || '/default-thumbnail.jpg'}
+                                width={800}
+                                height={600}
+                                alt={blogDetail.title}
+                                className="w-full object-cover rounded-xl"
+                            />
+                        </div>
+                        <div className="blog-content mt-8">
+                            <div
+                                className="body1"
+                                dangerouslySetInnerHTML={{ __html: blogDetail.content_html }}
+                            ></div>
                         </div>
                     </div>
                 </div>
-                
             </div>
         </>
-    )
-}
+    );
+};
 
-export default BlogDetailTwo
+export default BlogDetailTwo;
