@@ -15,27 +15,27 @@ const Footer: React.FC<Props> = ({ background, text }) => {
         <div className={`footer-main ${background} ${text}`}>
           <div className="container">
             <div className="content-footer py-[30px] flex justify-between flex-wrap gap-y-8">
-              <div className="company-infor basis-1/4 max-lg:basis-full pr-7">
+              <div className="company-infor basis-[45%] max-lg:basis-full pr-7">
                 <Link href={"/"} className="logo">
                   <div className="heading4">Aquamarine</div>
                 </Link>
                 <div className="flex gap-3 mt-3">
                   <div className="flex flex-col ">
-                    <span className="text-button">Mail:</span>
-                    <span className="text-button mt-3">Phone:</span>
-                    <span className="text-button mt-3">Address:</span>
+                    <span className="text-button">Gmail:</span>
+                    <span className="text-button mt-3">Điện thoại/Zalo:</span>
+                    <span className="text-button mt-3">Địa chỉ:</span>
                   </div>
                   <div className="flex flex-col ">
-                    <span className="">look1692003@gmail.com</span>
-                    <span className="mt-3">086671519</span>
-                    <span className="mt-3 pt-px">Vinhome Grandpark</span>
+                    <span className="">khanhtrinhnguyencr@gmail.com</span>
+                    <span className="mt-3">0816344409 (Trịnh)</span>
+                    <span className="mt-3 pt-px">205 Nguyễn Văn Tăng, Long Thạnh Mỹ, Quận 9, TP.HCM</span>
                   </div>
                 </div>
               </div>
-              <div className="right-content flex flex-wrap gap-y-8 basis-3/4 max-lg:basis-full">
-                <div className="list-nav flex justify-between basis-2/3 max-md:basis-full gap-4">
-                  <div className="item flex flex-col basis-1/3 ">
-                    <div className="text-button-uppercase pb-3">Infomation</div>
+              <div className="right-content flex flex-wrap gap-y-8 basis-[35%] max-lg:basis-full">
+                <div className="list-nav flex justify-between max-md:basis-full gap-4">
+                  <div className="item flex flex-col ">
+                    <div className="heading4">Thông tin</div>
                     <Link
                       className="caption1 has-line-before duration-300 w-fit pt-2"
                       href={"/my-account"}
@@ -48,27 +48,7 @@ const Footer: React.FC<Props> = ({ background, text }) => {
                     >
                       FAQs
                     </Link>
-                  </div>
-                </div>
-                <div className="newsletter basis-1/3 pl-7 max-md:basis-full max-md:pl-0">
-                  <div className="text-button-uppercase">Newletter</div>
-                  <div className="caption1 mt-3">
-                    Đăng kí để nhận sớm thông tin về sản phẩm mới nhất
-                  </div>
-                  <div className="input-block w-full h-[52px] mt-4">
-                    <form className="w-full h-full relative" action="post">
-                      <input
-                        type="email"
-                        placeholder="Enter your e-mail"
-                        className="caption1 w-full h-full pl-4 pr-14 rounded-xl border border-line"
-                        required
-                      />
-                      <button className="w-[44px] h-[44px] bg-black flex items-center justify-center rounded-xl absolute top-1 right-1">
-                        <Icon.ArrowRight size={24} color="#fff" />
-                      </button>
-                    </form>
-                  </div>
-                  <div className="list-social flex items-center gap-6 mt-4">
+                    <div className="list-social flex items-center gap-6 mt-4">
                     <Link
                       href={
                         "https://www.facebook.com/profile.php?id=61566283592694"
@@ -80,6 +60,7 @@ const Footer: React.FC<Props> = ({ background, text }) => {
                     <Link href={"https://www.youtube.com/"} target="_blank">
                       <div className="icon-youtube text-2xl text-black"></div>
                     </Link>
+                  </div>
                   </div>
                 </div>
               </div>

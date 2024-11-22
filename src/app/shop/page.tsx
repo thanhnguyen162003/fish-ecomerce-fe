@@ -273,6 +273,8 @@ export default function BreadcrumbImg() {
 
   const handleClearAll = () => {
     setBreed(null);
+    setCategory(null);
+    setTankCategory(null);
     setDirection(null);
     setPageNumber(1);
     setSearch(null);

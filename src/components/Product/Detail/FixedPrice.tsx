@@ -417,7 +417,12 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                       <div className="heading6">Thông tin</div>
                       <div className="text-secondary mt-2">
                         {productMain.description && productMain.description.trim() !== ""
-                          ? productMain.description
+                          ? productMain.description.split('\n').map((line, index) => (
+                            <React.Fragment key={index}>
+                              {line}
+                              <br />
+                            </React.Fragment>
+                          ))
                           : "Không có mô tả"}
                       </div>
                     </div>
