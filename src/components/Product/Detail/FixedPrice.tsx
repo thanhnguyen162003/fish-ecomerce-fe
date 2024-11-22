@@ -183,7 +183,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                           width={1000}
                           height={1000}
                           alt={item.publicId!}
-                          className="w-full aspect-[3/4] object-cover rounded-xl"
+                          className="w-full object-cover rounded-xl"
                           onClick={(e) => {
                             e.stopPropagation(); // prevent
                           }}
