@@ -574,7 +574,7 @@ export default function BreadcrumbImg() {
                 </div>
               </div>
 
-              {type === "Hồ Cá" && (
+              {/* {type === "Hồ Cá" && (
                 <div className="filter-color pb-8 border-b border-line mt-8">
                   <div className="heading6">Phân Loại</div>
                   <div className="list-color flex items-center flex-wrap gap-3 gap-y-4 mt-4">
@@ -610,7 +610,7 @@ export default function BreadcrumbImg() {
                       ))}
                   </div>
                 </div>
-              )}
+              )} */}
 
               {type === "Cá Cảnh" && (
                 <div className="filter-color pb-8 border-b border-gray-300 mt-8">
@@ -650,7 +650,7 @@ export default function BreadcrumbImg() {
                 </div>
               )}
 
-              {type === ProductTypeList.CayThuySinh && (
+              {/* {type === ProductTypeList.CayThuySinh && (
                 <div className="filter-color pb-8 border-b border-gray-300 mt-8">
                   <div className="heading6">Phân loại</div>
                   <div className="list-color flex items-center flex-wrap gap-3 gap-y-4 mt-4">
@@ -686,7 +686,7 @@ export default function BreadcrumbImg() {
                       ))}
                   </div>
                 </div>
-              )}
+              )} */}
 
               {type === ProductTypeList.PhuKien && (
                 <div className="filter-color pb-8 border-b border-gray-300 mt-8">

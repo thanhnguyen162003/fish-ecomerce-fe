@@ -19,7 +19,7 @@ export interface ProductType {
     feedbacks:FeedbackType[]
     images: ImageType[]
     fish?: FishType,
-    tank?: TankType,
+    // tank?: TankType,
     quantityPurchase: number,
     categories: CategoryType[]
 }

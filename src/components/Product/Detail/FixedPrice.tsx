@@ -325,8 +325,8 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                     <div className="right">
                     <div className="heading6">Phân loại</div>
                       <div className="list-feature space-y-4 bg-gray-50 p-4 rounded-lg shadow-md">
-                      {productMain.tank?.categories && productMain.tank.categories.length > 0 ? (
-                        productMain.tank.categories.map((category, index) => (
+                      {productMain.categories && productMain.categories.length > 0 ? (
+                        productMain.categories.map((category, index) => (
                           <div
                             key={index}
                             className="category-item flex gap-3 items-start p-2 bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300"
@@ -336,11 +336,8 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                             </div>
                             <div className="category-content">
                               <h4 className="font-semibold text-lg text-gray-800">
-                                {category.level}
+                                {category.name}
                               </h4>
-                              <p className="text-sm text-gray-600 mt-1">
-                                {category.tank_type}
-                              </p>
                             </div>
                           </div>
                         ))
@@ -622,7 +619,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                       {productMain.name}
                     </div>
                   </div>
-                  {productMain.type === "fish" ? (
+                  {/* {productMain.type === "fish" ? (
                     <div className="mt-3 space-y-2">
                       {productMain.fish?.size && (
                         <p className="text-gray-700">Kích thước: {productMain.fish.size}</p>
@@ -669,7 +666,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                         </p>
                       )}
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
